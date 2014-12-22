@@ -1,0 +1,1722 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ContractorShareModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ServiceID" Type="int" Nullable="false" />
+          <Property Name="ClientID" Type="int" Nullable="false" />
+          <Property Name="ContractorID" Type="int" Nullable="false" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+          <Property Name="MeetingTime" Type="datetime" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="Duration" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="CoordX" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="CoordY" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="Bug">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BugText" Type="text" />
+          <Property Name="CreatedByUserID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
+          <Property Name="CommentText" Type="text" />
+          <Property Name="Image" Type="varchar" MaxLength="100" />
+          <Property Name="CreatedByUserID" Type="int" Nullable="false" />
+          <Property Name="TaskID" Type="int" />
+          <Property Name="ServiceID" Type="int" />
+        </EntityType>
+        <EntityType Name="Preference">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShareLocation" Type="bit" />
+          <Property Name="EnableNotifications" Type="bit" />
+          <Property Name="ShowContactNumber" Type="bit" />
+          <Property Name="ShowContactEmail" Type="bit" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Proposal">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ServiceID" Type="int" Nullable="false" />
+          <Property Name="FromUserID" Type="int" Nullable="false" />
+          <Property Name="ToUserID" Type="int" Nullable="false" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+          <Property Name="Message" Type="text" />
+          <Property Name="ProposedTime" Type="datetime" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="AproxDuration" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rating" Type="float" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
+          <Property Name="Comment" Type="text" />
+          <Property Name="FromUserID" Type="int" Nullable="false" />
+          <Property Name="ToUserID" Type="int" Nullable="false" />
+          <Property Name="ServiceID" Type="int" />
+        </EntityType>
+        <EntityType Name="Service">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+          <Property Name="Description" Type="text" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="50" />
+          <Property Name="PostalCode" Type="varchar" MaxLength="10" />
+          <Property Name="City" Type="varchar" MaxLength="25" />
+          <Property Name="Country" Type="varchar" MaxLength="20" />
+          <Property Name="CoordX" Type="decimal" Precision="18" Scale="12" Nullable="false" />
+          <Property Name="CoordY" Type="decimal" Precision="18" Scale="12" Nullable="false" />
+          <Property Name="ClientID" Type="int" Nullable="false" />
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Suggestion">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SuggestionText" Type="text" />
+          <Property Name="CreatedByUserID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+          <Property Name="Description" Type="text" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+          <Property Name="ServiceID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserType" Type="int" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EncPassword" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ExpDate" Type="datetime" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="50" />
+          <Property Name="PostalCode" Type="varchar" MaxLength="10" />
+          <Property Name="City" Type="varchar" MaxLength="25" />
+          <Property Name="Country" Type="varchar" MaxLength="20" />
+          <Property Name="PhoneNumber" Type="bigint" />
+          <Property Name="MobileNumber" Type="bigint" />
+          <Property Name="Firstname" Type="varchar" MaxLength="25" />
+          <Property Name="Surname" Type="varchar" MaxLength="50" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="25" />
+          <Property Name="CompanyCoordX" Type="decimal" Precision="18" Scale="12" Nullable="false" />
+          <Property Name="CompanyCoordY" Type="decimal" Precision="18" Scale="12" Nullable="false" />
+          <Property Name="CNumServices" Type="int" />
+          <Property Name="Contractor_website" Type="varchar" MaxLength="255" />
+          <Property Name="Description" Type="text" />
+          <Property Name="CategoryId" Type="int" />
+          <Property Name="CNumOfRates" Type="int" />
+          <Property Name="CAverageRate" Type="float" />
+          <Property Name="PricePerHour" Type="float" />
+        </EntityType>
+        <EntityType Name="UserCategory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserDenunce">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+          <Property Name="DenunceComment" Type="text" />
+          <Property Name="FromUserID" Type="int" Nullable="false" />
+          <Property Name="ToUserID" Type="int" Nullable="false" />
+          <Property Name="BlockUser" Type="bit" />
+        </EntityType>
+        <EntityType Name="UserFavourite">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FromUserID" Type="int" Nullable="false" />
+          <Property Name="ToUserID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Appointme__Clien__056ECC6A">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointme__Contr__0662F0A3">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="ContractorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointme__Servi__047AA831">
+          <End Role="Service" Type="Self.Service" Multiplicity="1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointme__Statu__075714DC">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bug__CreatedByUs__477199F1">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Bug" Type="Self.Bug" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Bug">
+              <PropertyRef Name="CreatedByUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__Created__6225902D">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="CreatedByUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__Service__6319B466">
+          <End Role="Service" Type="Self.Service" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__TaskID__640DD89F">
+          <End Role="Task" Type="Self.Task" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Task">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="TaskID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Preferenc__UserI__3CF40B7E">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Preference" Type="Self.Preference" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Preference">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Proposal__FromUs__7CD98669">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Proposal" Type="Self.Proposal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Proposal">
+              <PropertyRef Name="FromUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Proposal__Servic__7BE56230">
+          <End Role="Service" Type="Self.Service" Multiplicity="1" />
+          <End Role="Proposal" Type="Self.Proposal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Proposal">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Proposal__Status__7EC1CEDB">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Proposal" Type="Self.Proposal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Proposal">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Proposal__ToUser__7DCDAAA2">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Proposal" Type="Self.Proposal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Proposal">
+              <PropertyRef Name="ToUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rating__FromUser__1881A0DE">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="FromUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rating__ServiceI__1975C517">
+          <End Role="Service" Type="Self.Service" Multiplicity="0..1" />
+          <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rating__ToUserID__1A69E950">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="ToUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Service__Categor__7720AD13">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Service" Type="Self.Service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Service">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Service__ClientI__51EF2864">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Service" Type="Self.Service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Service">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Service__StatusI__6ABAD62E">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Service" Type="Self.Service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Service">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Suggestio__Creat__336AA144">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Suggestion" Type="Self.Suggestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Suggestion">
+              <PropertyRef Name="CreatedByUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Task__ServiceID__5D60DB10">
+          <End Role="Service" Type="Self.Service" Multiplicity="1" />
+          <End Role="Task" Type="Self.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Task__StatusID__6BAEFA67">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Task" Type="Self.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserCateg__Categ__12C8C788">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="UserCategory" Type="Self.UserCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserCategory">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserCateg__UserI__13BCEBC1">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserCategory" Type="Self.UserCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserCategory">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserDenun__FromU__382F5661">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserDenunce" Type="Self.UserDenunce" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserDenunce">
+              <PropertyRef Name="FromUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserFavou__FromU__41B8C09B">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserFavourite" Type="Self.UserFavourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserFavourite">
+              <PropertyRef Name="FromUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserFavou__ToUse__42ACE4D4">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserFavourite" Type="Self.UserFavourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserFavourite">
+              <PropertyRef Name="ToUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="GetListContractors" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CategoryId" Type="int" Mode="In" />
+          <Parameter Name="LocationCoordX" Type="decimal" Mode="In" />
+          <Parameter Name="LocationCoordY" Type="decimal" Mode="In" />
+          <Parameter Name="City" Type="varchar" Mode="In" />
+          <Parameter Name="CompanyName" Type="varchar" Mode="In" />
+          <Parameter Name="PricePerHour" Type="float" Mode="In" />
+          <Parameter Name="NumOfRates" Type="int" Mode="In" />
+          <Parameter Name="AverageRate" Type="float" Mode="In" />
+        </Function>
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="ContractorShareModelStoreContainer">
+          <EntitySet Name="Appointment" EntityType="Self.Appointment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bug" EntityType="Self.Bug" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Preference" EntityType="Self.Preference" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Proposal" EntityType="Self.Proposal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rating" EntityType="Self.Rating" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Suggestion" EntityType="Self.Suggestion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Task" EntityType="Self.Task" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserCategory" EntityType="Self.UserCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserDenunce" EntityType="Self.UserDenunce" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserFavourite" EntityType="Self.UserFavourite" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Appointme__Clien__056ECC6A" Association="Self.FK__Appointme__Clien__056ECC6A">
+            <End Role="User" EntitySet="User" />
+            <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointme__Contr__0662F0A3" Association="Self.FK__Appointme__Contr__0662F0A3">
+            <End Role="User" EntitySet="User" />
+            <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointme__Servi__047AA831" Association="Self.FK__Appointme__Servi__047AA831">
+            <End Role="Service" EntitySet="Service" />
+            <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointme__Statu__075714DC" Association="Self.FK__Appointme__Statu__075714DC">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bug__CreatedByUs__477199F1" Association="Self.FK__Bug__CreatedByUs__477199F1">
+            <End Role="User" EntitySet="User" />
+            <End Role="Bug" EntitySet="Bug" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__Created__6225902D" Association="Self.FK__Comment__Created__6225902D">
+            <End Role="User" EntitySet="User" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__Service__6319B466" Association="Self.FK__Comment__Service__6319B466">
+            <End Role="Service" EntitySet="Service" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__TaskID__640DD89F" Association="Self.FK__Comment__TaskID__640DD89F">
+            <End Role="Task" EntitySet="Task" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Preferenc__UserI__3CF40B7E" Association="Self.FK__Preferenc__UserI__3CF40B7E">
+            <End Role="User" EntitySet="User" />
+            <End Role="Preference" EntitySet="Preference" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Proposal__FromUs__7CD98669" Association="Self.FK__Proposal__FromUs__7CD98669">
+            <End Role="User" EntitySet="User" />
+            <End Role="Proposal" EntitySet="Proposal" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Proposal__Servic__7BE56230" Association="Self.FK__Proposal__Servic__7BE56230">
+            <End Role="Service" EntitySet="Service" />
+            <End Role="Proposal" EntitySet="Proposal" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Proposal__Status__7EC1CEDB" Association="Self.FK__Proposal__Status__7EC1CEDB">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Proposal" EntitySet="Proposal" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Proposal__ToUser__7DCDAAA2" Association="Self.FK__Proposal__ToUser__7DCDAAA2">
+            <End Role="User" EntitySet="User" />
+            <End Role="Proposal" EntitySet="Proposal" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rating__FromUser__1881A0DE" Association="Self.FK__Rating__FromUser__1881A0DE">
+            <End Role="User" EntitySet="User" />
+            <End Role="Rating" EntitySet="Rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rating__ServiceI__1975C517" Association="Self.FK__Rating__ServiceI__1975C517">
+            <End Role="Service" EntitySet="Service" />
+            <End Role="Rating" EntitySet="Rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rating__ToUserID__1A69E950" Association="Self.FK__Rating__ToUserID__1A69E950">
+            <End Role="User" EntitySet="User" />
+            <End Role="Rating" EntitySet="Rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Service__Categor__7720AD13" Association="Self.FK__Service__Categor__7720AD13">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Service" EntitySet="Service" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Service__ClientI__51EF2864" Association="Self.FK__Service__ClientI__51EF2864">
+            <End Role="User" EntitySet="User" />
+            <End Role="Service" EntitySet="Service" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Service__StatusI__6ABAD62E" Association="Self.FK__Service__StatusI__6ABAD62E">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Service" EntitySet="Service" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Suggestio__Creat__336AA144" Association="Self.FK__Suggestio__Creat__336AA144">
+            <End Role="User" EntitySet="User" />
+            <End Role="Suggestion" EntitySet="Suggestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Task__ServiceID__5D60DB10" Association="Self.FK__Task__ServiceID__5D60DB10">
+            <End Role="Service" EntitySet="Service" />
+            <End Role="Task" EntitySet="Task" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Task__StatusID__6BAEFA67" Association="Self.FK__Task__StatusID__6BAEFA67">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Task" EntitySet="Task" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserCateg__Categ__12C8C788" Association="Self.FK__UserCateg__Categ__12C8C788">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="UserCategory" EntitySet="UserCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserCateg__UserI__13BCEBC1" Association="Self.FK__UserCateg__UserI__13BCEBC1">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserCategory" EntitySet="UserCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserDenun__FromU__382F5661" Association="Self.FK__UserDenun__FromU__382F5661">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserDenunce" EntitySet="UserDenunce" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserFavou__FromU__41B8C09B" Association="Self.FK__UserFavou__FromU__41B8C09B">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserFavourite" EntitySet="UserFavourite" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserFavou__ToUse__42ACE4D4" Association="Self.FK__UserFavou__ToUse__42ACE4D4">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserFavourite" EntitySet="UserFavourite" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ContractorShareModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ContractorShareEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="GetListContractors" ReturnType="Collection(ContractorShareModel.GetListContractors_Result)">
+            <Parameter Name="CategoryId" Mode="In" Type="Int32" />
+            <Parameter Name="LocationCoordX" Mode="In" Type="Decimal" />
+            <Parameter Name="LocationCoordY" Mode="In" Type="Decimal" />
+            <Parameter Name="City" Mode="In" Type="String" />
+            <Parameter Name="CompanyName" Mode="In" Type="String" />
+            <Parameter Name="PricePerHour" Mode="In" Type="Double" />
+            <Parameter Name="NumOfRates" Mode="In" Type="Int32" />
+            <Parameter Name="AverageRate" Mode="In" Type="Double" />
+          </FunctionImport>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(ContractorShareModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(ContractorShareModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="Appointment" EntityType="ContractorShareModel.Appointment" />
+          <EntitySet Name="Bug" EntityType="ContractorShareModel.Bug" />
+          <EntitySet Name="Category" EntityType="ContractorShareModel.Category" />
+          <EntitySet Name="Comment" EntityType="ContractorShareModel.Comment" />
+          <EntitySet Name="Preference" EntityType="ContractorShareModel.Preference" />
+          <EntitySet Name="Proposal" EntityType="ContractorShareModel.Proposal" />
+          <EntitySet Name="Rating" EntityType="ContractorShareModel.Rating" />
+          <EntitySet Name="Service" EntityType="ContractorShareModel.Service" />
+          <EntitySet Name="Status" EntityType="ContractorShareModel.Status" />
+          <EntitySet Name="Suggestion" EntityType="ContractorShareModel.Suggestion" />
+          <EntitySet Name="Task" EntityType="ContractorShareModel.Task" />
+          <EntitySet Name="User" EntityType="ContractorShareModel.User" />
+          <EntitySet Name="UserCategory" EntityType="ContractorShareModel.UserCategory" />
+          <EntitySet Name="UserDenunce" EntityType="ContractorShareModel.UserDenunce" />
+          <EntitySet Name="UserFavourite" EntityType="ContractorShareModel.UserFavourite" />
+          <AssociationSet Name="FK__Appointme__Clien__056ECC6A" Association="ContractorShareModel.FK__Appointme__Clien__056ECC6A">
+            <End Role="User" EntitySet="User" />
+            <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointme__Contr__0662F0A3" Association="ContractorShareModel.FK__Appointme__Contr__0662F0A3">
+            <End Role="User" EntitySet="User" />
+            <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointme__Servi__047AA831" Association="ContractorShareModel.FK__Appointme__Servi__047AA831">
+            <End Role="Service" EntitySet="Service" />
+            <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointme__Statu__075714DC" Association="ContractorShareModel.FK__Appointme__Statu__075714DC">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bug__CreatedByUs__477199F1" Association="ContractorShareModel.FK__Bug__CreatedByUs__477199F1">
+            <End Role="User" EntitySet="User" />
+            <End Role="Bug" EntitySet="Bug" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Service__Categor__7720AD13" Association="ContractorShareModel.FK__Service__Categor__7720AD13">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Service" EntitySet="Service" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserCateg__Categ__12C8C788" Association="ContractorShareModel.FK__UserCateg__Categ__12C8C788">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="UserCategory" EntitySet="UserCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__Created__6225902D" Association="ContractorShareModel.FK__Comment__Created__6225902D">
+            <End Role="User" EntitySet="User" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__Service__6319B466" Association="ContractorShareModel.FK__Comment__Service__6319B466">
+            <End Role="Service" EntitySet="Service" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__TaskID__640DD89F" Association="ContractorShareModel.FK__Comment__TaskID__640DD89F">
+            <End Role="Task" EntitySet="Task" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Preferenc__UserI__3CF40B7E" Association="ContractorShareModel.FK__Preferenc__UserI__3CF40B7E">
+            <End Role="User" EntitySet="User" />
+            <End Role="Preference" EntitySet="Preference" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Proposal__FromUs__7CD98669" Association="ContractorShareModel.FK__Proposal__FromUs__7CD98669">
+            <End Role="User" EntitySet="User" />
+            <End Role="Proposal" EntitySet="Proposal" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Proposal__Servic__7BE56230" Association="ContractorShareModel.FK__Proposal__Servic__7BE56230">
+            <End Role="Service" EntitySet="Service" />
+            <End Role="Proposal" EntitySet="Proposal" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Proposal__Status__7EC1CEDB" Association="ContractorShareModel.FK__Proposal__Status__7EC1CEDB">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Proposal" EntitySet="Proposal" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Proposal__ToUser__7DCDAAA2" Association="ContractorShareModel.FK__Proposal__ToUser__7DCDAAA2">
+            <End Role="User" EntitySet="User" />
+            <End Role="Proposal" EntitySet="Proposal" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rating__FromUser__1881A0DE" Association="ContractorShareModel.FK__Rating__FromUser__1881A0DE">
+            <End Role="User" EntitySet="User" />
+            <End Role="Rating" EntitySet="Rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rating__ServiceI__1975C517" Association="ContractorShareModel.FK__Rating__ServiceI__1975C517">
+            <End Role="Service" EntitySet="Service" />
+            <End Role="Rating" EntitySet="Rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rating__ToUserID__1A69E950" Association="ContractorShareModel.FK__Rating__ToUserID__1A69E950">
+            <End Role="User" EntitySet="User" />
+            <End Role="Rating" EntitySet="Rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Service__ClientI__51EF2864" Association="ContractorShareModel.FK__Service__ClientI__51EF2864">
+            <End Role="User" EntitySet="User" />
+            <End Role="Service" EntitySet="Service" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Service__StatusI__6ABAD62E" Association="ContractorShareModel.FK__Service__StatusI__6ABAD62E">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Service" EntitySet="Service" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Task__ServiceID__5D60DB10" Association="ContractorShareModel.FK__Task__ServiceID__5D60DB10">
+            <End Role="Service" EntitySet="Service" />
+            <End Role="Task" EntitySet="Task" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Task__StatusID__6BAEFA67" Association="ContractorShareModel.FK__Task__StatusID__6BAEFA67">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Task" EntitySet="Task" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Suggestio__Creat__336AA144" Association="ContractorShareModel.FK__Suggestio__Creat__336AA144">
+            <End Role="User" EntitySet="User" />
+            <End Role="Suggestion" EntitySet="Suggestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserCateg__UserI__13BCEBC1" Association="ContractorShareModel.FK__UserCateg__UserI__13BCEBC1">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserCategory" EntitySet="UserCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserDenun__FromU__382F5661" Association="ContractorShareModel.FK__UserDenun__FromU__382F5661">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserDenunce" EntitySet="UserDenunce" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserFavou__FromU__41B8C09B" Association="ContractorShareModel.FK__UserFavou__FromU__41B8C09B">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserFavourite" EntitySet="UserFavourite" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserFavou__ToUse__42ACE4D4" Association="ContractorShareModel.FK__UserFavou__ToUse__42ACE4D4">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserFavourite" EntitySet="UserFavourite" />
+          </AssociationSet>
+          </EntityContainer>
+        <ComplexType Name="GetListContractors_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="UserType" Nullable="false" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="EncPassword" Nullable="false" MaxLength="100" />
+          <Property Type="DateTime" Name="ExpDate" Nullable="false" Precision="23" />
+          <Property Type="Boolean" Name="Active" Nullable="false" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PostalCode" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="City" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="Country" Nullable="true" MaxLength="20" />
+          <Property Type="Int64" Name="PhoneNumber" Nullable="true" />
+          <Property Type="Int64" Name="MobileNumber" Nullable="true" />
+          <Property Type="String" Name="Firstname" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="Surname" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CompanyName" Nullable="true" MaxLength="25" />
+          <Property Type="Decimal" Name="CompanyCoordX" Nullable="false" Precision="18" Scale="12" />
+          <Property Type="Decimal" Name="CompanyCoordY" Nullable="false" Precision="18" Scale="12" />
+          <Property Type="Int32" Name="CNumServices" Nullable="true" />
+          <Property Type="String" Name="Contractor_website" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="Max" />
+          <Property Type="Int32" Name="CategoryId" Nullable="true" />
+          <Property Type="Int32" Name="CNumOfRates" Nullable="true" />
+          <Property Type="Double" Name="CAverageRate" Nullable="true" />
+          <Property Type="Double" Name="PricePerHour" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ServiceID" Type="Int32" Nullable="false" />
+          <Property Name="ClientID" Type="Int32" Nullable="false" />
+          <Property Name="ContractorID" Type="Int32" Nullable="false" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <Property Name="MeetingTime" Type="DateTime" Precision="3" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="Duration" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CoordX" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CoordY" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="User" Relationship="ContractorShareModel.FK__Appointme__Clien__056ECC6A" FromRole="Appointment" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="ContractorShareModel.FK__Appointme__Contr__0662F0A3" FromRole="Appointment" ToRole="User" />
+          <NavigationProperty Name="Service" Relationship="ContractorShareModel.FK__Appointme__Servi__047AA831" FromRole="Appointment" ToRole="Service" />
+          <NavigationProperty Name="Status" Relationship="ContractorShareModel.FK__Appointme__Statu__075714DC" FromRole="Appointment" ToRole="Status" />
+        </EntityType>
+        <EntityType Name="Bug">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BugText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedByUserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="ContractorShareModel.FK__Bug__CreatedByUs__477199F1" FromRole="Bug" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Service" Relationship="ContractorShareModel.FK__Service__Categor__7720AD13" FromRole="Category" ToRole="Service" />
+          <NavigationProperty Name="UserCategory" Relationship="ContractorShareModel.FK__UserCateg__Categ__12C8C788" FromRole="Category" ToRole="UserCategory" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CommentText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedByUserID" Type="Int32" Nullable="false" />
+          <Property Name="TaskID" Type="Int32" />
+          <Property Name="ServiceID" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="ContractorShareModel.FK__Comment__Created__6225902D" FromRole="Comment" ToRole="User" />
+          <NavigationProperty Name="Service" Relationship="ContractorShareModel.FK__Comment__Service__6319B466" FromRole="Comment" ToRole="Service" />
+          <NavigationProperty Name="Task" Relationship="ContractorShareModel.FK__Comment__TaskID__640DD89F" FromRole="Comment" ToRole="Task" />
+        </EntityType>
+        <EntityType Name="Preference">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShareLocation" Type="Boolean" />
+          <Property Name="EnableNotifications" Type="Boolean" />
+          <Property Name="ShowContactNumber" Type="Boolean" />
+          <Property Name="ShowContactEmail" Type="Boolean" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="ContractorShareModel.FK__Preferenc__UserI__3CF40B7E" FromRole="Preference" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Proposal">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ServiceID" Type="Int32" Nullable="false" />
+          <Property Name="FromUserID" Type="Int32" Nullable="false" />
+          <Property Name="ToUserID" Type="Int32" Nullable="false" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProposedTime" Type="DateTime" Precision="3" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="AproxDuration" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="User" Relationship="ContractorShareModel.FK__Proposal__FromUs__7CD98669" FromRole="Proposal" ToRole="User" />
+          <NavigationProperty Name="Service" Relationship="ContractorShareModel.FK__Proposal__Servic__7BE56230" FromRole="Proposal" ToRole="Service" />
+          <NavigationProperty Name="Status" Relationship="ContractorShareModel.FK__Proposal__Status__7EC1CEDB" FromRole="Proposal" ToRole="Status" />
+          <NavigationProperty Name="User1" Relationship="ContractorShareModel.FK__Proposal__ToUser__7DCDAAA2" FromRole="Proposal" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rating1" Type="Double" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FromUserID" Type="Int32" Nullable="false" />
+          <Property Name="ToUserID" Type="Int32" Nullable="false" />
+          <Property Name="ServiceID" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="ContractorShareModel.FK__Rating__FromUser__1881A0DE" FromRole="Rating" ToRole="User" />
+          <NavigationProperty Name="Service" Relationship="ContractorShareModel.FK__Rating__ServiceI__1975C517" FromRole="Rating" ToRole="Service" />
+          <NavigationProperty Name="User1" Relationship="ContractorShareModel.FK__Rating__ToUserID__1A69E950" FromRole="Rating" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Service">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PostalCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CoordX" Type="Decimal" Nullable="false" Precision="18" Scale="12" />
+          <Property Name="CoordY" Type="Decimal" Nullable="false" Precision="18" Scale="12" />
+          <Property Name="ClientID" Type="Int32" Nullable="false" />
+          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Appointment" Relationship="ContractorShareModel.FK__Appointme__Servi__047AA831" FromRole="Service" ToRole="Appointment" />
+          <NavigationProperty Name="Category" Relationship="ContractorShareModel.FK__Service__Categor__7720AD13" FromRole="Service" ToRole="Category" />
+          <NavigationProperty Name="Comment" Relationship="ContractorShareModel.FK__Comment__Service__6319B466" FromRole="Service" ToRole="Comment" />
+          <NavigationProperty Name="Proposal" Relationship="ContractorShareModel.FK__Proposal__Servic__7BE56230" FromRole="Service" ToRole="Proposal" />
+          <NavigationProperty Name="Rating" Relationship="ContractorShareModel.FK__Rating__ServiceI__1975C517" FromRole="Service" ToRole="Rating" />
+          <NavigationProperty Name="User" Relationship="ContractorShareModel.FK__Service__ClientI__51EF2864" FromRole="Service" ToRole="User" />
+          <NavigationProperty Name="Status" Relationship="ContractorShareModel.FK__Service__StatusI__6ABAD62E" FromRole="Service" ToRole="Status" />
+          <NavigationProperty Name="Task" Relationship="ContractorShareModel.FK__Task__ServiceID__5D60DB10" FromRole="Service" ToRole="Task" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Appointment" Relationship="ContractorShareModel.FK__Appointme__Statu__075714DC" FromRole="Status" ToRole="Appointment" />
+          <NavigationProperty Name="Proposal" Relationship="ContractorShareModel.FK__Proposal__Status__7EC1CEDB" FromRole="Status" ToRole="Proposal" />
+          <NavigationProperty Name="Service" Relationship="ContractorShareModel.FK__Service__StatusI__6ABAD62E" FromRole="Status" ToRole="Service" />
+          <NavigationProperty Name="Task" Relationship="ContractorShareModel.FK__Task__StatusID__6BAEFA67" FromRole="Status" ToRole="Task" />
+        </EntityType>
+        <EntityType Name="Suggestion">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SuggestionText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedByUserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="ContractorShareModel.FK__Suggestio__Creat__336AA144" FromRole="Suggestion" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <Property Name="ServiceID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Comment" Relationship="ContractorShareModel.FK__Comment__TaskID__640DD89F" FromRole="Task" ToRole="Comment" />
+          <NavigationProperty Name="Service" Relationship="ContractorShareModel.FK__Task__ServiceID__5D60DB10" FromRole="Task" ToRole="Service" />
+          <NavigationProperty Name="Status" Relationship="ContractorShareModel.FK__Task__StatusID__6BAEFA67" FromRole="Task" ToRole="Status" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserType" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EncPassword" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ExpDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PostalCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="Int64" />
+          <Property Name="MobileNumber" Type="Int64" />
+          <Property Name="Firstname" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyCoordX" Type="Decimal" Nullable="false" Precision="18" Scale="12" />
+          <Property Name="CompanyCoordY" Type="Decimal" Nullable="false" Precision="18" Scale="12" />
+          <Property Name="CNumServices" Type="Int32" />
+          <Property Name="Contractor_website" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Name="CNumOfRates" Type="Int32" />
+          <Property Name="CAverageRate" Type="Double" />
+          <Property Name="PricePerHour" Type="Double" />
+          <NavigationProperty Name="Appointment" Relationship="ContractorShareModel.FK__Appointme__Clien__056ECC6A" FromRole="User" ToRole="Appointment" />
+          <NavigationProperty Name="Appointment1" Relationship="ContractorShareModel.FK__Appointme__Contr__0662F0A3" FromRole="User" ToRole="Appointment" />
+          <NavigationProperty Name="Bug" Relationship="ContractorShareModel.FK__Bug__CreatedByUs__477199F1" FromRole="User" ToRole="Bug" />
+          <NavigationProperty Name="Comment" Relationship="ContractorShareModel.FK__Comment__Created__6225902D" FromRole="User" ToRole="Comment" />
+          <NavigationProperty Name="Preference" Relationship="ContractorShareModel.FK__Preferenc__UserI__3CF40B7E" FromRole="User" ToRole="Preference" />
+          <NavigationProperty Name="Proposal" Relationship="ContractorShareModel.FK__Proposal__FromUs__7CD98669" FromRole="User" ToRole="Proposal" />
+          <NavigationProperty Name="Proposal1" Relationship="ContractorShareModel.FK__Proposal__ToUser__7DCDAAA2" FromRole="User" ToRole="Proposal" />
+          <NavigationProperty Name="Rating" Relationship="ContractorShareModel.FK__Rating__FromUser__1881A0DE" FromRole="User" ToRole="Rating" />
+          <NavigationProperty Name="Rating1" Relationship="ContractorShareModel.FK__Rating__ToUserID__1A69E950" FromRole="User" ToRole="Rating" />
+          <NavigationProperty Name="Service" Relationship="ContractorShareModel.FK__Service__ClientI__51EF2864" FromRole="User" ToRole="Service" />
+          <NavigationProperty Name="Suggestion" Relationship="ContractorShareModel.FK__Suggestio__Creat__336AA144" FromRole="User" ToRole="Suggestion" />
+          <NavigationProperty Name="UserCategory" Relationship="ContractorShareModel.FK__UserCateg__UserI__13BCEBC1" FromRole="User" ToRole="UserCategory" />
+          <NavigationProperty Name="UserDenunce" Relationship="ContractorShareModel.FK__UserDenun__FromU__382F5661" FromRole="User" ToRole="UserDenunce" />
+          <NavigationProperty Name="UserFavourite" Relationship="ContractorShareModel.FK__UserFavou__FromU__41B8C09B" FromRole="User" ToRole="UserFavourite" />
+          <NavigationProperty Name="UserFavourite1" Relationship="ContractorShareModel.FK__UserFavou__ToUse__42ACE4D4" FromRole="User" ToRole="UserFavourite" />
+        </EntityType>
+        <EntityType Name="UserCategory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Category" Relationship="ContractorShareModel.FK__UserCateg__Categ__12C8C788" FromRole="UserCategory" ToRole="Category" />
+          <NavigationProperty Name="User" Relationship="ContractorShareModel.FK__UserCateg__UserI__13BCEBC1" FromRole="UserCategory" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserDenunce">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <Property Name="DenunceComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FromUserID" Type="Int32" Nullable="false" />
+          <Property Name="ToUserID" Type="Int32" Nullable="false" />
+          <Property Name="BlockUser" Type="Boolean" />
+          <NavigationProperty Name="User" Relationship="ContractorShareModel.FK__UserDenun__FromU__382F5661" FromRole="UserDenunce" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserFavourite">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FromUserID" Type="Int32" Nullable="false" />
+          <Property Name="ToUserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="ContractorShareModel.FK__UserFavou__FromU__41B8C09B" FromRole="UserFavourite" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="ContractorShareModel.FK__UserFavou__ToUse__42ACE4D4" FromRole="UserFavourite" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__Appointme__Clien__056ECC6A">
+          <End Type="ContractorShareModel.User" Role="User" Multiplicity="1" />
+          <End Type="ContractorShareModel.Appointment" Role="Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointme__Contr__0662F0A3">
+          <End Type="ContractorShareModel.User" Role="User" Multiplicity="1" />
+          <End Type="ContractorShareModel.Appointment" Role="Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="ContractorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointme__Servi__047AA831">
+          <End Type="ContractorShareModel.Service" Role="Service" Multiplicity="1" />
+          <End Type="ContractorShareModel.Appointment" Role="Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointme__Statu__075714DC">
+          <End Type="ContractorShareModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="ContractorShareModel.Appointment" Role="Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bug__CreatedByUs__477199F1">
+          <End Type="ContractorShareModel.User" Role="User" Multiplicity="1" />
+          <End Type="ContractorShareModel.Bug" Role="Bug" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Bug">
+              <PropertyRef Name="CreatedByUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Service__Categor__7720AD13">
+          <End Type="ContractorShareModel.Category" Role="Category" Multiplicity="1" />
+          <End Type="ContractorShareModel.Service" Role="Service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Service">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserCateg__Categ__12C8C788">
+          <End Type="ContractorShareModel.Category" Role="Category" Multiplicity="1" />
+          <End Type="ContractorShareModel.UserCategory" Role="UserCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserCategory">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__Created__6225902D">
+          <End Type="ContractorShareModel.User" Role="User" Multiplicity="1" />
+          <End Type="ContractorShareModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="CreatedByUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__Service__6319B466">
+          <End Type="ContractorShareModel.Service" Role="Service" Multiplicity="0..1" />
+          <End Type="ContractorShareModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__TaskID__640DD89F">
+          <End Type="ContractorShareModel.Task" Role="Task" Multiplicity="0..1" />
+          <End Type="ContractorShareModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Task">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="TaskID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Preferenc__UserI__3CF40B7E">
+          <End Type="ContractorShareModel.User" Role="User" Multiplicity="1" />
+          <End Type="ContractorShareModel.Preference" Role="Preference" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Preference">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Proposal__FromUs__7CD98669">
+          <End Type="ContractorShareModel.User" Role="User" Multiplicity="1" />
+          <End Type="ContractorShareModel.Proposal" Role="Proposal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Proposal">
+              <PropertyRef Name="FromUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Proposal__Servic__7BE56230">
+          <End Type="ContractorShareModel.Service" Role="Service" Multiplicity="1" />
+          <End Type="ContractorShareModel.Proposal" Role="Proposal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Proposal">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Proposal__Status__7EC1CEDB">
+          <End Type="ContractorShareModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="ContractorShareModel.Proposal" Role="Proposal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Proposal">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Proposal__ToUser__7DCDAAA2">
+          <End Type="ContractorShareModel.User" Role="User" Multiplicity="1" />
+          <End Type="ContractorShareModel.Proposal" Role="Proposal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Proposal">
+              <PropertyRef Name="ToUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rating__FromUser__1881A0DE">
+          <End Type="ContractorShareModel.User" Role="User" Multiplicity="1" />
+          <End Type="ContractorShareModel.Rating" Role="Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="FromUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rating__ServiceI__1975C517">
+          <End Type="ContractorShareModel.Service" Role="Service" Multiplicity="0..1" />
+          <End Type="ContractorShareModel.Rating" Role="Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rating__ToUserID__1A69E950">
+          <End Type="ContractorShareModel.User" Role="User" Multiplicity="1" />
+          <End Type="ContractorShareModel.Rating" Role="Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="ToUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Service__ClientI__51EF2864">
+          <End Type="ContractorShareModel.User" Role="User" Multiplicity="1" />
+          <End Type="ContractorShareModel.Service" Role="Service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Service">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Service__StatusI__6ABAD62E">
+          <End Type="ContractorShareModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="ContractorShareModel.Service" Role="Service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Service">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Task__ServiceID__5D60DB10">
+          <End Type="ContractorShareModel.Service" Role="Service" Multiplicity="1" />
+          <End Type="ContractorShareModel.Task" Role="Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Task__StatusID__6BAEFA67">
+          <End Type="ContractorShareModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="ContractorShareModel.Task" Role="Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Suggestio__Creat__336AA144">
+          <End Type="ContractorShareModel.User" Role="User" Multiplicity="1" />
+          <End Type="ContractorShareModel.Suggestion" Role="Suggestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Suggestion">
+              <PropertyRef Name="CreatedByUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserCateg__UserI__13BCEBC1">
+          <End Type="ContractorShareModel.User" Role="User" Multiplicity="1" />
+          <End Type="ContractorShareModel.UserCategory" Role="UserCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserCategory">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserDenun__FromU__382F5661">
+          <End Type="ContractorShareModel.User" Role="User" Multiplicity="1" />
+          <End Type="ContractorShareModel.UserDenunce" Role="UserDenunce" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserDenunce">
+              <PropertyRef Name="FromUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserFavou__FromU__41B8C09B">
+          <End Type="ContractorShareModel.User" Role="User" Multiplicity="1" />
+          <End Type="ContractorShareModel.UserFavourite" Role="UserFavourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserFavourite">
+              <PropertyRef Name="FromUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserFavou__ToUse__42ACE4D4">
+          <End Type="ContractorShareModel.User" Role="User" Multiplicity="1" />
+          <End Type="ContractorShareModel.UserFavourite" Role="UserFavourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserFavourite">
+              <PropertyRef Name="ToUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ContractorShareModelStoreContainer" CdmEntityContainer="ContractorShareEntities">
+          <FunctionImportMapping FunctionImportName="GetListContractors" FunctionName="ContractorShareModel.Store.GetListContractors">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ContractorShareModel.GetListContractors_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EncPassword" ColumnName="EncPassword" />
+                <ScalarProperty Name="ExpDate" ColumnName="ExpDate" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="CompanyCoordX" ColumnName="CompanyCoordX" />
+                <ScalarProperty Name="CompanyCoordY" ColumnName="CompanyCoordY" />
+                <ScalarProperty Name="CNumServices" ColumnName="CNumServices" />
+                <ScalarProperty Name="Contractor_website" ColumnName="Contractor_website" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CNumOfRates" ColumnName="CNumOfRates" />
+                <ScalarProperty Name="CAverageRate" ColumnName="CAverageRate" />
+                <ScalarProperty Name="PricePerHour" ColumnName="PricePerHour" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="ContractorShareModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="ContractorShareModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="ContractorShareModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="ContractorShareModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ContractorShareModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="ContractorShareModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ContractorShareModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="ContractorShareModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="ContractorShareModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="Appointment">
+            <EntityTypeMapping TypeName="ContractorShareModel.Appointment">
+              <MappingFragment StoreEntitySet="Appointment">
+                <ScalarProperty Name="CoordY" ColumnName="CoordY" />
+                <ScalarProperty Name="CoordX" ColumnName="CoordX" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="MeetingTime" ColumnName="MeetingTime" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="ContractorID" ColumnName="ContractorID" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bug">
+            <EntityTypeMapping TypeName="ContractorShareModel.Bug">
+              <MappingFragment StoreEntitySet="Bug">
+                <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+                <ScalarProperty Name="BugText" ColumnName="BugText" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Category">
+            <EntityTypeMapping TypeName="ContractorShareModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comment">
+            <EntityTypeMapping TypeName="ContractorShareModel.Comment">
+              <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+                <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+                <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="CommentText" ColumnName="CommentText" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Preference">
+            <EntityTypeMapping TypeName="ContractorShareModel.Preference">
+              <MappingFragment StoreEntitySet="Preference">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ShowContactEmail" ColumnName="ShowContactEmail" />
+                <ScalarProperty Name="ShowContactNumber" ColumnName="ShowContactNumber" />
+                <ScalarProperty Name="EnableNotifications" ColumnName="EnableNotifications" />
+                <ScalarProperty Name="ShareLocation" ColumnName="ShareLocation" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Proposal">
+            <EntityTypeMapping TypeName="ContractorShareModel.Proposal">
+              <MappingFragment StoreEntitySet="Proposal">
+                <ScalarProperty Name="AproxDuration" ColumnName="AproxDuration" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ProposedTime" ColumnName="ProposedTime" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="ToUserID" ColumnName="ToUserID" />
+                <ScalarProperty Name="FromUserID" ColumnName="FromUserID" />
+                <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rating">
+            <EntityTypeMapping TypeName="ContractorShareModel.Rating">
+              <MappingFragment StoreEntitySet="Rating">
+                <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+                <ScalarProperty Name="ToUserID" ColumnName="ToUserID" />
+                <ScalarProperty Name="FromUserID" ColumnName="FromUserID" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="rating1" ColumnName="rating" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Service">
+            <EntityTypeMapping TypeName="ContractorShareModel.Service">
+              <MappingFragment StoreEntitySet="Service">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="CoordY" ColumnName="CoordY" />
+                <ScalarProperty Name="CoordX" ColumnName="CoordX" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="ContractorShareModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suggestion">
+            <EntityTypeMapping TypeName="ContractorShareModel.Suggestion">
+              <MappingFragment StoreEntitySet="Suggestion">
+                <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+                <ScalarProperty Name="SuggestionText" ColumnName="SuggestionText" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Task">
+            <EntityTypeMapping TypeName="ContractorShareModel.Task">
+              <MappingFragment StoreEntitySet="Task">
+                <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="ContractorShareModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="PricePerHour" ColumnName="PricePerHour" />
+                <ScalarProperty Name="CAverageRate" ColumnName="CAverageRate" />
+                <ScalarProperty Name="CNumOfRates" ColumnName="CNumOfRates" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Contractor_website" ColumnName="Contractor_website" />
+                <ScalarProperty Name="CNumServices" ColumnName="CNumServices" />
+                <ScalarProperty Name="CompanyCoordY" ColumnName="CompanyCoordY" />
+                <ScalarProperty Name="CompanyCoordX" ColumnName="CompanyCoordX" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ExpDate" ColumnName="ExpDate" />
+                <ScalarProperty Name="EncPassword" ColumnName="EncPassword" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserCategory">
+            <EntityTypeMapping TypeName="ContractorShareModel.UserCategory">
+              <MappingFragment StoreEntitySet="UserCategory">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserDenunce">
+            <EntityTypeMapping TypeName="ContractorShareModel.UserDenunce">
+              <MappingFragment StoreEntitySet="UserDenunce">
+                <ScalarProperty Name="BlockUser" ColumnName="BlockUser" />
+                <ScalarProperty Name="ToUserID" ColumnName="ToUserID" />
+                <ScalarProperty Name="FromUserID" ColumnName="FromUserID" />
+                <ScalarProperty Name="DenunceComment" ColumnName="DenunceComment" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserFavourite">
+            <EntityTypeMapping TypeName="ContractorShareModel.UserFavourite">
+              <MappingFragment StoreEntitySet="UserFavourite">
+                <ScalarProperty Name="ToUserID" ColumnName="ToUserID" />
+                <ScalarProperty Name="FromUserID" ColumnName="FromUserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
