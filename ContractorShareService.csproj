@@ -40,13 +40,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+      <HintPath>packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -115,7 +115,7 @@
     <Compile Include="Domain\UserInfo.cs" />
     <Compile Include="Enumerations\EnumHelper.cs" />
     <Compile Include="Enumerations\ErrorListEnum.cs" />
-    <Compile Include="Enumerations\UserTypeEnum.cs" />
+    <Compile Include="Enumerations\ModelEnum.cs" />
     <Compile Include="GetListContractors_Result.cs">
       <DependentUpon>ContractorShareEntities.tt</DependentUpon>
     </Compile>

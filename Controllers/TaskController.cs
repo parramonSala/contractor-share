@@ -15,15 +15,19 @@ namespace ContractorShareService.Controllers
         private TaskRepository _taskRepository = new TaskRepository();
 
 
-        public string Create(TaskInfo taskRequest)
+        public string CreateTask(string name, string description, int serviceId)
         {
             try
             {
                 string message = string.Format("Executing Create TaskRequest");
                 Logger.Info(message);
 
-                int id = _taskRepository.CreateTask(taskRequest);
+                TaskInfo taskInfo = new TaskInfo();
+                taskInfo.Name = name;
+                taskInfo.Description = description;
+                taskInfo.ServiceId = serviceId;
 
+                int id = _taskRepository.CreateTask(taskInfo);
                 if (id < 0) return EnumHelper.GetDescription(ErrorListEnum.Task_Create_Error);
                 else return id.ToString();
             }
@@ -36,7 +40,7 @@ namespace ContractorShareService.Controllers
 
         }
 
-        public string EditTaskInfo(int taskId, TaskInfo taskRequest)
+        public string EditTask(int taskId, TaskInfo taskRequest)
         {
             try
             {
@@ -53,18 +57,18 @@ namespace ContractorShareService.Controllers
             }
         }
 
-        public TaskInfo GetTaskInfo(int taskId)
+        public TaskInfo GetTask(int taskId)
         {
             try
             {
-                string message = string.Format("Executing Get TaskInfo {0}", taskId.ToString());
+                string message = string.Format("Executing Get Task Request {0}", taskId.ToString());
                 Logger.Info(message);
 
-                return _taskRepository.GetTaskInfo(taskId);
+                return _taskRepository.GetTask(taskId);
             }
             catch (Exception ex)
             {
-                string error_message = string.Format("Error Getting TaskRequest {0}", taskId.ToString());
+                string error_message = string.Format("Error Getting Task Request {0}", taskId.ToString());
                 Logger.Error(error_message, ex);
                 return null;
             }
@@ -74,7 +78,7 @@ namespace ContractorShareService.Controllers
         {
             try
             {
-                string message = string.Format("Executing CloseTaskRequest {0}", taskId.ToString());
+                string message = string.Format("Executing Close TaskR equest {0}", taskId.ToString());
                 Logger.Info(message);
 
                 return _taskRepository.CloseTask(taskId);
@@ -86,6 +90,5 @@ namespace ContractorShareService.Controllers
                 return EnumHelper.GetDescription(ErrorListEnum.Task_Close_Error);
             }
         }
-
     }
 }
