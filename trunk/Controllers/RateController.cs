@@ -23,7 +23,7 @@ namespace ContractorShareService.Controllers
                 string message = string.Format("Executing AddRate(FromUser {0}, ToUser {1}, ToService {2})", rate.FromUserId.ToString(), rate.ToUserId.ToString(),rate.ServiceId.ToString());
                 Logger.Info(message);
 
-                if (!_userRepository.UserIdExists(rate.FromUserId) || !_userRepository.UserIdExists(rate.ToUserId) || (rate.ServiceId != null && !_serviceRepository.ServiceIdExists(rate.ServiceId)))
+                if (!_userRepository.UserIdExists(rate.FromUserId) || !_userRepository.UserIdExists(rate.ToUserId) || (rate.ServiceId != 0 && !_serviceRepository.ServiceIdExists(rate.ServiceId)))
                 {
                     return EnumHelper.GetDescription(ErrorListEnum.Rate_NonExistError);
                 }

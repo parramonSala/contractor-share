@@ -57,7 +57,7 @@ namespace ContractorShareService.Repositories
 
             int type = usertype.First();
 
-            return (type == (int)(UserTypeEnum.client));
+            return (type == (int)(ModelEnum.Client));
         }
 
         public int CreateUser(string email, string password, int TypeOfUser)

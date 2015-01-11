@@ -22,8 +22,8 @@ namespace ContractorShareService.Repositories
                     FromUserID = rate.FromUserId,
                     ToUserID = rate.ToUserId,
                     ServiceID = rate.ServiceId,
-                    Title = rate.RateTitle,
-                    Comment = rate.RateComment,
+                    Title = rate.Title,
+                    Comment = rate.Comment,
                     rating1 = rate.Rating
                 };
 
@@ -59,8 +59,8 @@ namespace ContractorShareService.Repositories
                     rate.FromUserId = rating.FromUserID;
                     rate.ToUserId = rating.ToUserID;
                     rate.ServiceId = (int)rating.ServiceID;
-                    rate.RateTitle = rating.Title;
-                    rate.RateComment = rating.Comment;
+                    rate.Title = rating.Title;
+                    rate.Comment = rating.Comment;
                     rate.Rating = (int)rating.rating1;
 
                     userRates.Add(rate);

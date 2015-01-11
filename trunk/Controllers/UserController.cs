@@ -30,7 +30,7 @@ namespace ContractorShareService.Controllers
                 }
                 else
                 {
-                    string error_message = string.Format("Error Login: user with mail {0} and type {1} doesn't exist the DB", email, Enum.GetName(typeof(UserTypeEnum), TypeOfUser));
+                    string error_message = string.Format("Error Login: user with mail {0} and type {1} doesn't exist the DB", email, Enum.GetName(typeof(ModelEnum), TypeOfUser));
                     Logger.Error(error_message);
                     return EnumHelper.GetDescription(ErrorListEnum.Login_Client_NoExists);
                 }

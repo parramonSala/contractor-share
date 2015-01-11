@@ -40,6 +40,10 @@ namespace ContractorShareService
         [OperationContract]
         string ChangeServiceStatus(int serviceID, int StatusID);
 
+        //4.Create Task Operations
+        [OperationContract]
+        string CreateTask(string name, string description, int serviceId);
+       
         //5.Search Contractors
         [OperationContract]
         List<GetListContractors_Result> SearchContractors(SearchContractor searchcontractor);

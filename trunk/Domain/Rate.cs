@@ -9,18 +9,16 @@ namespace ContractorShareService.Domain
     [DataContract]
     public class Rate
     {
-
         public int FromUserId { get; set; }
         [DataMember]
         public int ToUserId { get; set; }
         [DataMember]
         public int ServiceId { get; set; }
         [DataMember]
-        public string RateComment { get; set; }
+        public string Comment { get; set; }
         [DataMember]
-        public string RateTitle { get; set; }
+        public string Title { get; set; }
         [DataMember]
-        public float Rating { get; set; }
- 
+        public float Rating { get; set; } 
     }
 }

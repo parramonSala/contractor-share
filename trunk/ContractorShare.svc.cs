@@ -16,10 +16,17 @@ namespace ContractorShareService
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class ContractorShare : IContractorShare
     {
+        #region ContractorShare properties definition
+
         protected static ILog Logger = LogManager.GetLogger(typeof(ContractorShare));
         private UserController _userController = new UserController();
         private ServiceController _serviceController = new ServiceController();
         private RateController _rateController = new RateController();
+        private TaskController _taskController = new TaskController();
+
+        #endregion
+
+        #region Login operations
 
         //1.Login operations
         public string Login(string email, string password, int TypeOfUser)
@@ -32,7 +39,11 @@ namespace ContractorShareService
             return _userController.Register(email, password, TypeOfUser);
         }
 
-        //2.Create profile
+        #endregion
+
+        #region Profile operations
+
+        //2.Profile operations
         public string EditUserProfile(UserInfo userprofile)
         {
             return _userController.EditUserProfile(userprofile);
@@ -43,7 +54,21 @@ namespace ContractorShareService
             return _userController.GetUserProfile(userId);
         }
 
-        //3.Create service request
+        public string AddFavourite(int FromUser, int ToUser)
+        {
+            return _userController.AddFavourite(FromUser, ToUser);
+        }
+
+        public string AddDenunce(int FromUser, int ToUser, string Comment, bool BlockUser)
+        {
+            return _userController.AddDenunce(FromUser, ToUser, Comment, BlockUser);
+        }
+
+        #endregion
+
+        #region Service request operations
+
+        //3.Service request operations
         public string CreateServiceRequest(ServiceInfo servicerequest)
         {
             return _serviceController.Create(servicerequest);
@@ -64,42 +89,54 @@ namespace ContractorShareService
             return _serviceController.ChangeServiceStatus(serviceID, StatusID);
         }
 
+        #endregion
+
+        #region Task operations
+        //4. Task operations
+
+        public string CreateTask(string name, string description, int serviceId)
+        {
+            return _taskController.CreateTask(name, description, serviceId);
+        }
+
+        #endregion
+
+        #region Search contractors operations
+
         //5.Search Contractors (WIP)
         public List<GetListContractors_Result> SearchContractors(SearchContractor Searchcontractor)
         {
             return _userController.GetListContractors(Searchcontractor);
         }
 
-        //6.View Professional´s profile
-        //Add as Favourite
-        public string AddFavourite(int FromUser, int ToUser)
+        #endregion
+
+        #region Rating operations
+
+        //6.Rating operations
+
+        public string AddRating(int fromUserId, int toUserId, int serviceId, string title, string comment, float rate)
         {
-            return _userController.AddFavourite(FromUser,ToUser);
+            Domain.Rate rating = new Domain.Rate();
+            rating.FromUserId = fromUserId;
+            rating.ToUserId = toUserId;
+            rating.ServiceId = serviceId;
+            rating.Title = title;
+
+            return _rateController.AddRate(rating);
         }
 
-        //Add a denunce
-        public string AddDenunce(int FromUser, int ToUser, string Comment, bool BlockUser)
-        {
-            return _userController.AddDenunce(FromUser, ToUser, Comment, BlockUser);
-        }
-
-        //Add a Rate
-        public string AddRating(Rate rate)
-        {
-            return _rateController.AddRate(rate);
-        }
-
-        //Get User´s Rate
         public List<Rate> GetUserRates(int UserID)
         {
             return _rateController.GetUserRates(UserID);
         }
 
-        //Get User´s average rating IN PROGRESS!
         public float GetUserAverageRating(int UserID)
         {
             throw new NotImplementedException();
         }
-       
+
+        #endregion
+
     }
 }

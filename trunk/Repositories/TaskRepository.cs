@@ -21,21 +21,22 @@ namespace ContractorShareService.Repositories
                 {
                     Name = taskRequest.Name,
                     Description = taskRequest.Description,
-                    ServiceID = taskRequest.ServiceId
+                    ServiceID = taskRequest.ServiceId,
+                    StatusID = (int)TaskStatusEnum.Open
                 };
 
                 db.Task.Add(newTask);
                 db.SaveChanges();
-                int id = (int)newTask.ID;
-
+                
+                int id = newTask.ID;
                 Logger.Info(String.Format("TaskRepository.CreateTaskx: created task with ID {0}", id));
-
                 return id;
             }
             catch (Exception ex)
             {
                 Logger.Error("Error TaskRepository.CreateTask", ex);
                 return (int)(ErrorListEnum.Service_Create_Error);
+                throw new Exception("Error TaskRepository.CreateTask: Couldn't create the task", ex);
             }
         }
 
@@ -61,7 +62,7 @@ namespace ContractorShareService.Repositories
             }
         }
 
-        public TaskInfo GetTaskInfo(int taskId)
+        public TaskInfo GetTask(int taskId)
         {
             try
             {
@@ -92,9 +93,8 @@ namespace ContractorShareService.Repositories
                                where service.ID == ServiceId
                                select service;
 
-                Service serviceselected = services.FirstOrDefault();
-
-                serviceselected.Status = null;
+                Service selectedService = services.FirstOrDefault();
+                selectedService.StatusID = (int)ServiceStatusEnum.Closed;
 
                 db.SaveChanges();
                 return EnumHelper.GetDescription(ErrorListEnum.OK);
