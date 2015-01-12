@@ -59,6 +59,17 @@ namespace ContractorShareService
             return _userController.AddFavourite(FromUser, ToUser);
         }
 
+        public string RemoveFavourite(int FromUser, int ToUser)
+        {
+            return _userController.RemoveFavourite(FromUser, ToUser);
+        }
+
+        public List<UserFavourite> GetUserFavourites(int FromUser)
+        {
+            return _userController.GetUserFavourites(FromUser);
+        }
+
+
         public string AddDenunce(int FromUser, int ToUser, string Comment, bool BlockUser)
         {
             return _userController.AddDenunce(FromUser, ToUser, Comment, BlockUser);

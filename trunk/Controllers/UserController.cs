@@ -155,6 +155,46 @@ namespace ContractorShareService.Controllers
         
         }
 
+        public string RemoveFavourite(int FromUser, int ToUser)
+        {
+            try
+            {
+                string message = string.Format("Executing RemoveFavourite(From {0}, To {1})", FromUser.ToString(), ToUser.ToString());
+                Logger.Info(message);
+
+                if (!_userRepository.UserIdExists(FromUser) || !_userRepository.UserIdExists(ToUser))
+                {
+                    return EnumHelper.GetDescription(ErrorListEnum.Favourite_UserNotExistError);
+                }
+
+                return _userRepository.RemoveFavourite(FromUser, ToUser);
+            }
+            catch (Exception ex)
+            {
+                string error_message = string.Format("Error executing RemoveFavourite(From {0}, To {1})", FromUser.ToString(), ToUser.ToString());
+                Logger.Error(error_message, ex);
+                return EnumHelper.GetDescription(ErrorListEnum.Favourite_Error);
+            }
+
+        }
+
+        public List<UserFavourite> GetUserFavourites(int FromUser)
+        {      
+         try
+            {
+                string message = string.Format("Executing GetUserFavourites(From {0})", FromUser.ToString());
+                Logger.Info(message);
+
+                return _userRepository.GetUserFavourites(FromUser);
+            }
+            catch (Exception ex)
+            {
+                string error_message = string.Format("Error executing GetUserFavourites(From {0}, To {1})", FromUser.ToString());
+                Logger.Error(error_message, ex);
+                return null;
+            }
+        }
+
         public string AddDenunce(int FromUser, int ToUser, string Comment, bool BlockUser)
         {
             try
