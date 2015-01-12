@@ -20,14 +20,26 @@ namespace ContractorShareService
         [OperationContract]
         string Register(string email, string password, int TypeOfUser);
 
-        //2.Create profile operations
+        //2.Manage profile operations
         [OperationContract]
         string EditUserProfile(UserInfo userprofile);
 
         [OperationContract]
         UserInfo GetUserProfile(int UserId);
 
-        //3.Create Service operations
+        [OperationContract]
+        string AddFavourite(int FromUser, int ToUser);
+
+        [OperationContract]
+        string RemoveFavourite(int FromUser, int ToUser);
+
+        [OperationContract]
+        List<UserFavourite> GetUserFavourites(int FromUser);
+
+        [OperationContract]
+        string AddDenunce(int FromUser, int ToUser, string Comment, bool BlockUser);
+
+        //3.Manage Service Requests operations
         [OperationContract]
         string CreateServiceRequest(ServiceInfo servicerequest);
 
@@ -48,15 +60,7 @@ namespace ContractorShareService
         [OperationContract]
         List<GetListContractors_Result> SearchContractors(SearchContractor searchcontractor);
 
-        //6.View Professional´s profile
-        [OperationContract]
-        string AddFavourite(int FromUser, int ToUser);
-
-        //Add Denunce
-        [OperationContract]
-        string AddDenunce(int FromUser, int ToUser, string Comment, bool BlockUser);
-
-        //10.1 Add Rate
+        //6.Rating Operations
         [OperationContract]
         string AddRating(int FromUser, int ToUser, int service, string title, string comment, float rate);
        

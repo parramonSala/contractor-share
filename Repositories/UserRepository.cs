@@ -284,6 +284,47 @@ namespace ContractorShareService.Repositories
             }
         }
 
+        public string RemoveFavourite(int FromUser, int ToUser)
+        {
+            try
+            {
+                UserFavourite favouriterelation = (from favourite in db.UserFavourite
+                                                   where favourite.FromUserID == FromUser && favourite.ToUserID == ToUser
+                                                   select favourite).First();
+
+                db.UserFavourite.Remove(favouriterelation);
+                db.SaveChanges();
+
+                Logger.Info(String.Format("UserRepository.RemoveFavourite: removed favourite relationship From {1} To {2}", FromUser.ToString(), ToUser.ToString()));
+
+                return EnumHelper.GetDescription(ErrorListEnum.OK);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error UserRepository.RemoveFavourite", ex);
+                return EnumHelper.GetDescription(ErrorListEnum.Favourite_Error);
+            }
+        }
+
+        public List<UserFavourite> GetUserFavourites(int FromUser)
+        {
+            try
+            {
+                Logger.Info(String.Format("UserRepository.GetUserFavourites: get UserFavourites from UserId {0}", FromUser.ToString()));
+
+                var userfavourites = from userfavourite in
+                                      db.UserFavourite where userfavourite.FromUserID == FromUser
+                                  select userfavourite;
+
+                return userfavourites.ToList();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error on UserRepository.GetUserFavourites", ex);
+                return null;
+            }
+        }
+
         public string AddDenunce(int FromUser, int ToUser, string Comment, int statusid,bool blockUser)
         {
             try
