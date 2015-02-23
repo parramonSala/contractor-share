@@ -129,8 +129,8 @@ namespace ContractorShareService.Repositories
             }
             catch (Exception ex)
             {
-                Logger.ErrorFormat("Error ServiceRepository.CloseService {0}: {1}", ServiceId.ToString(), ex);
-                return EnumHelper.GetDescription(ErrorListEnum.Service_Close_Error);
+                Logger.ErrorFormat("Error ServiceRepository.ChangeServiceStatus {0}: {1}", ServiceId.ToString(), ex);
+                return EnumHelper.GetDescription(ErrorListEnum.Service_Edit_Error);
             }
         }
 
@@ -148,6 +148,33 @@ namespace ContractorShareService.Repositories
             {
                 Logger.Error("Error ServiceRepository.ServiceIdExists", ex);
                 return false;
+            }
+        }
+
+        public int AddComment(int serviceID, int UserID, string Comment_Title, string Comment_Text)
+        {
+            try
+            {
+                Comment newcomment = new Comment()
+                {
+                    Title = Comment_Title,
+                    CommentText = Comment_Text,
+                    ServiceID = serviceID,
+                    CreatedByUserID = UserID
+                };
+
+                db.Comment.Add(newcomment);
+                db.SaveChanges();
+                int id = (int)newcomment.ID;
+
+                Logger.Info(String.Format("ServiceRepository.AddComment: created comment with ID {0}", id));
+
+                return id;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error ServiceRepository.AddComment", ex);
+                return (int)(ErrorListEnum.Comment_AddError);
             }
         }
     }

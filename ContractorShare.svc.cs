@@ -100,6 +100,11 @@ namespace ContractorShareService
             return _serviceController.ChangeServiceStatus(serviceID, StatusID);
         }
 
+        public string AddServiceComment(int serviceID, int CreatedByUserID, string CommentTitle, string CommentText)
+        {
+            return _serviceController.AddServiceComment(serviceID, CreatedByUserID, CommentTitle, CommentText);
+        }
+
         #endregion
 
         #region Task operations

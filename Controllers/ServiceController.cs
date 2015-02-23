@@ -73,18 +73,35 @@ namespace ContractorShareService.Controllers
         {
             try
             {
-                string message = string.Format("Executing CloseServiceRequest {0}", ServiceId.ToString());
+                string message = string.Format("Executing ChangeServiceStatus {0}, {1}", ServiceId.ToString(), StatusId.ToString());
                 Logger.Info(message);
 
                 return _serviceRepository.ChangeServiceStatus(ServiceId, StatusId);
             }
             catch (Exception ex)
             {
-                string error_message = string.Format("Error CloseServiceRequest {0}", ServiceId.ToString());
+                string error_message = string.Format("Error ChangeServiceStatus {0}, {1}", ServiceId.ToString(), StatusId.ToString());
                 Logger.Error(error_message, ex);
-                return EnumHelper.GetDescription(ErrorListEnum.Service_Close_Error);
+                return EnumHelper.GetDescription(ErrorListEnum.Service_Edit_Error);
             }
         }
 
+
+        public string AddServiceComment(int serviceID, int userID, string CommentTitle, string CommentText)
+        {
+            try
+            {
+                string message = string.Format("Executing AddServiceComment {0}", serviceID.ToString());
+                Logger.Info(message);
+
+                return _serviceRepository.AddComment(serviceID, userID, CommentTitle, CommentText).ToString();
+            }
+            catch (Exception ex)
+            {
+                string error_message = string.Format("Error AddServiceComment {0}", serviceID.ToString()); 
+                Logger.Error(error_message, ex);
+                return EnumHelper.GetDescription(ErrorListEnum.Comment_AddError);
+            }
+        }
     }
 }
