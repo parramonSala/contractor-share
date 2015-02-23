@@ -75,7 +75,11 @@ namespace ContractorShareService.Enumerations
         [Description("Rate user or service doesnt exist")]
         Rate_NonExistError = -23,
         [Description("Rate user or service doesnt exist")]
-        Rate_OtherError = -24
+        Rate_OtherError = -24,
+
+        //COMMENTS ERROR
+        [Description("Not controled Comment Error")]
+        Comment_AddError = -25
 
     }
 }
