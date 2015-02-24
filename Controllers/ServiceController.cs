@@ -103,5 +103,29 @@ namespace ContractorShareService.Controllers
                 return EnumHelper.GetDescription(ErrorListEnum.Comment_AddError);
             }
         }
+
+        public List<Comment> GetServiceComment(int serviceID)
+        {
+            try
+            {
+                string message = string.Format("Executing GetServiceComment {0}", serviceID.ToString());
+                Logger.Info(message);
+
+                return _serviceRepository.GetServiceComments(serviceID);
+            }
+            catch (Exception ex)
+            {
+                string error_message = string.Format("Error Getting ServiceComment {0}", serviceID.ToString());
+                Logger.Error(error_message, ex);
+                return null;
+            }
+        }
+
+
+
+        internal List<Service> GetListServices(SearchService Searchservice)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

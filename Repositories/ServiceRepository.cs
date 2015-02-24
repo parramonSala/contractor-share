@@ -177,5 +177,39 @@ namespace ContractorShareService.Repositories
                 return (int)(ErrorListEnum.Comment_AddError);
             }
         }
+
+        public List<Comment> GetServiceComments(int ServiceId)
+        {
+            try
+            {
+                List<Comment> servicecomments = (from comment in db.Comment
+                                                 where comment.ServiceID == ServiceId
+                                                 select comment).ToList();
+                return servicecomments;
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("ServiceRepository.GetServiceComment {0}: {1}", ServiceId.ToString(), ex);
+                return null;
+            }
+        }
+
+        public List<Service> GetListServices(SearchService SearchParams)
+        {
+            try
+            {
+                var services = from service in
+                                   db.GetListServices(SearchParams.CategoryId, SearchParams.City, SearchParams.PostCode)
+                               select service;
+
+                return services.ToList();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error when getting List of Services", ex);
+                return null;
+            }
+        }
+
     }
 }

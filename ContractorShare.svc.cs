@@ -105,6 +105,17 @@ namespace ContractorShareService
             return _serviceController.AddServiceComment(serviceID, CreatedByUserID, CommentTitle, CommentText);
         }
 
+        public List<Comment> GetServiceComments(int serviceID)
+        {
+            return _serviceController.GetServiceComment(serviceID);
+        }
+
+        //Search for Available Service Requeste
+        public List<Service> SearchServices(SearchService Searchservice)
+        {
+            return _serviceController.GetListServices(Searchservice);
+        }
+
         #endregion
 
         #region Task operations
