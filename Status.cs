@@ -14,20 +14,25 @@ namespace ContractorShareService
     
     public partial class Status
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Status()
         {
-            this.Appointment = new HashSet<Appointment>();
-            this.Proposal = new HashSet<Proposal>();
-            this.Service = new HashSet<Service>();
-            this.Task = new HashSet<Task>();
+            this.Appointments = new HashSet<Appointment>();
+            this.Proposals = new HashSet<Proposal>();
+            this.Services = new HashSet<Service>();
+            this.Tasks = new HashSet<Task>();
         }
     
         public int ID { get; set; }
         public string Description { get; set; }
     
-        public virtual ICollection<Appointment> Appointment { get; set; }
-        public virtual ICollection<Proposal> Proposal { get; set; }
-        public virtual ICollection<Service> Service { get; set; }
-        public virtual ICollection<Task> Task { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Appointment> Appointments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Proposal> Proposals { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Service> Services { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Task> Tasks { get; set; }
     }
 }

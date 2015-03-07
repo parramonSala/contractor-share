@@ -111,7 +111,7 @@ namespace ContractorShareService
         }
 
         //Search for Available Service Requeste
-        public List<Service> SearchServices(SearchService Searchservice)
+        public List<GetListServices_Result> SearchServices(SearchService Searchservice)
         {
             return _serviceController.GetListServices(Searchservice);
         }

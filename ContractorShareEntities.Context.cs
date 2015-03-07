@@ -27,21 +27,22 @@ namespace ContractorShareService
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Appointment> Appointment { get; set; }
-        public virtual DbSet<Bug> Bug { get; set; }
-        public virtual DbSet<Category> Category { get; set; }
-        public virtual DbSet<Comment> Comment { get; set; }
-        public virtual DbSet<Preference> Preference { get; set; }
-        public virtual DbSet<Proposal> Proposal { get; set; }
-        public virtual DbSet<Rating> Rating { get; set; }
-        public virtual DbSet<Service> Service { get; set; }
+        public virtual DbSet<Appointment> Appointments { get; set; }
+        public virtual DbSet<Bug> Bugs { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<Preference> Preferences { get; set; }
+        public virtual DbSet<Proposal> Proposals { get; set; }
+        public virtual DbSet<Rating> Ratings { get; set; }
+        public virtual DbSet<Service> Services { get; set; }
         public virtual DbSet<Status> Status { get; set; }
-        public virtual DbSet<Suggestion> Suggestion { get; set; }
-        public virtual DbSet<Task> Task { get; set; }
-        public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<UserCategory> UserCategory { get; set; }
-        public virtual DbSet<UserDenunce> UserDenunce { get; set; }
-        public virtual DbSet<UserFavourite> UserFavourite { get; set; }
+        public virtual DbSet<Suggestion> Suggestions { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<Task> Tasks { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UserCategory> UserCategories { get; set; }
+        public virtual DbSet<UserDenunce> UserDenunces { get; set; }
+        public virtual DbSet<UserFavourite> UserFavourites { get; set; }
     
         public virtual ObjectResult<GetListContractors_Result> GetListContractors(Nullable<int> categoryId, Nullable<decimal> locationCoordX, Nullable<decimal> locationCoordY, string city, string companyName, Nullable<double> pricePerHour, Nullable<int> numOfRates, Nullable<double> averageRate)
         {
@@ -78,6 +79,23 @@ namespace ContractorShareService
                 new ObjectParameter("AverageRate", typeof(double));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetListContractors_Result>("GetListContractors", categoryIdParameter, locationCoordXParameter, locationCoordYParameter, cityParameter, companyNameParameter, pricePerHourParameter, numOfRatesParameter, averageRateParameter);
+        }
+    
+        public virtual ObjectResult<GetListServices_Result> GetListServices(Nullable<int> categoryId, string city, string postCode)
+        {
+            var categoryIdParameter = categoryId.HasValue ?
+                new ObjectParameter("CategoryId", categoryId) :
+                new ObjectParameter("CategoryId", typeof(int));
+    
+            var cityParameter = city != null ?
+                new ObjectParameter("City", city) :
+                new ObjectParameter("City", typeof(string));
+    
+            var postCodeParameter = postCode != null ?
+                new ObjectParameter("PostCode", postCode) :
+                new ObjectParameter("PostCode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetListServices_Result>("GetListServices", categoryIdParameter, cityParameter, postCodeParameter);
         }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)

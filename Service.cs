@@ -14,13 +14,14 @@ namespace ContractorShareService
     
     public partial class Service
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Service()
         {
-            this.Appointment = new HashSet<Appointment>();
-            this.Comment = new HashSet<Comment>();
-            this.Proposal = new HashSet<Proposal>();
-            this.Rating = new HashSet<Rating>();
-            this.Task = new HashSet<Task>();
+            this.Appointments = new HashSet<Appointment>();
+            this.Comments = new HashSet<Comment>();
+            this.Proposals = new HashSet<Proposal>();
+            this.Ratings = new HashSet<Rating>();
+            this.Tasks = new HashSet<Task>();
         }
     
         public int ID { get; set; }
@@ -36,13 +37,18 @@ namespace ContractorShareService
         public int ClientID { get; set; }
         public int CategoryID { get; set; }
     
-        public virtual ICollection<Appointment> Appointment { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Appointment> Appointments { get; set; }
         public virtual Category Category { get; set; }
-        public virtual ICollection<Comment> Comment { get; set; }
-        public virtual ICollection<Proposal> Proposal { get; set; }
-        public virtual ICollection<Rating> Rating { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Proposal> Proposals { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Rating> Ratings { get; set; }
         public virtual User User { get; set; }
         public virtual Status Status { get; set; }
-        public virtual ICollection<Task> Task { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Task> Tasks { get; set; }
     }
 }

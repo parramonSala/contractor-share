@@ -111,6 +111,7 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Domain\Rate.cs" />
     <Compile Include="Domain\SearchContractor.cs" />
+    <Compile Include="Domain\SearchService.cs" />
     <Compile Include="Domain\ServiceInfo.cs" />
     <Compile Include="Domain\TaskInfo.cs" />
     <Compile Include="Domain\UserInfo.cs" />
@@ -118,6 +119,9 @@
     <Compile Include="Enumerations\ErrorListEnum.cs" />
     <Compile Include="Enumerations\ModelEnum.cs" />
     <Compile Include="GetListContractors_Result.cs">
+      <DependentUpon>ContractorShareEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetListServices_Result.cs">
       <DependentUpon>ContractorShareEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="IContractorShare.cs" />
@@ -151,6 +155,9 @@
     <Compile Include="Suggestion.cs">
       <DependentUpon>ContractorShareEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>ContractorShareEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Task.cs">
       <DependentUpon>ContractorShareEntities.tt</DependentUpon>
     </Compile>
@@ -171,6 +178,7 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="packages.config" />
     <EntityDeploy Include="ContractorShareEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ContractorShareEntities.Designer.cs</LastGenOutput>
@@ -188,7 +196,6 @@
       <DependentUpon>ContractorShareEntities.edmx</DependentUpon>
       <LastGenOutput>ContractorShareEntities.cs</LastGenOutput>
     </Content>
-    <Content Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

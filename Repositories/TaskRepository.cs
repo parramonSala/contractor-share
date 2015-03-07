@@ -25,7 +25,7 @@ namespace ContractorShareService.Repositories
                     StatusID = (int)TaskStatusEnum.Open
                 };
 
-                db.Task.Add(newTask);
+                db.Tasks.Add(newTask);
                 db.SaveChanges();
                 
                 int id = newTask.ID;
@@ -44,7 +44,7 @@ namespace ContractorShareService.Repositories
         {
             try
             {
-                var task = (from t in db.Task
+                var task = (from t in db.Tasks
                             where t.ID == taskId
                             select t).FirstOrDefault();
 
@@ -66,7 +66,7 @@ namespace ContractorShareService.Repositories
         {
             try
             {
-                var task = (from t in db.Task
+                var task = (from t in db.Tasks
                             where t.ID == taskId
                             select t).FirstOrDefault();
 
@@ -89,7 +89,7 @@ namespace ContractorShareService.Repositories
         {
             try
             {
-                var services = from service in db.Service
+                var services = from service in db.Services
                                where service.ID == ServiceId
                                select service;
 

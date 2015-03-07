@@ -14,9 +14,10 @@ namespace ContractorShareService
     
     public partial class Task
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Task()
         {
-            this.Comment = new HashSet<Comment>();
+            this.Comments = new HashSet<Comment>();
         }
     
         public int ID { get; set; }
@@ -25,7 +26,8 @@ namespace ContractorShareService
         public int StatusID { get; set; }
         public int ServiceID { get; set; }
     
-        public virtual ICollection<Comment> Comment { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comments { get; set; }
         public virtual Service Service { get; set; }
         public virtual Status Status { get; set; }
     }

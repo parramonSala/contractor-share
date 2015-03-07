@@ -17,7 +17,7 @@ namespace ContractorShareService.Repositories
         {
             try
             {
-                var users = from user in db.User
+                var users = from user in db.Users
                             where user.Email == mail && user.UserType == usertype
                             && user.Active == true
                             select user;
@@ -35,7 +35,7 @@ namespace ContractorShareService.Repositories
         {
             try
             {
-                var users = from user in db.User
+                var users = from user in db.Users
                             where user.ID == UserId
                             && user.Active == true
                             select user;
@@ -51,7 +51,7 @@ namespace ContractorShareService.Repositories
 
         public bool UserIsClient(string mail)
         {
-            var usertype = from user in db.User
+            var usertype = from user in db.Users
                            where user.Email == mail
                            select user.UserType;
 
@@ -73,7 +73,7 @@ namespace ContractorShareService.Repositories
                     Active = true
                 };
 
-                db.User.Add(newuser);
+                db.Users.Add(newuser);
                 db.SaveChanges();
                 int id = (int)newuser.ID;
 
@@ -92,7 +92,7 @@ namespace ContractorShareService.Repositories
         {
             try
             {
-                var users = from user in db.User
+                var users = from user in db.Users
                             where user.Email == mail && user.EncPassword == password
                             select user;
 
@@ -117,7 +117,7 @@ namespace ContractorShareService.Repositories
         {
             try
             {
-                var users = from user in db.User
+                var users = from user in db.Users
                             where user.Email == userprofile.Email
                             select user;
 
@@ -169,7 +169,7 @@ namespace ContractorShareService.Repositories
                       CategoryID = category
                 };
 
-                db.UserCategory.Add(newUserCategory);
+                db.UserCategories.Add(newUserCategory);
                 db.SaveChanges();
 
                 int id = (int)newUserCategory.ID;
@@ -187,7 +187,7 @@ namespace ContractorShareService.Repositories
         {
             try
             {
-                var users = from user in db.User
+                var users = from user in db.Users
                             where user.ID == userId
                             select user;
 
@@ -225,7 +225,7 @@ namespace ContractorShareService.Repositories
         {
             try
             {
-                List<int> categories = (from userCategory in db.UserCategory
+                List<int> categories = (from userCategory in db.UserCategories
                                  where userCategory.UserID == userId
                                  select userCategory.CategoryID).ToList();
 
@@ -269,7 +269,7 @@ namespace ContractorShareService.Repositories
                     ToUserID = ToUser
                 };
 
-                db.UserFavourite.Add(newfavourite);
+                db.UserFavourites.Add(newfavourite);
                 db.SaveChanges();
                 int id = (int)newfavourite.ID;
 
@@ -288,11 +288,11 @@ namespace ContractorShareService.Repositories
         {
             try
             {
-                UserFavourite favouriterelation = (from favourite in db.UserFavourite
+                UserFavourite favouriterelation = (from favourite in db.UserFavourites
                                                    where favourite.FromUserID == FromUser && favourite.ToUserID == ToUser
                                                    select favourite).First();
 
-                db.UserFavourite.Remove(favouriterelation);
+                db.UserFavourites.Remove(favouriterelation);
                 db.SaveChanges();
 
                 Logger.Info(String.Format("UserRepository.RemoveFavourite: removed favourite relationship From {1} To {2}", FromUser.ToString(), ToUser.ToString()));
@@ -313,7 +313,7 @@ namespace ContractorShareService.Repositories
                 Logger.Info(String.Format("UserRepository.GetUserFavourites: get UserFavourites from UserId {0}", FromUser.ToString()));
 
                 var userfavourites = from userfavourite in
-                                      db.UserFavourite where userfavourite.FromUserID == FromUser
+                                      db.UserFavourites where userfavourite.FromUserID == FromUser
                                   select userfavourite;
 
                 return userfavourites.ToList();
@@ -338,7 +338,7 @@ namespace ContractorShareService.Repositories
                     BlockUser = blockUser
                 };
 
-                db.UserDenunce.Add(newdenunce);
+                db.UserDenunces.Add(newdenunce);
                 db.SaveChanges();
                 int id = (int)newdenunce.ID;
 

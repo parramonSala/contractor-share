@@ -123,7 +123,7 @@ namespace ContractorShareService.Controllers
 
 
 
-        public List<Service> GetListServices(SearchService Searchservice)
+        public List<GetListServices_Result> GetListServices(SearchService Searchservice)
         {
             try
              {
