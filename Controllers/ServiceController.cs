@@ -123,9 +123,21 @@ namespace ContractorShareService.Controllers
 
 
 
-        internal List<Service> GetListServices(SearchService Searchservice)
+        public List<Service> GetListServices(SearchService Searchservice)
         {
-            throw new NotImplementedException();
+            try
+             {
+                string message = string.Format("Executing GetListServices");
+                Logger.Info(message);
+
+                return _serviceRepository.GetListServices(Searchservice);
+            }
+            catch (Exception ex)
+            {
+                string error_message = string.Format("Error executing GetListServices");
+                Logger.Error(error_message, ex);
+                return null;
+            }
         }
     }
 }
