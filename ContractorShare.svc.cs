@@ -154,6 +154,7 @@ namespace ContractorShareService
             rating.ToUserId = toUserId;
             rating.ServiceId = serviceId;
             rating.Title = title;
+            rating.Rating = rate;
 
             return _rateController.AddRate(rating);
         }
@@ -165,7 +166,12 @@ namespace ContractorShareService
 
         public double GetUserAverageRating(int UserID)
         {
-            return _rateController.GetUserAverage(UserID);
+            return _userController.GetUserAverage(UserID);
+        }
+
+        public double GetServiceRate(int ServiceID)
+        {
+            return _rateController.GetServiceRate(ServiceID);
         }
 
         #endregion

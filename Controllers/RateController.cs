@@ -39,7 +39,6 @@ namespace ContractorShareService.Controllers
 
         }
 
-
         public List<Rate> GetUserRates(int UserID)
         {
             try
@@ -57,22 +56,22 @@ namespace ContractorShareService.Controllers
             }
         }
 
-        public double GetUserAverage(int UserID)
+
+        public double GetServiceRate(int ServiceID)
         {
             try
             {
-                string message = string.Format("Executing GetUserAverage for user {0}", UserID.ToString());
+                string message = string.Format("Executing GetServiceRate for service {0}", ServiceID.ToString());
                 Logger.Info(message);
 
-                return _rateRepository.GetUserAverage(UserID);
+                return _rateRepository.GetServiceRate(ServiceID);
             }
             catch (Exception ex)
             {
-                string error_message = string.Format("Error executing GetUserAverage for user {0}", UserID.ToString());
+                string error_message = string.Format("Error executing GetServiceRate for service {0}", ServiceID.ToString());
                 Logger.Error(error_message, ex);
                 return -1;
             }
         }
-
     }
 }

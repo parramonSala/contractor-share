@@ -411,5 +411,22 @@ namespace ContractorShareService.Repositories
                 return EnumHelper.GetDescription(ErrorListEnum.BlockUserOtherError);
             }
         }
+
+        public double GetUserAverage(int UserID)
+        {
+            try
+            {
+                double averagerate = (double) (from user in db.Users
+                                      where user.ID == UserID
+                                      select user.CAverageRate).FirstOrDefault();
+                return averagerate;
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("Error when getting user {0} rating average", ex);
+                return -1;
+            }
+        }
+       
     }
 }
