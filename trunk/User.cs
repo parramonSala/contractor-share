@@ -14,23 +14,24 @@ namespace ContractorShareService
     
     public partial class User
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
-            this.Appointment = new HashSet<Appointment>();
-            this.Appointment1 = new HashSet<Appointment>();
-            this.Bug = new HashSet<Bug>();
-            this.Comment = new HashSet<Comment>();
-            this.Preference = new HashSet<Preference>();
-            this.Proposal = new HashSet<Proposal>();
-            this.Proposal1 = new HashSet<Proposal>();
-            this.Rating = new HashSet<Rating>();
-            this.Rating1 = new HashSet<Rating>();
-            this.Service = new HashSet<Service>();
-            this.Suggestion = new HashSet<Suggestion>();
-            this.UserCategory = new HashSet<UserCategory>();
-            this.UserDenunce = new HashSet<UserDenunce>();
-            this.UserFavourite = new HashSet<UserFavourite>();
-            this.UserFavourite1 = new HashSet<UserFavourite>();
+            this.Appointments = new HashSet<Appointment>();
+            this.Appointments1 = new HashSet<Appointment>();
+            this.Bugs = new HashSet<Bug>();
+            this.Comments = new HashSet<Comment>();
+            this.Preferences = new HashSet<Preference>();
+            this.Proposals = new HashSet<Proposal>();
+            this.Proposals1 = new HashSet<Proposal>();
+            this.Ratings = new HashSet<Rating>();
+            this.Ratings1 = new HashSet<Rating>();
+            this.Services = new HashSet<Service>();
+            this.Suggestions = new HashSet<Suggestion>();
+            this.UserCategories = new HashSet<UserCategory>();
+            this.UserDenunces = new HashSet<UserDenunce>();
+            this.UserFavourites = new HashSet<UserFavourite>();
+            this.UserFavourites1 = new HashSet<UserFavourite>();
         }
     
         public int ID { get; set; }
@@ -58,20 +59,35 @@ namespace ContractorShareService
         public Nullable<double> CAverageRate { get; set; }
         public Nullable<double> PricePerHour { get; set; }
     
-        public virtual ICollection<Appointment> Appointment { get; set; }
-        public virtual ICollection<Appointment> Appointment1 { get; set; }
-        public virtual ICollection<Bug> Bug { get; set; }
-        public virtual ICollection<Comment> Comment { get; set; }
-        public virtual ICollection<Preference> Preference { get; set; }
-        public virtual ICollection<Proposal> Proposal { get; set; }
-        public virtual ICollection<Proposal> Proposal1 { get; set; }
-        public virtual ICollection<Rating> Rating { get; set; }
-        public virtual ICollection<Rating> Rating1 { get; set; }
-        public virtual ICollection<Service> Service { get; set; }
-        public virtual ICollection<Suggestion> Suggestion { get; set; }
-        public virtual ICollection<UserCategory> UserCategory { get; set; }
-        public virtual ICollection<UserDenunce> UserDenunce { get; set; }
-        public virtual ICollection<UserFavourite> UserFavourite { get; set; }
-        public virtual ICollection<UserFavourite> UserFavourite1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Appointment> Appointments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Appointment> Appointments1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Bug> Bugs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Preference> Preferences { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Proposal> Proposals { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Proposal> Proposals1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Rating> Ratings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Rating> Ratings1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Service> Services { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Suggestion> Suggestions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserCategory> UserCategories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserDenunce> UserDenunces { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserFavourite> UserFavourites { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserFavourite> UserFavourites1 { get; set; }
     }
 }

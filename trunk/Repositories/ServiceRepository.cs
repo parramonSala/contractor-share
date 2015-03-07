@@ -32,7 +32,7 @@ namespace ContractorShareService.Repositories
                     CategoryID = servicerequest.CategoryID
                 };
 
-                db.Service.Add(newservice);
+                db.Services.Add(newservice);
                 db.SaveChanges();
                 int id = (int)newservice.ID;
 
@@ -51,7 +51,7 @@ namespace ContractorShareService.Repositories
         {
             try
             {
-                var services = from service in db.Service
+                var services = from service in db.Services
                                where service.ID == ServiceId
                                select service;
 
@@ -83,7 +83,7 @@ namespace ContractorShareService.Repositories
         {
             try
             {
-                var services = from service in db.Service
+                var services = from service in db.Services
                                where service.ID == ServiceId
                                select service;
 
@@ -116,7 +116,7 @@ namespace ContractorShareService.Repositories
         {
             try
             {
-                var services = from service in db.Service
+                var services = from service in db.Services
                                where service.ID == ServiceId
                                select service;
 
@@ -138,7 +138,7 @@ namespace ContractorShareService.Repositories
         {
             try
             {
-                var services = from service in db.Service
+                var services = from service in db.Services
                             where service.ID == ServiceId
                             select service;
                 List<Service> result = services.ToList();
@@ -163,7 +163,7 @@ namespace ContractorShareService.Repositories
                     CreatedByUserID = UserID
                 };
 
-                db.Comment.Add(newcomment);
+                db.Comments.Add(newcomment);
                 db.SaveChanges();
                 int id = (int)newcomment.ID;
 
@@ -182,7 +182,7 @@ namespace ContractorShareService.Repositories
         {
             try
             {
-                List<Comment> servicecomments = (from comment in db.Comment
+                List<Comment> servicecomments = (from comment in db.Comments
                                                  where comment.ServiceID == ServiceId
                                                  select comment).ToList();
                 return servicecomments;
@@ -194,7 +194,7 @@ namespace ContractorShareService.Repositories
             }
         }
 
-        public List<Service> GetListServices(SearchService SearchParams)
+        public List<GetListServices_Result> GetListServices(SearchService SearchParams)
         {
             try
             {

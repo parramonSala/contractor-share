@@ -4,49 +4,50 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4e9a244305f24df38eee6f4702d6948c" Name="Diagram1">
-        <EntityTypeShape EntityType="ContractorShareModel.Appointment" Width="1.5" PointX="11.25" PointY="19.75" />
-        <EntityTypeShape EntityType="ContractorShareModel.Bug" Width="1.5" PointX="3" PointY="50.875" />
-        <EntityTypeShape EntityType="ContractorShareModel.Category" Width="1.5" PointX="0.75" PointY="14.75" />
-        <EntityTypeShape EntityType="ContractorShareModel.Comment" Width="1.5" PointX="8.25" PointY="20.125" />
-        <EntityTypeShape EntityType="ContractorShareModel.Preference" Width="1.5" PointX="3" PointY="18.625" />
-        <EntityTypeShape EntityType="ContractorShareModel.Proposal" Width="1.5" PointX="8.25" PointY="15.875" />
-        <EntityTypeShape EntityType="ContractorShareModel.Rating" Width="1.5" PointX="3" PointY="22.125" />
-        <EntityTypeShape EntityType="ContractorShareModel.Service" Width="1.5" PointX="6" PointY="19.125" />
-        <EntityTypeShape EntityType="ContractorShareModel.Status" Width="1.5" PointX="3.75" PointY="26.5" />
-        <EntityTypeShape EntityType="ContractorShareModel.Suggestion" Width="1.5" PointX="3" PointY="48.375" />
-        <EntityTypeShape EntityType="ContractorShareModel.Task" Width="1.5" PointX="8.25" PointY="24.25" />
-        <EntityTypeShape EntityType="ContractorShareModel.User" Width="1.5" PointX="0.75" PointY="17.375" />
-        <EntityTypeShape EntityType="ContractorShareModel.UserCategory" Width="1.5" PointX="3" PointY="15.625" />
-        <EntityTypeShape EntityType="ContractorShareModel.UserDenunce" Width="1.5" PointX="3" PointY="45.25" />
-        <EntityTypeShape EntityType="ContractorShareModel.UserFavourite" Width="1.5" PointX="3" PointY="42.5" />
-        <AssociationConnector Association="ContractorShareModel.FK__Appointme__Clien__056ECC6A" />
-        <AssociationConnector Association="ContractorShareModel.FK__Appointme__Contr__0662F0A3" />
-        <AssociationConnector Association="ContractorShareModel.FK__Appointme__Servi__047AA831" />
-        <AssociationConnector Association="ContractorShareModel.FK__Appointme__Statu__075714DC" />
-        <AssociationConnector Association="ContractorShareModel.FK__Bug__CreatedByUs__477199F1" />
-        <AssociationConnector Association="ContractorShareModel.FK__Service__Categor__7720AD13" />
-        <AssociationConnector Association="ContractorShareModel.FK__UserCateg__Categ__12C8C788" />
-        <AssociationConnector Association="ContractorShareModel.FK__Comment__Created__6225902D" />
-        <AssociationConnector Association="ContractorShareModel.FK__Comment__Service__6319B466" />
-        <AssociationConnector Association="ContractorShareModel.FK__Comment__TaskID__640DD89F" />
-        <AssociationConnector Association="ContractorShareModel.FK__Preferenc__UserI__3CF40B7E" />
-        <AssociationConnector Association="ContractorShareModel.FK__Proposal__FromUs__7CD98669" />
-        <AssociationConnector Association="ContractorShareModel.FK__Proposal__Servic__7BE56230" />
-        <AssociationConnector Association="ContractorShareModel.FK__Proposal__Status__7EC1CEDB" />
-        <AssociationConnector Association="ContractorShareModel.FK__Proposal__ToUser__7DCDAAA2" />
-        <AssociationConnector Association="ContractorShareModel.FK__Rating__FromUser__1881A0DE" />
-        <AssociationConnector Association="ContractorShareModel.FK__Rating__ServiceI__1975C517" />
-        <AssociationConnector Association="ContractorShareModel.FK__Rating__ToUserID__1A69E950" />
-        <AssociationConnector Association="ContractorShareModel.FK__Service__ClientI__51EF2864" />
-        <AssociationConnector Association="ContractorShareModel.FK__Service__StatusI__6ABAD62E" />
-        <AssociationConnector Association="ContractorShareModel.FK__Task__ServiceID__5D60DB10" />
-        <AssociationConnector Association="ContractorShareModel.FK__Task__StatusID__6BAEFA67" />
-        <AssociationConnector Association="ContractorShareModel.FK__Suggestio__Creat__336AA144" />
-        <AssociationConnector Association="ContractorShareModel.FK__UserCateg__UserI__13BCEBC1" />
-        <AssociationConnector Association="ContractorShareModel.FK__UserDenun__FromU__382F5661" />
-        <AssociationConnector Association="ContractorShareModel.FK__UserFavou__FromU__41B8C09B" />
-        <AssociationConnector Association="ContractorShareModel.FK__UserFavou__ToUse__42ACE4D4" />
+      <Diagram DiagramId="e8e756c076f74ed29ffaba2d0132db05" Name="Diagram1">
+        <EntityTypeShape EntityType="ContractorShareModel.Appointment" Width="1.5" PointX="6" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContractorShareModel.Bug" Width="1.5" PointX="3" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContractorShareModel.Category" Width="1.5" PointX="6.75" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContractorShareModel.Comment" Width="1.5" PointX="3" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContractorShareModel.Preference" Width="1.5" PointX="3" PointY="25.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContractorShareModel.Proposal" Width="1.5" PointX="6" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContractorShareModel.Rating" Width="1.5" PointX="6" PointY="25.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContractorShareModel.Service" Width="1.5" PointX="9" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContractorShareModel.Status" Width="1.5" PointX="6.75" PointY="29.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContractorShareModel.Suggestion" Width="1.5" PointX="3" PointY="42.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContractorShareModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContractorShareModel.Task" Width="1.5" PointX="11.25" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContractorShareModel.User" Width="1.5" PointX="0.75" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContractorShareModel.UserCategory" Width="1.5" PointX="3" PointY="22.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContractorShareModel.UserDenunce" Width="1.5" PointX="3" PointY="47.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContractorShareModel.UserFavourite" Width="1.5" PointX="3" PointY="50.75" IsExpanded="true" />
+        <AssociationConnector Association="ContractorShareModel.FK__Appointme__Clien__2C3393D0" ManuallyRouted="false" />
+        <AssociationConnector Association="ContractorShareModel.FK__Appointme__Contr__2D27B809" ManuallyRouted="false" />
+        <AssociationConnector Association="ContractorShareModel.FK__Appointme__Servi__2E1BDC42" ManuallyRouted="false" />
+        <AssociationConnector Association="ContractorShareModel.FK__Appointme__Statu__2F10007B" ManuallyRouted="false" />
+        <AssociationConnector Association="ContractorShareModel.FK__Bug__CreatedByUs__300424B4" ManuallyRouted="false" />
+        <AssociationConnector Association="ContractorShareModel.FK__Service__Categor__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="ContractorShareModel.FK__UserCateg__Categ__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="ContractorShareModel.FK__Comment__Created__30F848ED" ManuallyRouted="false" />
+        <AssociationConnector Association="ContractorShareModel.FK__Comment__Service__31EC6D26" ManuallyRouted="false" />
+        <AssociationConnector Association="ContractorShareModel.FK__Comment__TaskID__32E0915F" ManuallyRouted="false" />
+        <AssociationConnector Association="ContractorShareModel.FK__Preferenc__UserI__33D4B598" ManuallyRouted="false" />
+        <AssociationConnector Association="ContractorShareModel.FK__Proposal__FromUs__34C8D9D1" ManuallyRouted="false" />
+        <AssociationConnector Association="ContractorShareModel.FK__Proposal__Servic__35BCFE0A" ManuallyRouted="false" />
+        <AssociationConnector Association="ContractorShareModel.FK__Proposal__Status__36B12243" ManuallyRouted="false" />
+        <AssociationConnector Association="ContractorShareModel.FK__Proposal__ToUser__37A5467C" ManuallyRouted="false" />
+        <AssociationConnector Association="ContractorShareModel.FK__Rating__FromUser__38996AB5" ManuallyRouted="false" />
+        <AssociationConnector Association="ContractorShareModel.FK__Rating__ServiceI__398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="ContractorShareModel.FK__Rating__ToUserID__3A81B327" ManuallyRouted="false" />
+        <AssociationConnector Association="ContractorShareModel.FK__Service__ClientI__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="ContractorShareModel.FK__Service__StatusI__3D5E1FD2" ManuallyRouted="false" />
+        <AssociationConnector Association="ContractorShareModel.FK__Task__ServiceID__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="ContractorShareModel.FK__Task__StatusID__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="ContractorShareModel.FK__Suggestio__Creat__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="ContractorShareModel.FK__UserCateg__UserI__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="ContractorShareModel.FK__UserDenun__FromU__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="ContractorShareModel.FK__UserFavou__FromU__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="ContractorShareModel.FK__UserFavou__ToUse__44FF419A" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

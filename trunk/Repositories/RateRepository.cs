@@ -27,7 +27,7 @@ namespace ContractorShareService.Repositories
                     rating1 = rate.Rating
                 };
 
-                db.Rating.Add(newrate);
+                db.Ratings.Add(newrate);
                 db.SaveChanges();
                 int id = (int)newrate.ID;
 
@@ -47,7 +47,7 @@ namespace ContractorShareService.Repositories
         {
             try
             {
-                List<Rating> rates = (from rating in db.Rating
+                List<Rating> rates = (from rating in db.Ratings
                                         where rating.FromUserID == UserID
                                         select rating).ToList();
 

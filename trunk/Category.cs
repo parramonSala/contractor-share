@@ -14,16 +14,19 @@ namespace ContractorShareService
     
     public partial class Category
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Category()
         {
-            this.Service = new HashSet<Service>();
-            this.UserCategory = new HashSet<UserCategory>();
+            this.Services = new HashSet<Service>();
+            this.UserCategories = new HashSet<UserCategory>();
         }
     
         public int ID { get; set; }
         public string Description { get; set; }
     
-        public virtual ICollection<Service> Service { get; set; }
-        public virtual ICollection<UserCategory> UserCategory { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Service> Services { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserCategory> UserCategories { get; set; }
     }
 }
