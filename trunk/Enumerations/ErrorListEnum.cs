@@ -67,6 +67,12 @@ namespace ContractorShareService.Enumerations
         Denunce_UserNotExistError = -20,
         [Description("Add denunce other error")]
         Denunce_Error = -21,
+        [Description("BlockUser: There's no denunce")]
+        UserDenunceNotExists = -26,
+        [Description("BlockUser: User is already blocked")]
+        UserAlreadyBlocked = -27,
+        [Description("BlockUser: Other Error")]
+        BlockUserOtherError = -28,
 
         //STATUS ERROR
         [Description("GetStatusID other error")]

@@ -57,5 +57,22 @@ namespace ContractorShareService.Controllers
             }
         }
 
+        public double GetUserAverage(int UserID)
+        {
+            try
+            {
+                string message = string.Format("Executing GetUserAverage for user {0}", UserID.ToString());
+                Logger.Info(message);
+
+                return _rateRepository.GetUserAverage(UserID);
+            }
+            catch (Exception ex)
+            {
+                string error_message = string.Format("Error executing GetUserAverage for user {0}", UserID.ToString());
+                Logger.Error(error_message, ex);
+                return -1;
+            }
+        }
+
     }
 }

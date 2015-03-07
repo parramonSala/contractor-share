@@ -352,5 +352,64 @@ namespace ContractorShareService.Repositories
                 return EnumHelper.GetDescription(ErrorListEnum.Denunce_Error);
             }
         }
+
+        public bool UserDenunceExists(int FromUser, int ToUser)
+        {
+            try
+            {
+                var denunce = from userdenunce in db.UserDenunces
+                              where userdenunce.FromUserID == FromUser
+                              && userdenunce.ToUserID == ToUser
+                              select userdenunce;
+                return (denunce.Count() != 0);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error UserRepository.UserDenunceExists", ex);
+                return false;
+            }
+        }
+
+        public bool UserIsBlocked(int FromUser, int ToUser)
+        {
+            try
+            {
+                var denunce = from userdenunce in db.UserDenunces
+                              where userdenunce.FromUserID == FromUser
+                              && userdenunce.ToUserID == ToUser
+                              && userdenunce.BlockUser == true
+                              select userdenunce;
+                return (denunce.Count() != 0);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error UserRepository.UserIsBlocked", ex);
+                return false;
+            }
+        }
+
+        public string BlockUser(int FromUser, int ToUser)
+        {
+            try
+            {
+                var denunce = from userdenunce in db.UserDenunces
+                            where userdenunce.FromUserID == FromUser
+                            && userdenunce.ToUserID == ToUser
+                              select userdenunce;
+
+                UserDenunce matched_denunce = denunce.FirstOrDefault();
+
+                matched_denunce.BlockUser = true;
+
+                db.SaveChanges();
+
+                return EnumHelper.GetDescription(ErrorListEnum.OK);
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("Error when blocking a user: {0}", ex);
+                return EnumHelper.GetDescription(ErrorListEnum.BlockUserOtherError);
+            }
+        }
     }
 }

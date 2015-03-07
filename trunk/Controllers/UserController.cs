@@ -224,5 +224,37 @@ namespace ContractorShareService.Controllers
             }
         
         }
+
+        public string BlockUser(int FromUser, int ToUser)
+        {
+            try
+            {
+                string message = string.Format("Executing BlockUser(From {0}, To {1})", FromUser.ToString(), ToUser.ToString());
+                Logger.Info(message);
+
+                if (!_userRepository.UserIdExists(FromUser) || !_userRepository.UserIdExists(ToUser))
+                {
+                    return EnumHelper.GetDescription(ErrorListEnum.Denunce_UserNotExistError);
+                }
+
+                if (!_userRepository.UserDenunceExists(FromUser,ToUser))
+                {
+                    return EnumHelper.GetDescription(ErrorListEnum.UserDenunceNotExists);
+                }
+
+                if (_userRepository.UserIsBlocked(FromUser, ToUser))
+                {
+                    return EnumHelper.GetDescription(ErrorListEnum.UserAlreadyBlocked);
+                }
+
+                return _userRepository.BlockUser(FromUser, ToUser);
+            }
+            catch (Exception ex)
+            {
+                string error_message = string.Format("Error executing AddFavourite(From {0}, To {1})", FromUser.ToString(), ToUser.ToString());
+                Logger.Error(error_message, ex);
+                return EnumHelper.GetDescription(ErrorListEnum.Favourite_Error);
+            }
+        }
     }
 }

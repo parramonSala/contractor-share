@@ -33,6 +33,16 @@ namespace ContractorShareService.Repositories
 
                 Logger.Info(String.Format("RateRepository.AddRate: created rate {0} ", id.ToString()));
 
+                //Update User's
+                double averageRate = Convert.ToDouble(from user in db.Users
+                                     where id == rate.ToUserId
+                                     select user.CAverageRate.Value);
+
+                int numOfRates = 0;
+
+
+
+
                 return EnumHelper.GetDescription(ErrorListEnum.OK);
             }
             catch (Exception ex)
@@ -48,8 +58,8 @@ namespace ContractorShareService.Repositories
             try
             {
                 List<Rating> rates = (from rating in db.Ratings
-                                        where rating.FromUserID == UserID
-                                        select rating).ToList();
+                                      where rating.ToUserID == UserID
+                                      select rating).ToList();
 
                 List<Rate> userRates = new List<Rate>();
 
@@ -74,6 +84,38 @@ namespace ContractorShareService.Repositories
                 return null;
             }
         
+        }
+
+        public double GetUserAverage(int UserID)
+        {
+            try
+            {
+                List<Rating> rates = (from rating in db.Ratings
+                                      where rating.FromUserID == UserID
+                                      select rating).ToList();
+
+                List<Rate> userRates = new List<Rate>();
+
+                foreach (Rating rating in rates)
+                {
+                    Rate rate = new Rate();
+                    rate.FromUserId = rating.FromUserID;
+                    rate.ToUserId = rating.ToUserID;
+                    rate.ServiceId = (int)rating.ServiceID;
+                    rate.Title = rating.Title;
+                    rate.Comment = rating.Comment;
+                    rate.Rating = (int)rating.rating1;
+
+                    userRates.Add(rate);
+                }
+
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("Error when getting user rates list for user {0}: {1}", UserID.ToString(), ex);
+                return -1;
+            }
         }
     }
 }

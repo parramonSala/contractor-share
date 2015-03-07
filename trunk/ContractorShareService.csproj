@@ -155,9 +155,6 @@
     <Compile Include="Suggestion.cs">
       <DependentUpon>ContractorShareEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="sysdiagram.cs">
-      <DependentUpon>ContractorShareEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Task.cs">
       <DependentUpon>ContractorShareEntities.tt</DependentUpon>
     </Compile>

@@ -75,6 +75,11 @@ namespace ContractorShareService
             return _userController.AddDenunce(FromUser, ToUser, Comment, BlockUser);
         }
 
+        public string BlockUser(int FromUser, int ToUser)
+        {
+            return _userController.BlockUser(FromUser, ToUser);
+        }
+
         #endregion
 
         #region Service request operations
@@ -158,9 +163,9 @@ namespace ContractorShareService
             return _rateController.GetUserRates(UserID);
         }
 
-        public float GetUserAverageRating(int UserID)
+        public double GetUserAverageRating(int UserID)
         {
-            throw new NotImplementedException();
+            return _rateController.GetUserAverage(UserID);
         }
 
         #endregion
