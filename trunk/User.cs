@@ -58,6 +58,7 @@ namespace ContractorShareService
         public Nullable<int> CNumOfRates { get; set; }
         public Nullable<double> CAverageRate { get; set; }
         public Nullable<double> PricePerHour { get; set; }
+        public Nullable<double> CTotalRate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Appointment> Appointments { get; set; }

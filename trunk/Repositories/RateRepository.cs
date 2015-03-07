@@ -15,6 +15,7 @@ namespace ContractorShareService.Repositories
 
         public string AddRate(Rate rate)
         {
+            int id = -1;
             try
             {
                 Rating newrate = new Rating
@@ -29,19 +30,27 @@ namespace ContractorShareService.Repositories
 
                 db.Ratings.Add(newrate);
                 db.SaveChanges();
-                int id = (int)newrate.ID;
+                id = (int)newrate.ID;
 
                 Logger.Info(String.Format("RateRepository.AddRate: created rate {0} ", id.ToString()));
+            
+                //Update User Average Rate
+                Logger.Info(String.Format("RateRepository.AddRate: Updating User {0} Average Rate ", rate.ToUserId.ToString()));
 
-                //Update User's
-                double averageRate = Convert.ToDouble(from user in db.Users
-                                     where id == rate.ToUserId
-                                     select user.CAverageRate.Value);
+                User user = (from matched_user in db.Users
+                             where matched_user.ID == rate.ToUserId
+                             select matched_user).FirstOrDefault();
 
-                int numOfRates = 0;
+                double addedrate = Convert.ToDouble(user.CTotalRate) + rate.Rating;
+                int numOfRates = Convert.ToInt32(user.CNumOfRates) + 1;
 
+                user.CAverageRate = addedrate / numOfRates;
+                user.CNumOfRates = numOfRates;
 
+                db.SaveChanges();
 
+                Logger.Info(String.Format("RateRepository.AddRate: User {0} CAverageRate updated to {1}", 
+                    rate.ToUserId.ToString(), (addedrate / numOfRates).ToString()));
 
                 return EnumHelper.GetDescription(ErrorListEnum.OK);
             }
@@ -86,36 +95,22 @@ namespace ContractorShareService.Repositories
         
         }
 
-        public double GetUserAverage(int UserID)
+
+        public double GetServiceRate(int ServiceID)
         {
             try
             {
-                List<Rating> rates = (from rating in db.Ratings
-                                      where rating.FromUserID == UserID
-                                      select rating).ToList();
+                Rating rate = (from rating in db.Ratings
+                               where rating.ServiceID == ServiceID
+                               select rating).FirstOrDefault();
 
-                List<Rate> userRates = new List<Rate>();
-
-                foreach (Rating rating in rates)
-                {
-                    Rate rate = new Rate();
-                    rate.FromUserId = rating.FromUserID;
-                    rate.ToUserId = rating.ToUserID;
-                    rate.ServiceId = (int)rating.ServiceID;
-                    rate.Title = rating.Title;
-                    rate.Comment = rating.Comment;
-                    rate.Rating = (int)rating.rating1;
-
-                    userRates.Add(rate);
-                }
-
-                return 0;
+                return (double)rate.rating1;
             }
             catch (Exception ex)
             {
-                Logger.ErrorFormat("Error when getting user rates list for user {0}: {1}", UserID.ToString(), ex);
+                Logger.ErrorFormat("Error when getting rate for service {0}: {1}", ServiceID.ToString(), ex);
                 return -1;
             }
         }
     }
-}
+    }

@@ -71,7 +71,13 @@ namespace ContractorShareService
         string AddRating(int FromUser, int ToUser, int service, string title, string comment, float rate);
 
         [OperationContract]
+        List<Rate> GetUserRates(int UserID);
+
+        [OperationContract]
         double GetUserAverageRating(int UserID);
+
+        [OperationContract]
+        double GetServiceRate(int ServiceID);
     }
 
 }

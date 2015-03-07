@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ContractorShareModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ContractorShareModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Appointment">
           <Key>
             <PropertyRef Name="ID" />
@@ -154,6 +154,7 @@
           <Property Name="CNumOfRates" Type="int" />
           <Property Name="CAverageRate" Type="float" />
           <Property Name="PricePerHour" Type="float" />
+          <Property Name="CTotalRate" Type="float" />
         </EntityType>
         <EntityType Name="UserCategory">
           <Key>
@@ -677,8 +678,7 @@
             <End Role="UserFavourite" EntitySet="UserFavourite" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ContractorShareModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -880,6 +880,7 @@
           <NavigationProperty Name="UserDenunces" Relationship="Self.FK__UserDenun__FromU__4316F928" FromRole="User" ToRole="UserDenunce" />
           <NavigationProperty Name="UserFavourites" Relationship="Self.FK__UserFavou__FromU__440B1D61" FromRole="User" ToRole="UserFavourite" />
           <NavigationProperty Name="UserFavourites1" Relationship="Self.FK__UserFavou__ToUse__44FF419A" FromRole="User" ToRole="UserFavourite" />
+          <Property Name="CTotalRate" Type="Double" />
         </EntityType>
         <EntityType Name="UserCategory">
           <Key>
@@ -1599,6 +1600,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="ContractorShareModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="CTotalRate" ColumnName="CTotalRate" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="UserType" ColumnName="UserType" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
