@@ -39,6 +39,9 @@ namespace ContractorShareService
         [OperationContract]
         string AddDenunce(int FromUser, int ToUser, string Comment, bool BlockUser);
 
+        [OperationContract]
+        string BlockUser(int FromUser, int ToUser);
+
         //3.Manage Service Requests operations
         [OperationContract]
         string CreateServiceRequest(ServiceInfo servicerequest);
@@ -52,6 +55,9 @@ namespace ContractorShareService
         [OperationContract]
         string ChangeServiceStatus(int serviceID, int StatusID);
 
+        [OperationContract]
+        List<GetListServices_Result> SearchServices(SearchService Searchservice);
+
         //4.Create Task Operations
         [OperationContract]
         string CreateTask(string name, string description, int serviceId);
@@ -63,7 +69,9 @@ namespace ContractorShareService
         //6.Rating Operations
         [OperationContract]
         string AddRating(int FromUser, int ToUser, int service, string title, string comment, float rate);
-       
+
+        [OperationContract]
+        double GetUserAverageRating(int UserID);
     }
 
 }

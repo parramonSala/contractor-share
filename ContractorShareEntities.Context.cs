@@ -37,7 +37,6 @@ namespace ContractorShareService
         public virtual DbSet<Service> Services { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<Suggestion> Suggestions { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Task> Tasks { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserCategory> UserCategories { get; set; }

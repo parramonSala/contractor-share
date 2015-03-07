@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e8e756c076f74ed29ffaba2d0132db05" Name="Diagram1">
+      <Diagram DiagramId="e8e756c076f74ed29ffaba2d0132db05" Name="Diagram1" ZoomLevel="63">
         <EntityTypeShape EntityType="ContractorShareModel.Appointment" Width="1.5" PointX="6" PointY="19.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ContractorShareModel.Bug" Width="1.5" PointX="3" PointY="19.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ContractorShareModel.Category" Width="1.5" PointX="6.75" PointY="12.25" IsExpanded="true" />
@@ -15,7 +15,6 @@
         <EntityTypeShape EntityType="ContractorShareModel.Service" Width="1.5" PointX="9" PointY="19.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ContractorShareModel.Status" Width="1.5" PointX="6.75" PointY="29.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ContractorShareModel.Suggestion" Width="1.5" PointX="3" PointY="42.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ContractorShareModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ContractorShareModel.Task" Width="1.5" PointX="11.25" PointY="20.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ContractorShareModel.User" Width="1.5" PointX="0.75" PointY="17.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ContractorShareModel.UserCategory" Width="1.5" PointX="3" PointY="22.625" IsExpanded="true" />
