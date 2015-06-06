@@ -9,9 +9,14 @@ using System.Text;
 using log4net;
 using ContractorShareService.Controllers;
 using ContractorShareService.Domain;
+using System.ServiceModel.Activation;
 
 namespace ContractorShareService
 {
+    [AspNetCompatibilityRequirements
+    (RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
+
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in code, svc and config file together.
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class ContractorShare : IContractorShare
@@ -44,40 +49,40 @@ namespace ContractorShareService
         #region Profile operations
 
         //2.Profile operations
-        public string EditUserProfile(UserInfo userprofile)
+        public string EditUserProfile(string UserId, UserInfo userprofile)
         {
             return _userController.EditUserProfile(userprofile);
         }
 
-        public UserInfo GetUserProfile(int userId)
+        public UserInfo GetUserProfile(string userId)
         {
-            return _userController.GetUserProfile(userId);
+            return _userController.GetUserProfile(Convert.ToInt32(userId));
         }
 
-        public string AddFavourite(int FromUser, int ToUser)
+        public string AddFavourite(string userId, int ToUser)
         {
-            return _userController.AddFavourite(FromUser, ToUser);
+            return _userController.AddFavourite(Convert.ToInt32(userId), ToUser);
         }
 
-        public string RemoveFavourite(int FromUser, int ToUser)
+        public string RemoveFavourite(string userId, string favouriteUserId)
         {
-            return _userController.RemoveFavourite(FromUser, ToUser);
+            return _userController.RemoveFavourite(Convert.ToInt32(userId), Convert.ToInt32(favouriteUserId));
         }
 
-        public List<UserFavourite> GetUserFavourites(int FromUser)
+        public List<UserFavourite> GetUserFavourites(string userId)
         {
-            return _userController.GetUserFavourites(FromUser);
+            return _userController.GetUserFavourites(Convert.ToInt32(userId));
         }
 
 
-        public string AddDenunce(int FromUser, int ToUser, string Comment, bool BlockUser)
+        public string AddDenunce(string userId, int ToUser, string Comment, bool BlockUser)
         {
-            return _userController.AddDenunce(FromUser, ToUser, Comment, BlockUser);
+            return _userController.AddDenunce(Convert.ToInt32(userId), ToUser, Comment, BlockUser);
         }
 
-        public string BlockUser(int FromUser, int ToUser)
+        public string BlockUser(string userId, int ToUser)
         {
-            return _userController.BlockUser(FromUser, ToUser);
+            return _userController.BlockUser(Convert.ToInt32(userId), ToUser);
         }
 
         #endregion
@@ -90,19 +95,19 @@ namespace ContractorShareService
             return _serviceController.Create(servicerequest);
         }
 
-        public string EditServiceRequest(int serviceID, ServiceInfo servicerequest)
+        public string EditServiceRequest(string serviceID, ServiceInfo servicerequest)
         {
-            return _serviceController.EditServiceInfo(serviceID, servicerequest);
+            return _serviceController.EditServiceInfo(Convert.ToInt32(serviceID), servicerequest);
         }
 
-        public ServiceInfo GetServiceRequest(int serviceID)
+        public ServiceInfo GetServiceRequest(string serviceRequestId)
         {
-            return _serviceController.GetServiceInfo(serviceID);
+            return _serviceController.GetServiceInfo(Convert.ToInt32(serviceRequestId));
         }
 
-        public string ChangeServiceStatus(int serviceID, int StatusID)
+        public string ChangeServiceStatus(string serviceID, int StatusID)
         {
-            return _serviceController.ChangeServiceStatus(serviceID, StatusID);
+            return _serviceController.ChangeServiceStatus(Convert.ToInt32(serviceID), StatusID);
         }
 
         public string AddServiceComment(int serviceID, int CreatedByUserID, string CommentTitle, string CommentText)
@@ -116,9 +121,11 @@ namespace ContractorShareService
         }
 
         //Search for Available Service Requeste
-        public List<GetListServices_Result> SearchServices(SearchService Searchservice)
+        public List<GetListServices_Result> SearchServices(int CategoryId, string City, string PostCode)
         {
-            return _serviceController.GetListServices(Searchservice);
+            SearchService searchService = new SearchService();
+            //TODO: Fill parameters
+            return _serviceController.GetListServices(searchService);
         }
 
         #endregion
@@ -126,9 +133,9 @@ namespace ContractorShareService
         #region Task operations
         //4. Task operations
 
-        public string CreateTask(string name, string description, int serviceId)
+        public string CreateTask(string serviceId,string name, string description)
         {
-            return _taskController.CreateTask(name, description, serviceId);
+            return _taskController.CreateTask(name, description, Convert.ToInt32(serviceId));
         }
 
         #endregion
@@ -136,9 +143,12 @@ namespace ContractorShareService
         #region Search contractors operations
 
         //5.Search Contractors (WIP)
-        public List<GetListContractors_Result> SearchContractors(SearchContractor Searchcontractor)
+        public List<GetListContractors_Result> SearchContractors(int CategoryId, decimal LocationCoordX, decimal LocationCoordY,
+            string City, string CompanyName, double PricePerHour, int NumOfRates, double AverageRate)
         {
-            return _userController.GetListContractors(Searchcontractor);
+            SearchContractor searchContractor = new SearchContractor();
+            //TODO: Fill searchContractor with parameters
+            return _userController.GetListContractors(searchContractor);
         }
 
         #endregion
@@ -147,10 +157,10 @@ namespace ContractorShareService
 
         //6.Rating operations
 
-        public string AddRating(int fromUserId, int toUserId, int serviceId, string title, string comment, float rate)
+        public string AddRating(string userId, int toUserId, int serviceId, string title, string comment, float rate)
         {
             Domain.Rate rating = new Domain.Rate();
-            rating.FromUserId = fromUserId;
+            rating.FromUserId = Convert.ToInt32(userId);
             rating.ToUserId = toUserId;
             rating.ServiceId = serviceId;
             rating.Title = title;
@@ -159,19 +169,19 @@ namespace ContractorShareService
             return _rateController.AddRate(rating);
         }
 
-        public List<Rate> GetUserRates(int UserID)
+        public List<Rate> GetUserRates(string UserID)
         {
-            return _rateController.GetUserRates(UserID);
+            return _rateController.GetUserRates(Convert.ToInt32(UserID));
         }
 
-        public double GetUserAverageRating(int UserID)
+        public double GetUserAverageRating(string UserID)
         {
-            return _userController.GetUserAverage(UserID);
+            return _userController.GetUserAverage(Convert.ToInt32(UserID));
         }
 
-        public double GetServiceRate(int ServiceID)
+        public double GetServiceRate(string ServiceID)
         {
-            return _rateController.GetServiceRate(ServiceID);
+            return _rateController.GetServiceRate(Convert.ToInt32(ServiceID));
         }
 
         #endregion

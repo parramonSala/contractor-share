@@ -13,71 +13,95 @@ namespace ContractorShareService
     [ServiceContract]
     public interface IContractorShare
     {
-        //1.Login operations
+        //1.User operations
         [OperationContract]
+        [WebInvoke(UriTemplate = "sessions", Method = "POST", BodyStyle= WebMessageBodyStyle.Wrapped)]
         string Login(string email, string password, int TypeOfUser);
 
         [OperationContract]
+        [WebInvoke(UriTemplate = "users", Method = "POST", BodyStyle = WebMessageBodyStyle.Wrapped)]
         string Register(string email, string password, int TypeOfUser);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "users/contractors?CategoryId={CategoryId}&LocationCoordX={LocationCoordX}&LocationCoordY={LocationCoordY}&City={City}&CompanyName={CompanyName}&PricePerHour={PricePerHour}&NumOfRates={NumOfRates}&AverageRate={AverageRate}")]
+        List<GetListContractors_Result> SearchContractors(int CategoryId, decimal LocationCoordX, decimal LocationCoordY,
+            string City, string CompanyName, double PricePerHour, int NumOfRates, double AverageRate);
+        
+
+        [OperationContract]
+        [WebGet(UriTemplate = "users/{userId}/averageRating")]
+        double GetUserAverageRating(string UserID);
 
         //2.Manage profile operations
         [OperationContract]
-        string EditUserProfile(UserInfo userprofile);
+        [WebInvoke(UriTemplate = "users/{userId}/profile", Method = "POST")]
+        string EditUserProfile(string userId,UserInfo userprofile);
 
         [OperationContract]
-        UserInfo GetUserProfile(int UserId);
+        [WebGet(UriTemplate = "user/{userId}/profile")]
+        UserInfo GetUserProfile(string userId);
 
         [OperationContract]
-        string AddFavourite(int FromUser, int ToUser);
+        [WebInvoke(UriTemplate = "users/{userId}/favourites", Method = "POST", BodyStyle = WebMessageBodyStyle.Wrapped)]
+        string AddFavourite(string userId, int ToUser);
 
         [OperationContract]
-        string RemoveFavourite(int FromUser, int ToUser);
+        [WebInvoke(UriTemplate = "users/{userId}/favourites/{favouriteUserId}", Method = "DELETE", BodyStyle = WebMessageBodyStyle.Wrapped)]
+        string RemoveFavourite(string userId, string favouriteUserId);
 
         [OperationContract]
-        List<UserFavourite> GetUserFavourites(int FromUser);
+        [WebGet(UriTemplate = "user/{userId}/favourites")]
+        List<UserFavourite> GetUserFavourites(string userID);
 
         [OperationContract]
-        string AddDenunce(int FromUser, int ToUser, string Comment, bool BlockUser);
+        [WebInvoke(UriTemplate = "users/{userId}/denunces/", Method = "POST", BodyStyle = WebMessageBodyStyle.Wrapped)]
+        string AddDenunce(string userId, int ToUser, string Comment, bool BlockUser);
 
         [OperationContract]
-        string BlockUser(int FromUser, int ToUser);
+        [WebInvoke(UriTemplate = "users/{userId}/blocks/", Method = "POST")]
+        string BlockUser(string userId, int ToUser);
 
         //3.Manage Service Requests operations
         [OperationContract]
+        [WebInvoke(UriTemplate = "serviceRequests", Method = "POST")]
         string CreateServiceRequest(ServiceInfo servicerequest);
 
         [OperationContract]
-        string EditServiceRequest(int serviceID, ServiceInfo servicerequest);
+        [WebInvoke(UriTemplate = "serviceRequests/{serviceRequestId}", Method = "PUT")]
+        string EditServiceRequest(string serviceRequestId, ServiceInfo servicerequest);
 
         [OperationContract]
-        ServiceInfo GetServiceRequest(int serviceID);
+        [WebGet(UriTemplate="serviceRequests/{serviceRequestId}")]
+        ServiceInfo GetServiceRequest(string serviceRequestId);
+
+        //4. Service Operations
+        [OperationContract]
+        [WebInvoke(UriTemplate = "services/{serviceRequestId}", Method = "PUT")]
+        string ChangeServiceStatus(string serviceRequestId, int StatusID);
 
         [OperationContract]
-        string ChangeServiceStatus(int serviceID, int StatusID);
+        [WebGet(UriTemplate = "services?CategoryId={CategoryId}&City={City}&PostCode={PostCode}")]
+        List<GetListServices_Result> SearchServices(int CategoryId, string City, string PostCode);
 
         [OperationContract]
-        List<GetListServices_Result> SearchServices(SearchService Searchservice);
+        [WebGet(UriTemplate = "services/{serviceId}/serviceRate")]
+        double GetServiceRate(string ServiceID);
 
-        //4.Create Task Operations
+        //5.Create Task Operations
         [OperationContract]
-        string CreateTask(string name, string description, int serviceId);
-       
-        //5.Search Contractors
-        [OperationContract]
-        List<GetListContractors_Result> SearchContractors(SearchContractor searchcontractor);
+        [WebInvoke(UriTemplate = "services/{serviceId}/tasks", Method = "POST",BodyStyle= WebMessageBodyStyle.Wrapped)]
+        string CreateTask(string serviceId, string name, string description);
+      
 
         //6.Rating Operations
         [OperationContract]
-        string AddRating(int FromUser, int ToUser, int service, string title, string comment, float rate);
+        [WebInvoke(UriTemplate = "user/{userId}/ratings", Method = "POST", BodyStyle = WebMessageBodyStyle.Wrapped)]
+        string AddRating(string userId, int ToUser, int service, string title, string comment, float rate);
+        
 
         [OperationContract]
-        List<Rate> GetUserRates(int UserID);
-
-        [OperationContract]
-        double GetUserAverageRating(int UserID);
-
-        [OperationContract]
-        double GetServiceRate(int ServiceID);
+        [WebGet(UriTemplate="user/{userId}/ratings")]
+        List<Rate> GetUserRates(string userId);
     }
 
 }
