@@ -1,5 +1,8 @@
 obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
-bin/ContractorShareService.dll
+bin
 *.pdb
 *.dll
-obj/Debug/ContractorShareService.csproj.FileListAbsolute.txt
+obj/Debug
+AppHarbor.v11.suo
+obj/Debug/ContractorShareService.csprojResolveAssemblyReference.cache
+packages

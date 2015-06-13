@@ -15,26 +15,27 @@ namespace ContractorShareService
     {
         //1.User operations
         [OperationContract]
-        [WebInvoke(UriTemplate = "sessions", Method = "POST", BodyStyle= WebMessageBodyStyle.Wrapped)]
-        string Login(string email, string password, int TypeOfUser);
+        //TODO: Try to wrapp this into UserInfo class so that I can build the json with a wrapping class with the same name.
+        [WebInvoke(UriTemplate = "sessions", Method = "POST", BodyStyle= WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json,RequestFormat = WebMessageFormat.Json)]
+        string Login(LoginInfo loginInfo);
 
         [OperationContract]
-        [WebInvoke(UriTemplate = "users", Method = "POST", BodyStyle = WebMessageBodyStyle.Wrapped)]
-        string Register(string email, string password, int TypeOfUser);
+        [WebInvoke(UriTemplate = "users", Method = "POST", BodyStyle = WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json,RequestFormat = WebMessageFormat.Json)]
+        string Register(LoginInfo loginInfo);
 
         [OperationContract]
-        [WebGet(UriTemplate = "users/contractors?CategoryId={CategoryId}&LocationCoordX={LocationCoordX}&LocationCoordY={LocationCoordY}&City={City}&CompanyName={CompanyName}&PricePerHour={PricePerHour}&NumOfRates={NumOfRates}&AverageRate={AverageRate}")]
+        [WebGet(UriTemplate = "users/contractors?CategoryId={CategoryId}&LocationCoordX={LocationCoordX}&LocationCoordY={LocationCoordY}&City={City}&CompanyName={CompanyName}&PricePerHour={PricePerHour}&NumOfRates={NumOfRates}&AverageRate={AverageRate}", ResponseFormat = WebMessageFormat.Json,RequestFormat = WebMessageFormat.Json)]
         List<GetListContractors_Result> SearchContractors(int CategoryId, decimal LocationCoordX, decimal LocationCoordY,
             string City, string CompanyName, double PricePerHour, int NumOfRates, double AverageRate);
         
 
         [OperationContract]
-        [WebGet(UriTemplate = "users/{userId}/averageRating")]
+        [WebGet(UriTemplate = "users/{userId}/averageRating", ResponseFormat = WebMessageFormat.Json,RequestFormat = WebMessageFormat.Json)]
         double GetUserAverageRating(string UserID);
 
         //2.Manage profile operations
         [OperationContract]
-        [WebInvoke(UriTemplate = "users/{userId}/profile", Method = "POST")]
+        [WebInvoke(UriTemplate = "users/{userId}/profile", Method = "POST", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         string EditUserProfile(string userId,UserInfo userprofile);
 
         [OperationContract]
@@ -42,23 +43,23 @@ namespace ContractorShareService
         UserInfo GetUserProfile(string userId);
 
         [OperationContract]
-        [WebInvoke(UriTemplate = "users/{userId}/favourites", Method = "POST", BodyStyle = WebMessageBodyStyle.Wrapped)]
+        [WebInvoke(UriTemplate = "users/{userId}/favourites", Method = "POST", BodyStyle = WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         string AddFavourite(string userId, int ToUser);
 
         [OperationContract]
-        [WebInvoke(UriTemplate = "users/{userId}/favourites/{favouriteUserId}", Method = "DELETE", BodyStyle = WebMessageBodyStyle.Wrapped)]
+        [WebInvoke(UriTemplate = "users/{userId}/favourites/{favouriteUserId}", Method = "DELETE", BodyStyle = WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         string RemoveFavourite(string userId, string favouriteUserId);
 
         [OperationContract]
-        [WebGet(UriTemplate = "user/{userId}/favourites")]
+        [WebGet(UriTemplate = "user/{userId}/favourites", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         List<UserFavourite> GetUserFavourites(string userID);
 
         [OperationContract]
-        [WebInvoke(UriTemplate = "users/{userId}/denunces/", Method = "POST", BodyStyle = WebMessageBodyStyle.Wrapped)]
+        [WebInvoke(UriTemplate = "users/{userId}/denunces/", Method = "POST", BodyStyle = WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         string AddDenunce(string userId, int ToUser, string Comment, bool BlockUser);
 
         [OperationContract]
-        [WebInvoke(UriTemplate = "users/{userId}/blocks/", Method = "POST")]
+        [WebInvoke(UriTemplate = "users/{userId}/blocks/", Method = "POST", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         string BlockUser(string userId, int ToUser);
 
         //3.Manage Service Requests operations
@@ -67,40 +68,40 @@ namespace ContractorShareService
         string CreateServiceRequest(ServiceInfo servicerequest);
 
         [OperationContract]
-        [WebInvoke(UriTemplate = "serviceRequests/{serviceRequestId}", Method = "PUT")]
+        [WebInvoke(UriTemplate = "serviceRequests/{serviceRequestId}", Method = "PUT", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         string EditServiceRequest(string serviceRequestId, ServiceInfo servicerequest);
 
         [OperationContract]
-        [WebGet(UriTemplate="serviceRequests/{serviceRequestId}")]
+        [WebGet(UriTemplate = "serviceRequests/{serviceRequestId}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         ServiceInfo GetServiceRequest(string serviceRequestId);
 
         //4. Service Operations
         [OperationContract]
-        [WebInvoke(UriTemplate = "services/{serviceRequestId}", Method = "PUT")]
+        [WebInvoke(UriTemplate = "services/{serviceRequestId}", Method = "PUT", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         string ChangeServiceStatus(string serviceRequestId, int StatusID);
 
         [OperationContract]
-        [WebGet(UriTemplate = "services?CategoryId={CategoryId}&City={City}&PostCode={PostCode}")]
+        [WebGet(UriTemplate = "services?CategoryId={CategoryId}&City={City}&PostCode={PostCode}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         List<GetListServices_Result> SearchServices(int CategoryId, string City, string PostCode);
 
         [OperationContract]
-        [WebGet(UriTemplate = "services/{serviceId}/serviceRate")]
+        [WebGet(UriTemplate = "services/{serviceId}/serviceRate", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         double GetServiceRate(string ServiceID);
 
         //5.Create Task Operations
         [OperationContract]
-        [WebInvoke(UriTemplate = "services/{serviceId}/tasks", Method = "POST",BodyStyle= WebMessageBodyStyle.Wrapped)]
+        [WebInvoke(UriTemplate = "services/{serviceId}/tasks", Method = "POST", BodyStyle = WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         string CreateTask(string serviceId, string name, string description);
       
 
         //6.Rating Operations
         [OperationContract]
-        [WebInvoke(UriTemplate = "user/{userId}/ratings", Method = "POST", BodyStyle = WebMessageBodyStyle.Wrapped)]
+        [WebInvoke(UriTemplate = "user/{userId}/ratings", Method = "POST", BodyStyle = WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         string AddRating(string userId, int ToUser, int service, string title, string comment, float rate);
         
 
         [OperationContract]
-        [WebGet(UriTemplate="user/{userId}/ratings")]
+        [WebGet(UriTemplate = "user/{userId}/ratings", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         List<Rate> GetUserRates(string userId);
     }
 

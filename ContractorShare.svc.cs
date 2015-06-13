@@ -34,14 +34,14 @@ namespace ContractorShareService
         #region Login operations
 
         //1.Login operations
-        public string Login(string email, string password, int TypeOfUser)
+        public string Login(LoginInfo loginInfo)
         {
-            return _userController.Login(email, password, TypeOfUser);
+            return _userController.Login(loginInfo.Email, loginInfo.Password, loginInfo.UserType);
         }
 
-        public string Register(string email, string password, int TypeOfUser)
+        public string Register(LoginInfo loginInfo)
         {
-            return _userController.Register(email, password, TypeOfUser);
+            return _userController.Register(loginInfo.Email, loginInfo.Password, loginInfo.UserType);
         }
 
         #endregion
