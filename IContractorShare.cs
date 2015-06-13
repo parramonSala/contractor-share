@@ -16,11 +16,11 @@ namespace ContractorShareService
         //1.User operations
         [OperationContract]
         //TODO: Try to wrapp this into UserInfo class so that I can build the json with a wrapping class with the same name.
-        [WebInvoke(UriTemplate = "sessions", Method = "POST", ResponseFormat = WebMessageFormat.Json,RequestFormat = WebMessageFormat.Json)]
+        [WebInvoke(UriTemplate = "sessions", Method = "POST", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         string Login(LoginInfo loginInfo);
 
         [OperationContract]
-        [WebInvoke(UriTemplate = "users", Method = "POST", ResponseFormat = WebMessageFormat.Json,RequestFormat = WebMessageFormat.Json)]
+        [WebInvoke(UriTemplate = "users", Method = "POST", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json,RequestFormat = WebMessageFormat.Json)]
         string Register(LoginInfo loginInfo);
 
         [OperationContract]
