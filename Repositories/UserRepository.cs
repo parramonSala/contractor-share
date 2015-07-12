@@ -27,7 +27,7 @@ namespace ContractorShareService.Repositories
             catch (Exception ex)
             {
                 Logger.Error("Error UserRepository.UserExists", ex);
-                return false;
+                throw;
             }
         }
 
@@ -45,7 +45,7 @@ namespace ContractorShareService.Repositories
             catch (Exception ex)
             {
                 Logger.Error("Error UserRepository.UserIdExists", ex);
-                return false;
+                throw;
             }
         }
 
