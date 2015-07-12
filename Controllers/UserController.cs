@@ -39,7 +39,7 @@ namespace ContractorShareService.Controllers
             {
                 string error_message = string.Format("Error Login user {0}", email);
                 Logger.ErrorFormat("Error: {0}, exception: {1}", error_message, ex);
-                return ex.Message;
+                return ex.InnerException.Message;
             }
         }
 
