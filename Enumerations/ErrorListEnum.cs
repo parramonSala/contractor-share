@@ -14,7 +14,7 @@ namespace ContractorShareService.Enumerations
         OK = 0,
         [Description("Client doesn't exist")]
         Login_Client_NoExists = -1,
-        [Description("Password is expired")]
+        [Description("Password has expired")]
         Login_Password_Expired = -2,
         [Description("Incorrect password")]
         Login_Incorrect_Password = -3,

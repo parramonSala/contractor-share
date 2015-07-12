@@ -37,9 +37,9 @@ namespace ContractorShareService.Controllers
             }
             catch (Exception ex)
             {
-                string error_message = string.Format("Error Login user {0}", email);
-                Logger.ErrorFormat("Error: {0}, exception: {1}", error_message, ex);
-                return ex.InnerException.Message;
+                string error_message = string.Format("Login Error for user {0}, Exception: {1}", email, ex.InnerException.Message ?? ex.Message);
+                Logger.ErrorFormat(error_message);
+                return EnumHelper.GetDescription(ErrorListEnum.Login_Other_Error);
             }
         }
 
