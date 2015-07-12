@@ -39,7 +39,7 @@ namespace ContractorShareService.Controllers
             {
                 string error_message = string.Format("Error Login user {0}", email);
                 Logger.Error(error_message, ex);
-                return EnumHelper.GetDescription(ErrorListEnum.Login_Other_Error);
+                return ex.ToString();
             }
         }
 
