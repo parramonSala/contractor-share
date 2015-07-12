@@ -38,8 +38,8 @@ namespace ContractorShareService.Controllers
             catch (Exception ex)
             {
                 string error_message = string.Format("Error Login user {0}", email);
-                Logger.Error(error_message, ex);
-                return ex.ToString();
+                Logger.ErrorFormat("Error: {0}, exception: {1}", error_message, ex);
+                return ex.Message;
             }
         }
 
@@ -66,7 +66,7 @@ namespace ContractorShareService.Controllers
             catch (Exception ex)
             {
                 string error_message = string.Format("Error Register user {0}", email);
-                Logger.Error(error_message, ex);
+                Logger.ErrorFormat("Error: {0}, exception: {1}", error_message, ex);
                 return EnumHelper.GetDescription(ErrorListEnum.Register_Other_Error);
             }
         }
@@ -93,7 +93,7 @@ namespace ContractorShareService.Controllers
             catch (Exception ex)
             {
                 string error_message = string.Format("Error editing user {0}", userprofile.Email);
-                Logger.Error(error_message, ex);
+                Logger.ErrorFormat("Error: {0}, exception: {1}", error_message, ex);
                 return EnumHelper.GetDescription(ErrorListEnum.Profile_Other_Error);
             }
         }
@@ -110,7 +110,7 @@ namespace ContractorShareService.Controllers
             catch (Exception ex)
             {
                 string error_message = string.Format("Error executing GetUserProfile for user {0}", userId.ToString());
-                Logger.Error(error_message, ex);
+                Logger.ErrorFormat("Error: {0}, exception: {1}", error_message, ex);
                 return null;
             }
         }
@@ -127,7 +127,7 @@ namespace ContractorShareService.Controllers
             catch (Exception ex)
             {
                 string error_message = string.Format("Error executing GetListContractors");
-                Logger.Error(error_message, ex);
+                Logger.ErrorFormat("Error: {0}, exception: {1}", error_message, ex);
                 return null;
             }
         }
@@ -149,7 +149,7 @@ namespace ContractorShareService.Controllers
             catch (Exception ex)
             {
                 string error_message = string.Format("Error executing AddFavourite(From {0}, To {1})", FromUser.ToString(), ToUser.ToString());
-                Logger.Error(error_message, ex);
+                Logger.ErrorFormat("Error: {0}, exception: {1}", error_message, ex);
                 return EnumHelper.GetDescription(ErrorListEnum.Favourite_Error);
             }
         
@@ -172,7 +172,7 @@ namespace ContractorShareService.Controllers
             catch (Exception ex)
             {
                 string error_message = string.Format("Error executing RemoveFavourite(From {0}, To {1})", FromUser.ToString(), ToUser.ToString());
-                Logger.Error(error_message, ex);
+                Logger.ErrorFormat("Error: {0}, exception: {1}", error_message, ex);
                 return EnumHelper.GetDescription(ErrorListEnum.Favourite_Error);
             }
 
@@ -190,7 +190,7 @@ namespace ContractorShareService.Controllers
             catch (Exception ex)
             {
                 string error_message = string.Format("Error executing GetUserFavourites(From {0}, To {1})", FromUser.ToString());
-                Logger.Error(error_message, ex);
+                Logger.ErrorFormat("Error: {0}, exception: {1}", error_message, ex);
                 return null;
             }
         }
@@ -219,7 +219,7 @@ namespace ContractorShareService.Controllers
             catch (Exception ex)
             {
                 string error_message = string.Format("Error executing AddFavourite(From {0}, To {1})", FromUser.ToString(), ToUser.ToString());
-                Logger.Error(error_message, ex);
+                Logger.ErrorFormat("Error: {0}, exception: {1}", error_message, ex);
                 return EnumHelper.GetDescription(ErrorListEnum.Favourite_Error);
             }
         
@@ -252,7 +252,7 @@ namespace ContractorShareService.Controllers
             catch (Exception ex)
             {
                 string error_message = string.Format("Error executing AddFavourite(From {0}, To {1})", FromUser.ToString(), ToUser.ToString());
-                Logger.Error(error_message, ex);
+                Logger.ErrorFormat("Error: {0}, exception: {1}", error_message, ex);
                 return EnumHelper.GetDescription(ErrorListEnum.Favourite_Error);
             }
         }
@@ -269,7 +269,7 @@ namespace ContractorShareService.Controllers
             catch (Exception ex)
             {
                 string error_message = string.Format("Error executing GetUserAverage for user {0}", UserID.ToString());
-                Logger.Error(error_message, ex);
+                Logger.ErrorFormat("Error: {0}, exception: {1}", error_message, ex);
                 return -1;
             }
         }
