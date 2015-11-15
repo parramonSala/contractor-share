@@ -120,6 +120,8 @@
     <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Domain\RegisterInfo.cs" />
+    <Compile Include="Domain\LoginResult.cs" />
     <Compile Include="Domain\LoginInfo.cs" />
     <Compile Include="Domain\Rate.cs" />
     <Compile Include="Domain\SearchContractor.cs" />

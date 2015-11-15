@@ -17,11 +17,11 @@ namespace ContractorShareService
         [OperationContract]
         //TODO: Try to wrapp this into UserInfo class so that I can build the json with a wrapping class with the same name.
         [WebInvoke(UriTemplate = "sessions", Method = "POST", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        string Login(LoginInfo loginInfo);
+        LoginResult Login(LoginInfo loginInfo);
 
         [OperationContract]
         [WebInvoke(UriTemplate = "users", Method = "POST", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json,RequestFormat = WebMessageFormat.Json)]
-        string Register(LoginInfo loginInfo);
+        string Register(RegisterInfo registerinfo);
 
         [OperationContract]
         [WebGet(UriTemplate = "users/contractors?CategoryId={CategoryId}&LocationCoordX={LocationCoordX}&LocationCoordY={LocationCoordY}&City={City}&CompanyName={CompanyName}&PricePerHour={PricePerHour}&NumOfRates={NumOfRates}&AverageRate={AverageRate}", ResponseFormat = WebMessageFormat.Json,RequestFormat = WebMessageFormat.Json)]
