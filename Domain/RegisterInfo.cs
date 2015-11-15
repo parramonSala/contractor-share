@@ -7,12 +7,15 @@ using System.Runtime.Serialization;
 namespace ContractorShareService.Domain
 {
     [DataContract]
-    public class LoginInfo
+    public class RegisterInfo
     {
         [DataMember(IsRequired = true)]
         public string Email { get; set; }
 
         [DataMember(IsRequired = true)]
         public string Password { get; set; }
+
+        [DataMember(IsRequired = true)]
+        public int UserType { get; set; }
     }
 }

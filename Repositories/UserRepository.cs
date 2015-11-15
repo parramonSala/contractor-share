@@ -27,7 +27,25 @@ namespace ContractorShareService.Repositories
             catch (Exception ex)
             {
                 Logger.Error("Error UserRepository.UserExists", ex);
-                throw;
+                return false;
+            }
+        }
+
+        public bool UserExists(string mail)
+        {
+            try
+            {
+                var users = from user in db.Users
+                            where user.Email == mail
+                            && user.Active == true
+                            select user;
+                List<User> result = users.ToList();
+                return (result.Count() != 0);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error UserRepository.UserExists", ex);
+                return false;
             }
         }
 
@@ -45,7 +63,7 @@ namespace ContractorShareService.Repositories
             catch (Exception ex)
             {
                 Logger.Error("Error UserRepository.UserIdExists", ex);
-                throw;
+                return false;
             }
         }
 
@@ -88,7 +106,7 @@ namespace ContractorShareService.Repositories
             }
         }
 
-        public string Authenticate(string mail, string password)
+        public LoginResult Authenticate(string mail, string password)
         {
             try
             {
@@ -96,19 +114,24 @@ namespace ContractorShareService.Repositories
                             where user.Email == mail && user.EncPassword == password
                             select user;
 
-                if (!users.Any()) return EnumHelper.GetDescription(ErrorListEnum.Login_Incorrect_Password);
+                LoginResult loginresult = new LoginResult();
+
+                if (!users.Any()) return new LoginResult(EnumHelper.GetDescription(ErrorListEnum.Login_Incorrect_Password));
 
                 User result = users.First();
 
-                if (result.ExpDate <= DateTime.Now) return EnumHelper.GetDescription(ErrorListEnum.Login_Other_Error);
+                if (result.ExpDate <= DateTime.Now) return new LoginResult (EnumHelper.GetDescription(ErrorListEnum.Login_Other_Error));
 
-                return result.ID.ToString();
+                loginresult.UserId = result.ID;
+                loginresult.UserType = result.UserType;
+
+                return loginresult;
 
             }
             catch (Exception ex)
             {
                 Logger.Error("Error UserRepository.Login", ex);
-                return EnumHelper.GetDescription(ErrorListEnum.Login_Other_Error);
+                return new LoginResult(EnumHelper.GetDescription(ErrorListEnum.Login_Other_Error));
             }
 
         }
@@ -148,7 +171,7 @@ namespace ContractorShareService.Repositories
                         AddCategoryToTheClient(category, matcheduser.ID);
                     }
                 }
-                   
+
                 return ErrorListEnum.OK;
             }
             catch (Exception ex)
@@ -165,8 +188,8 @@ namespace ContractorShareService.Repositories
             {
                 UserCategory newUserCategory = new UserCategory
                 {
-                      UserID = clientid,
-                      CategoryID = category
+                    UserID = clientid,
+                    CategoryID = category
                 };
 
                 db.UserCategories.Add(newUserCategory);
@@ -226,18 +249,18 @@ namespace ContractorShareService.Repositories
             try
             {
                 List<int> categories = (from userCategory in db.UserCategories
-                                 where userCategory.UserID == userId
-                                 select userCategory.CategoryID).ToList();
+                                        where userCategory.UserID == userId
+                                        select userCategory.CategoryID).ToList();
 
                 return categories;
 
-                }
+            }
             catch (Exception ex)
             {
                 Logger.ErrorFormat("Error when getting user category list for user {0}: {1}", userId.ToString(), ex);
                 return null;
             }
-        
+
         }
 
         public List<GetListContractors_Result> GetListContractors(SearchContractor SearchParams)
@@ -275,7 +298,7 @@ namespace ContractorShareService.Repositories
 
                 Logger.Info(String.Format("UserRepository.AddFavourite: created favourite relationship {0} From {1} To {2}", id.ToString(), FromUser.ToString(), ToUser.ToString()));
 
-                return EnumHelper.GetDescription(ErrorListEnum.OK); 
+                return EnumHelper.GetDescription(ErrorListEnum.OK);
             }
             catch (Exception ex)
             {
@@ -313,8 +336,9 @@ namespace ContractorShareService.Repositories
                 Logger.Info(String.Format("UserRepository.GetUserFavourites: get UserFavourites from UserId {0}", FromUser.ToString()));
 
                 var userfavourites = from userfavourite in
-                                      db.UserFavourites where userfavourite.FromUserID == FromUser
-                                  select userfavourite;
+                                         db.UserFavourites
+                                     where userfavourite.FromUserID == FromUser
+                                     select userfavourite;
 
                 return userfavourites.ToList();
             }
@@ -325,7 +349,7 @@ namespace ContractorShareService.Repositories
             }
         }
 
-        public string AddDenunce(int FromUser, int ToUser, string Comment, int statusid,bool blockUser)
+        public string AddDenunce(int FromUser, int ToUser, string Comment, int statusid, bool blockUser)
         {
             try
             {
@@ -393,8 +417,8 @@ namespace ContractorShareService.Repositories
             try
             {
                 var denunce = from userdenunce in db.UserDenunces
-                            where userdenunce.FromUserID == FromUser
-                            && userdenunce.ToUserID == ToUser
+                              where userdenunce.FromUserID == FromUser
+                              && userdenunce.ToUserID == ToUser
                               select userdenunce;
 
                 UserDenunce matched_denunce = denunce.FirstOrDefault();
@@ -416,9 +440,9 @@ namespace ContractorShareService.Repositories
         {
             try
             {
-                double averagerate = (double) (from user in db.Users
-                                      where user.ID == UserID
-                                      select user.CAverageRate).FirstOrDefault();
+                double averagerate = (double)(from user in db.Users
+                                              where user.ID == UserID
+                                              select user.CAverageRate).FirstOrDefault();
                 return averagerate;
             }
             catch (Exception ex)
@@ -427,6 +451,6 @@ namespace ContractorShareService.Repositories
                 return -1;
             }
         }
-       
+
     }
 }

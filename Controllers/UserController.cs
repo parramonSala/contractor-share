@@ -15,14 +15,14 @@ namespace ContractorShareService.Controllers
         private UserRepository _userRepository = new UserRepository();
         private StatusRepository _statusRepository = new StatusRepository();
 
-        public string Login(string email, string password, int TypeOfUser)
+        public LoginResult Login(string email, string password)
         {
             try
             {
                 string message = string.Format("Executing Login for user {0}", email);
                 Logger.Info(message);
 
-                bool exists = _userRepository.UserExists(email, TypeOfUser);
+                bool exists = _userRepository.UserExists(email);
 
                 if (exists)
                 {
@@ -30,16 +30,16 @@ namespace ContractorShareService.Controllers
                 }
                 else
                 {
-                    string error_message = string.Format("Error Login: user with mail {0} and type {1} doesn't exist the DB", email, Enum.GetName(typeof(ModelEnum), TypeOfUser));
+                    string error_message = string.Format("Error Login: user with mail {0} doesn't exist in the DB", email);
                     Logger.Error(error_message);
-                    return EnumHelper.GetDescription(ErrorListEnum.Login_Client_NoExists);
+                    return new LoginResult(EnumHelper.GetDescription(ErrorListEnum.Login_Client_NoExists));
                 }
             }
             catch (Exception ex)
             {
-                string error_message = string.Format("Login Error for user {0}, Exception: {1}", email, ex.InnerException.Message ?? ex.Message);
-                Logger.ErrorFormat(error_message);
-                return EnumHelper.GetDescription(ErrorListEnum.Login_Other_Error);
+                string error_message = string.Format("Error Login user {0}", email);
+                Logger.Error(error_message, ex);
+                return new LoginResult(EnumHelper.GetDescription(ErrorListEnum.Login_Other_Error));
             }
         }
 
@@ -66,7 +66,7 @@ namespace ContractorShareService.Controllers
             catch (Exception ex)
             {
                 string error_message = string.Format("Error Register user {0}", email);
-                Logger.ErrorFormat("Error: {0}, exception: {1}", error_message, ex);
+                Logger.Error(error_message, ex);
                 return EnumHelper.GetDescription(ErrorListEnum.Register_Other_Error);
             }
         }
@@ -93,7 +93,7 @@ namespace ContractorShareService.Controllers
             catch (Exception ex)
             {
                 string error_message = string.Format("Error editing user {0}", userprofile.Email);
-                Logger.ErrorFormat("Error: {0}, exception: {1}", error_message, ex);
+                Logger.Error(error_message, ex);
                 return EnumHelper.GetDescription(ErrorListEnum.Profile_Other_Error);
             }
         }
@@ -110,7 +110,7 @@ namespace ContractorShareService.Controllers
             catch (Exception ex)
             {
                 string error_message = string.Format("Error executing GetUserProfile for user {0}", userId.ToString());
-                Logger.ErrorFormat("Error: {0}, exception: {1}", error_message, ex);
+                Logger.Error(error_message, ex);
                 return null;
             }
         }
@@ -127,7 +127,7 @@ namespace ContractorShareService.Controllers
             catch (Exception ex)
             {
                 string error_message = string.Format("Error executing GetListContractors");
-                Logger.ErrorFormat("Error: {0}, exception: {1}", error_message, ex);
+                Logger.Error(error_message, ex);
                 return null;
             }
         }
@@ -141,18 +141,18 @@ namespace ContractorShareService.Controllers
 
                 if (!_userRepository.UserIdExists(FromUser) || !_userRepository.UserIdExists(ToUser))
                 {
-                    return EnumHelper.GetDescription(ErrorListEnum.Favourite_UserNotExistError); 
+                    return EnumHelper.GetDescription(ErrorListEnum.Favourite_UserNotExistError);
                 }
 
-                return _userRepository.AddFavourite(FromUser,ToUser);
+                return _userRepository.AddFavourite(FromUser, ToUser);
             }
             catch (Exception ex)
             {
                 string error_message = string.Format("Error executing AddFavourite(From {0}, To {1})", FromUser.ToString(), ToUser.ToString());
-                Logger.ErrorFormat("Error: {0}, exception: {1}", error_message, ex);
+                Logger.Error(error_message, ex);
                 return EnumHelper.GetDescription(ErrorListEnum.Favourite_Error);
             }
-        
+
         }
 
         public string RemoveFavourite(int FromUser, int ToUser)
@@ -172,15 +172,15 @@ namespace ContractorShareService.Controllers
             catch (Exception ex)
             {
                 string error_message = string.Format("Error executing RemoveFavourite(From {0}, To {1})", FromUser.ToString(), ToUser.ToString());
-                Logger.ErrorFormat("Error: {0}, exception: {1}", error_message, ex);
+                Logger.Error(error_message, ex);
                 return EnumHelper.GetDescription(ErrorListEnum.Favourite_Error);
             }
 
         }
 
         public List<UserFavourite> GetUserFavourites(int FromUser)
-        {      
-         try
+        {
+            try
             {
                 string message = string.Format("Executing GetUserFavourites(From {0})", FromUser.ToString());
                 Logger.Info(message);
@@ -190,7 +190,7 @@ namespace ContractorShareService.Controllers
             catch (Exception ex)
             {
                 string error_message = string.Format("Error executing GetUserFavourites(From {0}, To {1})", FromUser.ToString());
-                Logger.ErrorFormat("Error: {0}, exception: {1}", error_message, ex);
+                Logger.Error(error_message, ex);
                 return null;
             }
         }
@@ -219,10 +219,10 @@ namespace ContractorShareService.Controllers
             catch (Exception ex)
             {
                 string error_message = string.Format("Error executing AddFavourite(From {0}, To {1})", FromUser.ToString(), ToUser.ToString());
-                Logger.ErrorFormat("Error: {0}, exception: {1}", error_message, ex);
+                Logger.Error(error_message, ex);
                 return EnumHelper.GetDescription(ErrorListEnum.Favourite_Error);
             }
-        
+
         }
 
         public string BlockUser(int FromUser, int ToUser)
@@ -237,7 +237,7 @@ namespace ContractorShareService.Controllers
                     return EnumHelper.GetDescription(ErrorListEnum.Denunce_UserNotExistError);
                 }
 
-                if (!_userRepository.UserDenunceExists(FromUser,ToUser))
+                if (!_userRepository.UserDenunceExists(FromUser, ToUser))
                 {
                     return EnumHelper.GetDescription(ErrorListEnum.UserDenunceNotExists);
                 }
@@ -252,7 +252,7 @@ namespace ContractorShareService.Controllers
             catch (Exception ex)
             {
                 string error_message = string.Format("Error executing AddFavourite(From {0}, To {1})", FromUser.ToString(), ToUser.ToString());
-                Logger.ErrorFormat("Error: {0}, exception: {1}", error_message, ex);
+                Logger.Error(error_message, ex);
                 return EnumHelper.GetDescription(ErrorListEnum.Favourite_Error);
             }
         }
@@ -269,7 +269,7 @@ namespace ContractorShareService.Controllers
             catch (Exception ex)
             {
                 string error_message = string.Format("Error executing GetUserAverage for user {0}", UserID.ToString());
-                Logger.ErrorFormat("Error: {0}, exception: {1}", error_message, ex);
+                Logger.Error(error_message, ex);
                 return -1;
             }
         }
