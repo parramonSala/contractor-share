@@ -27,6 +27,9 @@ namespace ContractorShareService.Domain
 
         public LoginResult()
         {
+            UserId = -1;
+            UserType = -1;
+            error = "-1";
         }
             
     }
