@@ -9,10 +9,13 @@ namespace ContractorShareService.Domain
     [DataContract]
     public class LoginResult
     {
+        [DataMember(IsRequired = true)]
         public int UserId { get; set; }
 
+        [DataMember(IsRequired = true)]
         public int UserType { get; set; }
 
+        [DataMember(IsRequired = true)]
         public string error { get; set; }
 
         public LoginResult(string errormessage)
