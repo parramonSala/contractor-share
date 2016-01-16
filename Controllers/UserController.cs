@@ -6,6 +6,7 @@ using log4net;
 using ContractorShareService.Repositories;
 using ContractorShareService.Enumerations;
 using ContractorShareService.Domain;
+using System.Net.Mail;
 
 namespace ContractorShareService.Controllers
 {
@@ -271,6 +272,68 @@ namespace ContractorShareService.Controllers
                 string error_message = string.Format("Error executing GetUserAverage for user {0}", UserID.ToString());
                 Logger.Error(error_message, ex);
                 return -1;
+            }
+        }
+
+        public string ResetPassword(string email)
+        {
+            try
+            {
+                string message = string.Format("Executing ResetPassword for user {0}", email);
+                Logger.Info(message);
+
+                if (_userRepository.UserExists(email))
+                {
+                    string temporalpassword = _userRepository.ResetPassword(email);
+
+                    if (temporalpassword != "-1")
+                    {
+                        if (SendEmail(temporalpassword, email)) return EnumHelper.GetDescription(ErrorListEnum.OK);
+                        else return EnumHelper.GetDescription(ErrorListEnum.Send_Email_Other_Error);
+                    }
+                    else
+                    {
+                        return EnumHelper.GetDescription(ErrorListEnum.Reset_Password_Other_Error);
+                    }
+                }
+                else return EnumHelper.GetDescription(ErrorListEnum.Reset_Password_UserNotExist);
+            }
+            catch (Exception ex)
+            {
+                string error_message = string.Format("Error Reset Password for user {0}", email);
+                Logger.Error(error_message, ex);
+                return EnumHelper.GetDescription(ErrorListEnum.Reset_Password_Other_Error);
+            }
+        }
+
+        private bool SendEmail(string temporalpassword, string email)
+        {
+            try
+            {
+                string message = string.Format("Executing SendEmail to {0}", email);
+                Logger.Info(message);
+
+                MailMessage mail = new MailMessage();
+                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+
+                mail.From = new MailAddress("findmyhandyman@gmail.com");
+                mail.To.Add(email);
+                mail.Subject = "ContractorShare Reset Password";
+                mail.Body = "ContractorShare recently received a request to reset your password. Your new temporal password is "
+                    + temporalpassword + ". This password will expire in 24 hours, so please log into your ContractorShare account and change your password";
+                SmtpServer.Port = 587;
+                SmtpServer.Credentials = new System.Net.NetworkCredential("findmyhandyman@gmail.com", "contractorshare");
+                SmtpServer.EnableSsl = true;
+
+                SmtpServer.Send(mail);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                string error_message = string.Format("Error Send Email");
+                Logger.Error(error_message, ex);
+                return false;
             }
         }
     }

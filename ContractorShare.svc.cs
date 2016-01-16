@@ -44,6 +44,11 @@ namespace ContractorShareService
             return _userController.Register(registerinfo.Email, registerinfo.Password, registerinfo.UserType);
         }
 
+        public string ResetPassword(ResetPasswordInfo resetpasswordinfo)
+        {
+            return _userController.ResetPassword(resetpasswordinfo.Email);
+        }
+
         #endregion
 
         #region Profile operations

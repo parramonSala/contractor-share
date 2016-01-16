@@ -29,6 +29,12 @@ namespace ContractorShareService.Enumerations
         [Description("Register: error user already exists")]
         Register_User_Exists = -7,
 
+        //Reset Password Errors
+        [Description("Not controlled reset password error")]
+        Reset_Password_Other_Error = -30,
+        [Description("Reset Password: error user doesn't exist")]
+        Reset_Password_UserNotExist = -31,
+
         //Profile Errors
         [Description("Client firstname or surname missing")]
         Profile_ClientNameMissing = -8,
@@ -87,7 +93,11 @@ namespace ContractorShareService.Enumerations
 
         //COMMENTS ERROR
         [Description("Not controled Comment Error")]
-        Comment_AddError = -25
+        Comment_AddError = -25,
+
+        //Send Email
+        [Description("Not controled Send Email Error")]
+        Send_Email_Other_Error = -32
 
     }
 }
