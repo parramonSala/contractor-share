@@ -13,7 +13,7 @@ namespace ContractorShareService.Repositories
         protected static ILog Logger = LogManager.GetLogger(typeof(ServiceRepository));
         private ContractorShareEntities db = new ContractorShareEntities();
 
-        public int CreateService(ServiceInfo servicerequest)
+        public string CreateService(ServiceInfo servicerequest)
         {
             try
             {
@@ -34,16 +34,15 @@ namespace ContractorShareService.Repositories
 
                 db.Services.Add(newservice);
                 db.SaveChanges();
-                int id = (int)newservice.ID;
 
-                Logger.Info(String.Format("ServiceRepository.CreateService: created service with ID {0}", id));
+                Logger.Info(String.Format("ServiceRepository.CreateService: created service"));
 
-                return id;
+                return EnumHelper.GetDescription(ErrorListEnum.OK);
             }
             catch (Exception ex)
             {
                 Logger.Error("Error ServiceRepository.CreateService", ex);
-                return (int)(ErrorListEnum.Service_Create_Error);
+                return ex.ToString();
             }
         }
 

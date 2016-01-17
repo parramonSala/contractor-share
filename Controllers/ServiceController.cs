@@ -21,10 +21,7 @@ namespace ContractorShareService.Controllers
                 string message = string.Format("Executing Create ServiceRequest");
                 Logger.Info(message);
 
-                int id = _serviceRepository.CreateService(servicerequest);
-
-                if (id < 0) return EnumHelper.GetDescription(ErrorListEnum.Service_Create_Error);
-                else return id.ToString();
+                return _serviceRepository.CreateService(servicerequest);
             }
             catch (Exception ex)
             {

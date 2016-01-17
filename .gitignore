@@ -6,3 +6,7 @@ obj/Debug
 AppHarbor.v11.suo
 obj/Debug/ContractorShareService.csprojResolveAssemblyReference.cache
 packages
+
+ContractorShareService.v11.suo
+*.suo
+Web.config
