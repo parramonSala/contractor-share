@@ -94,7 +94,7 @@ namespace ContractorShareService.Repositories
                                select service;
 
                 Service selectedService = services.FirstOrDefault();
-                selectedService.StatusID = (int)ServiceStatusEnum.Closed;
+                selectedService.StatusID = (int)ServiceStatusEnum.Completed;
 
                 db.SaveChanges();
                 return EnumHelper.GetDescription(ErrorListEnum.OK);

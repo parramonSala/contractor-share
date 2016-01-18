@@ -150,6 +150,84 @@ namespace ContractorShareService.Repositories
             }
         }
 
+        public List<ServiceInfo> GetMyCurrentServices(int client)
+        {
+            try
+            {
+                var services = from service in db.Services
+                               where service.ClientID == client
+                               && (service.StatusID == (int)ServiceStatusEnum.Open|| service.StatusID == (int)ServiceStatusEnum.InProgress)
+                               select service;
+
+                List<ServiceInfo> serviceinfolist = new List<ServiceInfo>();
+
+                foreach (var s in services)
+                {
+                    ServiceInfo serviceinfo = new ServiceInfo();
+
+                    serviceinfo.Name = s.Name;
+                    serviceinfo.Description = s.Description;
+                    serviceinfo.StatusID = s.StatusID;
+                    serviceinfo.Address = s.Address;
+                    serviceinfo.PostalCode = s.PostalCode;
+                    serviceinfo.City = s.City;
+                    serviceinfo.Country = s.Country;
+                    serviceinfo.CoordX = s.CoordX;
+                    serviceinfo.CoordY = s.CoordY;
+                    serviceinfo.ClientID = s.ClientID;
+                    serviceinfo.CategoryID = s.CategoryID;
+
+                    serviceinfolist.Add(serviceinfo);
+                }
+
+                return serviceinfolist;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error ServiceRepository.GetMyCurrentServices", ex);
+                return null;
+            }
+        }
+
+        public List<ServiceInfo> GetMyCompletedServices(int client)
+        {
+            try
+            {
+                var services = from service in db.Services
+                               where service.ClientID == client
+                               && (service.StatusID == (int)ServiceStatusEnum.Completed || service.StatusID == (int)ServiceStatusEnum.Cancelled)
+                               select service;
+
+                List<ServiceInfo> serviceinfolist = new List<ServiceInfo>();
+
+                foreach (var s in services)
+                {
+                    ServiceInfo serviceinfo = new ServiceInfo();
+
+                    serviceinfo.Name = s.Name;
+                    serviceinfo.Description = s.Description;
+                    serviceinfo.StatusID = s.StatusID;
+                    serviceinfo.Address = s.Address;
+                    serviceinfo.PostalCode = s.PostalCode;
+                    serviceinfo.City = s.City;
+                    serviceinfo.Country = s.Country;
+                    serviceinfo.CoordX = s.CoordX;
+                    serviceinfo.CoordY = s.CoordY;
+                    serviceinfo.ClientID = s.ClientID;
+                    serviceinfo.CategoryID = s.CategoryID;
+
+                    serviceinfolist.Add(serviceinfo);
+                }
+
+                return serviceinfolist;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error ServiceRepository.GetMyCurrentServices", ex);
+                return null;
+            }
+        }
+
         public int AddComment(int serviceID, int UserID, string Comment_Title, string Comment_Text)
         {
             try

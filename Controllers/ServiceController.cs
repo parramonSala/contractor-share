@@ -66,6 +66,40 @@ namespace ContractorShareService.Controllers
             }
         }
 
+        public List<ServiceInfo> GetMyCurrentServices(int ClientId)
+        {
+            try
+            {
+                string message = string.Format("Executing GetMyServices {0}", ClientId.ToString());
+                Logger.Info(message);
+
+                return _serviceRepository.GetMyCurrentServices(ClientId);
+            }
+            catch (Exception ex)
+            {
+                string error_message = string.Format("Error Getting Services for client {0}", ClientId.ToString());
+                Logger.Error(error_message, ex);
+                return null;
+            }
+        }
+
+        public List<ServiceInfo> GetMyCompletedServices(int ClientId)
+        {
+            try
+            {
+                string message = string.Format("Executing GetMyServices {0}", ClientId.ToString());
+                Logger.Info(message);
+
+                return _serviceRepository.GetMyCompletedServices(ClientId);
+            }
+            catch (Exception ex)
+            {
+                string error_message = string.Format("Error Getting Services for client {0}", ClientId.ToString());
+                Logger.Error(error_message, ex);
+                return null;
+            }
+        }
+
         public string ChangeServiceStatus(int ServiceId, int StatusId)
         {
             try

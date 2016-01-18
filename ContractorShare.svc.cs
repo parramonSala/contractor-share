@@ -110,6 +110,16 @@ namespace ContractorShareService
             return _serviceController.GetServiceInfo(Convert.ToInt32(serviceRequestId));
         }
 
+        public List<ServiceInfo> GetMyCurrentServices(int clientId)
+        {
+            return _serviceController.GetMyCurrentServices(clientId);
+        }
+
+        public List<ServiceInfo> GetMyCompletedServices(int clientId)
+        {
+            return _serviceController.GetMyCompletedServices(clientId);
+        }
+
         public string ChangeServiceStatus(string serviceID, int StatusID)
         {
             return _serviceController.ChangeServiceStatus(Convert.ToInt32(serviceID), StatusID);

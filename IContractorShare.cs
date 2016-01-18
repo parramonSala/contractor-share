@@ -79,6 +79,14 @@ namespace ContractorShareService
         [WebGet(UriTemplate = "serviceRequests/{serviceRequestId}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         ServiceInfo GetServiceRequest(string serviceRequestId);
 
+        [OperationContract]
+        [WebGet(ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        List<ServiceInfo> GetMyCurrentServices(int clientId);
+
+        [OperationContract]
+        [WebGet(ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        List<ServiceInfo> GetMyCompletedServices(int clientId);
+
         //4. Service Operations
         [OperationContract]
         [WebInvoke(UriTemplate = "services/{serviceRequestId}", Method = "PUT", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
