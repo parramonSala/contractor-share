@@ -9,6 +9,8 @@ namespace ContractorShareService.Domain
     public class ServiceInfo
     {
         [DataMember]
+        public int Id { get; set; }
+        [DataMember]
         public string Name { get; set; }
         [DataMember]
         public string Description { get; set; }

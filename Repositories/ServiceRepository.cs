@@ -90,6 +90,7 @@ namespace ContractorShareService.Repositories
 
                 ServiceInfo serviceinfo = new ServiceInfo();
 
+                serviceinfo.Id = serviceselected.ID;
                 serviceinfo.Name = serviceselected.Name;
                 serviceinfo.Description = serviceselected.Description;
                 serviceinfo.StatusID = serviceselected.StatusID;
@@ -165,6 +166,7 @@ namespace ContractorShareService.Repositories
                 {
                     ServiceInfo serviceinfo = new ServiceInfo();
 
+                    serviceinfo.Id = s.ID;
                     serviceinfo.Name = s.Name;
                     serviceinfo.Description = s.Description;
                     serviceinfo.StatusID = s.StatusID;
@@ -204,6 +206,7 @@ namespace ContractorShareService.Repositories
                 {
                     ServiceInfo serviceinfo = new ServiceInfo();
 
+                    serviceinfo.Id = s.ID;
                     serviceinfo.Name = s.Name;
                     serviceinfo.Description = s.Description;
                     serviceinfo.StatusID = s.StatusID;
