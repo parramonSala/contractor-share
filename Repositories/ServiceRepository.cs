@@ -74,7 +74,7 @@ namespace ContractorShareService.Repositories
             catch (Exception ex)
             {
                 Logger.ErrorFormat("Error ServiceRepository.EditService {0}: {1}", ServiceId.ToString(), ex);
-                return EnumHelper.GetDescription(ErrorListEnum.Service_Edit_Error);
+                return ex.ToString();
             }
         }
 

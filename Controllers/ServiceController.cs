@@ -45,7 +45,7 @@ namespace ContractorShareService.Controllers
             {
                 string error_message = string.Format("Error Editing ServiceRequest {0}", ServiceId.ToString());
                 Logger.Error(error_message, ex);
-                return EnumHelper.GetDescription(ErrorListEnum.Service_Edit_Error);
+                return ex.ToString();
             }
         }
 
