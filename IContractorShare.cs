@@ -24,7 +24,7 @@ namespace ContractorShareService
         string Register(RegisterInfo registerinfo);
 
         [OperationContract]
-        [WebInvoke(UriTemplate = "sessions", Method = "POST", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        [WebInvoke(UriTemplate = "resetPassword", Method = "POST", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         string ResetPassword(ResetPasswordInfo resetpasswordinfo);
 
         [OperationContract]
