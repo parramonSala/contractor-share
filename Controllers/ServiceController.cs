@@ -113,7 +113,7 @@ namespace ContractorShareService.Controllers
             {
                 string error_message = string.Format("Error ChangeServiceStatus {0}, {1}", ServiceId.ToString(), StatusId.ToString());
                 Logger.Error(error_message, ex);
-                return EnumHelper.GetDescription(ErrorListEnum.Service_Edit_Error);
+                return ex.ToString();
             }
         }
 

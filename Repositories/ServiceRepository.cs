@@ -29,7 +29,8 @@ namespace ContractorShareService.Repositories
                     CoordX = servicerequest.CoordX,
                     CoordY = servicerequest.CoordY,
                     ClientID = servicerequest.ClientID,
-                    CategoryID = servicerequest.CategoryID
+                    CategoryID = servicerequest.CategoryID,
+                    Posted = servicerequest.PostedDate
                 };
 
                 db.Services.Add(newservice);
@@ -102,6 +103,7 @@ namespace ContractorShareService.Repositories
                 serviceinfo.CoordY = serviceselected.CoordY;
                 serviceinfo.ClientID = serviceselected.ClientID;
                 serviceinfo.CategoryID = serviceselected.CategoryID;
+                serviceinfo.PostedDate = serviceselected.Posted;
 
                 return serviceinfo;
             }
@@ -130,7 +132,7 @@ namespace ContractorShareService.Repositories
             catch (Exception ex)
             {
                 Logger.ErrorFormat("Error ServiceRepository.ChangeServiceStatus {0}: {1}", ServiceId.ToString(), ex);
-                return EnumHelper.GetDescription(ErrorListEnum.Service_Edit_Error);
+                return ex.ToString();
             }
         }
 
@@ -178,6 +180,7 @@ namespace ContractorShareService.Repositories
                     serviceinfo.CoordY = s.CoordY;
                     serviceinfo.ClientID = s.ClientID;
                     serviceinfo.CategoryID = s.CategoryID;
+                    serviceinfo.PostedDate = s.Posted;
 
                     serviceinfolist.Add(serviceinfo);
                 }
@@ -218,6 +221,7 @@ namespace ContractorShareService.Repositories
                     serviceinfo.CoordY = s.CoordY;
                     serviceinfo.ClientID = s.ClientID;
                     serviceinfo.CategoryID = s.CategoryID;
+                    serviceinfo.PostedDate = s.Posted;
 
                     serviceinfolist.Add(serviceinfo);
                 }

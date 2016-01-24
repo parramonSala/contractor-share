@@ -32,5 +32,8 @@ namespace ContractorShareService.Domain
         public int ClientID { get; set; }
         [DataMember]
         public int CategoryID { get; set; }
+        [DataMember]
+        public DateTime? PostedDate { get; set; }
+
     }
 }
