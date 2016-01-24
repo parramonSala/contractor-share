@@ -24,6 +24,10 @@ namespace ContractorShareService
         string Register(RegisterInfo registerinfo);
 
         [OperationContract]
+        [WebInvoke(UriTemplate = "sessions", Method = "POST", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        string ResetPassword(ResetPasswordInfo resetpasswordinfo);
+
+        [OperationContract]
         [WebGet(UriTemplate = "users/contractors?CategoryId={CategoryId}&LocationCoordX={LocationCoordX}&LocationCoordY={LocationCoordY}&City={City}&CompanyName={CompanyName}&PricePerHour={PricePerHour}&NumOfRates={NumOfRates}&AverageRate={AverageRate}", ResponseFormat = WebMessageFormat.Json,RequestFormat = WebMessageFormat.Json)]
         List<GetListContractors_Result> SearchContractors(int CategoryId, decimal LocationCoordX, decimal LocationCoordY,
             string City, string CompanyName, double PricePerHour, int NumOfRates, double AverageRate);
@@ -74,6 +78,14 @@ namespace ContractorShareService
         [OperationContract]
         [WebGet(UriTemplate = "serviceRequests/{serviceRequestId}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         ServiceInfo GetServiceRequest(string serviceRequestId);
+
+        [OperationContract]
+        [WebGet(ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        List<ServiceInfo> GetMyCurrentServices(int clientId);
+
+        [OperationContract]
+        [WebGet(ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        List<ServiceInfo> GetMyCompletedServices(int clientId);
 
         //4. Service Operations
         [OperationContract]

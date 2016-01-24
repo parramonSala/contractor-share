@@ -13,7 +13,7 @@ namespace ContractorShareService.Repositories
         protected static ILog Logger = LogManager.GetLogger(typeof(ServiceRepository));
         private ContractorShareEntities db = new ContractorShareEntities();
 
-        public int CreateService(ServiceInfo servicerequest)
+        public string CreateService(ServiceInfo servicerequest)
         {
             try
             {
@@ -34,16 +34,15 @@ namespace ContractorShareService.Repositories
 
                 db.Services.Add(newservice);
                 db.SaveChanges();
-                int id = (int)newservice.ID;
 
-                Logger.Info(String.Format("ServiceRepository.CreateService: created service with ID {0}", id));
+                Logger.Info(String.Format("ServiceRepository.CreateService: created service"));
 
-                return id;
+                return EnumHelper.GetDescription(ErrorListEnum.OK);
             }
             catch (Exception ex)
             {
                 Logger.Error("Error ServiceRepository.CreateService", ex);
-                return (int)(ErrorListEnum.Service_Create_Error);
+                return ex.ToString();
             }
         }
 
@@ -75,7 +74,7 @@ namespace ContractorShareService.Repositories
             catch (Exception ex)
             {
                 Logger.ErrorFormat("Error ServiceRepository.EditService {0}: {1}", ServiceId.ToString(), ex);
-                return EnumHelper.GetDescription(ErrorListEnum.Service_Edit_Error);
+                return ex.ToString();
             }
         }
 
@@ -91,6 +90,7 @@ namespace ContractorShareService.Repositories
 
                 ServiceInfo serviceinfo = new ServiceInfo();
 
+                serviceinfo.Id = serviceselected.ID;
                 serviceinfo.Name = serviceselected.Name;
                 serviceinfo.Description = serviceselected.Description;
                 serviceinfo.StatusID = serviceselected.StatusID;
@@ -148,6 +148,86 @@ namespace ContractorShareService.Repositories
             {
                 Logger.Error("Error ServiceRepository.ServiceIdExists", ex);
                 return false;
+            }
+        }
+
+        public List<ServiceInfo> GetMyCurrentServices(int client)
+        {
+            try
+            {
+                var services = from service in db.Services
+                               where service.ClientID == client
+                               && (service.StatusID == (int)ServiceStatusEnum.Open|| service.StatusID == (int)ServiceStatusEnum.InProgress)
+                               select service;
+
+                List<ServiceInfo> serviceinfolist = new List<ServiceInfo>();
+
+                foreach (var s in services)
+                {
+                    ServiceInfo serviceinfo = new ServiceInfo();
+
+                    serviceinfo.Id = s.ID;
+                    serviceinfo.Name = s.Name;
+                    serviceinfo.Description = s.Description;
+                    serviceinfo.StatusID = s.StatusID;
+                    serviceinfo.Address = s.Address;
+                    serviceinfo.PostalCode = s.PostalCode;
+                    serviceinfo.City = s.City;
+                    serviceinfo.Country = s.Country;
+                    serviceinfo.CoordX = s.CoordX;
+                    serviceinfo.CoordY = s.CoordY;
+                    serviceinfo.ClientID = s.ClientID;
+                    serviceinfo.CategoryID = s.CategoryID;
+
+                    serviceinfolist.Add(serviceinfo);
+                }
+
+                return serviceinfolist;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error ServiceRepository.GetMyCurrentServices", ex);
+                return null;
+            }
+        }
+
+        public List<ServiceInfo> GetMyCompletedServices(int client)
+        {
+            try
+            {
+                var services = from service in db.Services
+                               where service.ClientID == client
+                               && (service.StatusID == (int)ServiceStatusEnum.Completed || service.StatusID == (int)ServiceStatusEnum.Cancelled)
+                               select service;
+
+                List<ServiceInfo> serviceinfolist = new List<ServiceInfo>();
+
+                foreach (var s in services)
+                {
+                    ServiceInfo serviceinfo = new ServiceInfo();
+
+                    serviceinfo.Id = s.ID;
+                    serviceinfo.Name = s.Name;
+                    serviceinfo.Description = s.Description;
+                    serviceinfo.StatusID = s.StatusID;
+                    serviceinfo.Address = s.Address;
+                    serviceinfo.PostalCode = s.PostalCode;
+                    serviceinfo.City = s.City;
+                    serviceinfo.Country = s.Country;
+                    serviceinfo.CoordX = s.CoordX;
+                    serviceinfo.CoordY = s.CoordY;
+                    serviceinfo.ClientID = s.ClientID;
+                    serviceinfo.CategoryID = s.CategoryID;
+
+                    serviceinfolist.Add(serviceinfo);
+                }
+
+                return serviceinfolist;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error ServiceRepository.GetMyCurrentServices", ex);
+                return null;
             }
         }
 

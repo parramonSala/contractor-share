@@ -5,6 +5,7 @@ using System.Web;
 using log4net;
 using ContractorShareService.Enumerations;
 using ContractorShareService.Domain;
+using System.Web.Security;
 
 namespace ContractorShareService.Repositories
 {
@@ -87,7 +88,7 @@ namespace ContractorShareService.Repositories
                     UserType = TypeOfUser,
                     Email = email,
                     EncPassword = password,
-                    ExpDate = DateTime.Now.AddDays(30),
+                    ExpDate = DateTime.Now.AddDays(120),
                     Active = true
                 };
 
@@ -452,5 +453,32 @@ namespace ContractorShareService.Repositories
             }
         }
 
+
+        public string ResetPassword(string email)
+        {
+            int error = -1;
+            try
+            {
+                var users = from user in db.Users
+                            where user.Email == email
+                            select user;
+
+                User matcheduser = users.FirstOrDefault();
+
+                string password = Membership.GeneratePassword(12, 1);
+
+                matcheduser.EncPassword = password;
+                matcheduser.ExpDate = DateTime.Now.AddDays(1);
+
+                db.SaveChanges();
+
+                return password;
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("Error when resetting user password: {0}", ex);
+                return error.ToString();
+            }
+                }
     }
 }

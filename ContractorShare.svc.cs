@@ -44,6 +44,11 @@ namespace ContractorShareService
             return _userController.Register(registerinfo.Email, registerinfo.Password, registerinfo.UserType);
         }
 
+        public string ResetPassword(ResetPasswordInfo resetpasswordinfo)
+        {
+            return _userController.ResetPassword(resetpasswordinfo.Email);
+        }
+
         #endregion
 
         #region Profile operations
@@ -103,6 +108,16 @@ namespace ContractorShareService
         public ServiceInfo GetServiceRequest(string serviceRequestId)
         {
             return _serviceController.GetServiceInfo(Convert.ToInt32(serviceRequestId));
+        }
+
+        public List<ServiceInfo> GetMyCurrentServices(int clientId)
+        {
+            return _serviceController.GetMyCurrentServices(clientId);
+        }
+
+        public List<ServiceInfo> GetMyCompletedServices(int clientId)
+        {
+            return _serviceController.GetMyCompletedServices(clientId);
         }
 
         public string ChangeServiceStatus(string serviceID, int StatusID)

@@ -22,7 +22,8 @@ namespace ContractorShareService.Enumerations
     {
         Open = 1,
         InProgress = 2,
-        Closed = 3,
+        Completed = 3,
+        Cancelled = 4
     }
 
 }
