@@ -17,6 +17,9 @@ namespace ContractorShareService.Repositories
         {
             try
             {
+                DateTime currenttime = DateTime.Now;
+                string sqlFormattedPostedDate = currenttime.ToString("yyyy-MM-dd HH:mm:ss");
+
                 Service newservice = new Service()
                 {
                     Name = servicerequest.Name,
@@ -30,7 +33,7 @@ namespace ContractorShareService.Repositories
                     CoordY = servicerequest.CoordY,
                     ClientID = servicerequest.ClientID,
                     CategoryID = servicerequest.CategoryID,
-                    Posted = servicerequest.PostedDate
+                    PostedDate = sqlFormattedPostedDate
                 };
 
                 db.Services.Add(newservice);
@@ -103,7 +106,7 @@ namespace ContractorShareService.Repositories
                 serviceinfo.CoordY = serviceselected.CoordY;
                 serviceinfo.ClientID = serviceselected.ClientID;
                 serviceinfo.CategoryID = serviceselected.CategoryID;
-                serviceinfo.PostedDate = serviceselected.Posted;
+                serviceinfo.PostedDate = serviceselected.PostedDate;
 
                 return serviceinfo;
             }
@@ -180,7 +183,7 @@ namespace ContractorShareService.Repositories
                     serviceinfo.CoordY = s.CoordY;
                     serviceinfo.ClientID = s.ClientID;
                     serviceinfo.CategoryID = s.CategoryID;
-                    serviceinfo.PostedDate = s.Posted;
+                    serviceinfo.PostedDate = s.PostedDate;
 
                     serviceinfolist.Add(serviceinfo);
                 }
@@ -221,7 +224,7 @@ namespace ContractorShareService.Repositories
                     serviceinfo.CoordY = s.CoordY;
                     serviceinfo.ClientID = s.ClientID;
                     serviceinfo.CategoryID = s.CategoryID;
-                    serviceinfo.PostedDate = s.Posted;
+                    serviceinfo.PostedDate = s.PostedDate;
 
                     serviceinfolist.Add(serviceinfo);
                 }

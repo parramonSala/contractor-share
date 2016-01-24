@@ -33,7 +33,7 @@ namespace ContractorShareService.Domain
         [DataMember]
         public int CategoryID { get; set; }
         [DataMember]
-        public DateTime? PostedDate { get; set; }
+        public string PostedDate { get; set; }
 
     }
 }
