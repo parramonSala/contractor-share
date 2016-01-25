@@ -34,6 +34,8 @@ namespace ContractorShareService.Domain
         public int CategoryID { get; set; }
         [DataMember]
         public string PostedDate { get; set; }
+        [DataMember]
+        public int? ContractorID { get; set; }
 
     }
 }

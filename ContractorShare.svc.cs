@@ -120,6 +120,16 @@ namespace ContractorShareService
             return _serviceController.GetMyCompletedServices(clientId);
         }
 
+        public List<ServiceInfo> GetOpenServicesAssignedToMe(int contractorId)
+        {
+            return _serviceController.GetOpenServicesAssignedToMe(contractorId);
+        }
+
+        public List<ServiceInfo> GetClosedServicesAssignedToMe(int contractorId)
+        {
+            return _serviceController.GetClosedServicesAssignedToMe(contractorId);
+        }
+
         public string ChangeServiceStatus(string serviceID, int StatusID)
         {
             return _serviceController.ChangeServiceStatus(Convert.ToInt32(serviceID), StatusID);

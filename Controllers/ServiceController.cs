@@ -100,6 +100,39 @@ namespace ContractorShareService.Controllers
             }
         }
 
+        public List<ServiceInfo> GetOpenServicesAssignedToMe(int ContractorId)
+        {
+            try
+            {
+                string message = string.Format("Executing GetOpenServicesAssignedToMe {0}", ContractorId.ToString());
+                Logger.Info(message);
+
+                return _serviceRepository.GetOpenServicesAssignedToMe(ContractorId);
+            }
+            catch (Exception ex)
+            {
+                string error_message = string.Format("Error Getting Open Services assigned to contractor {0}", ContractorId.ToString());
+                Logger.Error(error_message, ex);
+                return null;
+            }
+        }
+
+        public List<ServiceInfo> GetClosedServicesAssignedToMe(int ContractorId)
+        {
+            try
+            {
+                string message = string.Format("Executing GetClosedServicesAssignedToMe {0}", ContractorId.ToString());
+                Logger.Info(message);
+
+                return _serviceRepository.GetClosedServicesAssignedToMe(ContractorId);
+            }
+            catch (Exception ex)
+            {
+                string error_message = string.Format("Error Getting Closed Services assigned to contractor {0}", ContractorId.ToString());
+                Logger.Error(error_message, ex);
+                return null;
+            }
+        }
         public string ChangeServiceStatus(int ServiceId, int StatusId)
         {
             try

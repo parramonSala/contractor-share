@@ -101,6 +101,7 @@
           <Property Name="ClientID" Type="int" Nullable="false" />
           <Property Name="CategoryID" Type="int" Nullable="false" />
           <Property Name="PostedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContractorID" Type="int" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -400,6 +401,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Service__Contrac__6E01572D">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Service" Type="Self.Service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Service">
+              <PropertyRef Name="ContractorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Service__StatusI__3D5E1FD2">
           <End Role="Status" Type="Self.Status" Multiplicity="1" />
           <End Role="Service" Type="Self.Service" Multiplicity="*" />
@@ -642,6 +655,10 @@
             <End Role="User" EntitySet="User" />
             <End Role="Service" EntitySet="Service" />
           </AssociationSet>
+          <AssociationSet Name="FK__Service__Contrac__6E01572D" Association="Self.FK__Service__Contrac__6E01572D">
+            <End Role="User" EntitySet="User" />
+            <End Role="Service" EntitySet="Service" />
+          </AssociationSet>
           <AssociationSet Name="FK__Service__StatusI__3D5E1FD2" Association="Self.FK__Service__StatusI__3D5E1FD2">
             <End Role="Status" EntitySet="Status" />
             <End Role="Service" EntitySet="Service" />
@@ -805,6 +822,8 @@
           <NavigationProperty Name="Status" Relationship="Self.FK__Service__StatusI__3D5E1FD2" FromRole="Service" ToRole="Status" />
           <NavigationProperty Name="Tasks" Relationship="Self.FK__Task__ServiceID__3F466844" FromRole="Service" ToRole="Task" />
           <Property Name="PostedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContractorID" Type="Int32" />
+          <NavigationProperty Name="User1" Relationship="ContractorShareModel.FK__Service__Contrac__6E01572D" FromRole="Service" ToRole="User" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -883,6 +902,7 @@
           <NavigationProperty Name="UserFavourites" Relationship="Self.FK__UserFavou__FromU__440B1D61" FromRole="User" ToRole="UserFavourite" />
           <NavigationProperty Name="UserFavourites1" Relationship="Self.FK__UserFavou__ToUse__44FF419A" FromRole="User" ToRole="UserFavourite" />
           <Property Name="CTotalRate" Type="Double" />
+          <NavigationProperty Name="Services1" Relationship="ContractorShareModel.FK__Service__Contrac__6E01572D" FromRole="User" ToRole="Service" />
         </EntityType>
         <EntityType Name="UserCategory">
           <Key>
@@ -1409,6 +1429,10 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <AssociationSet Name="FK__Service__Contrac__6E01572D" Association="ContractorShareModel.FK__Service__Contrac__6E01572D">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Service" EntitySet="Services" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="GetListContractors_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -1461,6 +1485,18 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <Association Name="FK__Service__Contrac__6E01572D">
+          <End Type="ContractorShareModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="ContractorShareModel.Service" Role="Service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Service">
+              <PropertyRef Name="ContractorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1556,6 +1592,7 @@
           <EntitySetMapping Name="Services">
             <EntityTypeMapping TypeName="ContractorShareModel.Service">
               <MappingFragment StoreEntitySet="Service">
+                <ScalarProperty Name="ContractorID" ColumnName="ContractorID" />
                 <ScalarProperty Name="PostedDate" ColumnName="PostedDate" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
