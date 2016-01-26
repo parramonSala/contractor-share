@@ -146,11 +146,9 @@ namespace ContractorShareService
         }
 
         //Search for Available Service Requeste
-        public List<GetListServices_Result> SearchServices(int CategoryId, string City, string PostCode)
+        public List<ServiceInfo> SearchServices(int CategoryId, string City, string PostCode)
         {
-            SearchService searchService = new SearchService();
-            //TODO: Fill parameters
-            return _serviceController.GetListServices(searchService);
+            return _serviceController.GetListServices(CategoryId, City, PostCode);
         }
 
         #endregion

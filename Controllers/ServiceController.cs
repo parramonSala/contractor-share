@@ -187,14 +187,14 @@ namespace ContractorShareService.Controllers
 
 
 
-        public List<GetListServices_Result> GetListServices(SearchService Searchservice)
+        public List<ServiceInfo> GetListServices(int categoryid, string city, string postcode)
         {
             try
              {
                 string message = string.Format("Executing GetListServices");
                 Logger.Info(message);
 
-                return _serviceRepository.GetListServices(Searchservice);
+                return _serviceRepository.GetListServices(categoryid, city, postcode);
             }
             catch (Exception ex)
             {

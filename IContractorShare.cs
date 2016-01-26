@@ -103,7 +103,7 @@ namespace ContractorShareService
 
         [OperationContract]
         [WebGet(UriTemplate = "services?CategoryId={CategoryId}&City={City}&PostCode={PostCode}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        List<GetListServices_Result> SearchServices(int CategoryId, string City, string PostCode);
+        List<ServiceInfo> SearchServices(int CategoryId, string City, string PostCode);
 
         [OperationContract]
         [WebGet(UriTemplate = "services/{serviceId}/serviceRate", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]

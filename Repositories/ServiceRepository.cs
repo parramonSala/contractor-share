@@ -370,15 +370,43 @@ namespace ContractorShareService.Repositories
             }
         }
 
-        public List<GetListServices_Result> GetListServices(SearchService SearchParams)
+        public List<ServiceInfo> GetListServices(int categoryid, string city, string postcode)
         {
             try
             {
                 var services = from service in
-                                   db.GetListServices(SearchParams.CategoryId, SearchParams.City, SearchParams.PostCode)
+                               db.Services
+                               where (categoryid == 0 || service.CategoryID == categoryid)
+                               && (city == null || service.City.Contains(city))
+                               && (postcode == null || service.PostalCode.Contains(postcode))
                                select service;
 
-                return services.ToList();
+                List<ServiceInfo> serviceinfolist = new List<ServiceInfo>();
+
+                foreach (var s in services)
+                {
+                    ServiceInfo serviceinfo = new ServiceInfo();
+
+                    serviceinfo.Id = s.ID;
+                    serviceinfo.Name = s.Name;
+                    serviceinfo.Description = s.Description;
+                    serviceinfo.StatusID = s.StatusID;
+                    serviceinfo.Address = s.Address;
+                    serviceinfo.PostalCode = s.PostalCode;
+                    serviceinfo.City = s.City;
+                    serviceinfo.Country = s.Country;
+                    serviceinfo.CoordX = s.CoordX;
+                    serviceinfo.CoordY = s.CoordY;
+                    serviceinfo.ClientID = s.ClientID;
+                    serviceinfo.CategoryID = s.CategoryID;
+                    serviceinfo.PostedDate = s.PostedDate;
+                    serviceinfo.ContractorID = s.ContractorID;
+
+                    serviceinfolist.Add(serviceinfo);
+                }
+
+                return serviceinfolist;
+
             }
             catch (Exception ex)
             {
