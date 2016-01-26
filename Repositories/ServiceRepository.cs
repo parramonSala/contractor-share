@@ -376,7 +376,8 @@ namespace ContractorShareService.Repositories
             {
                 var services = from service in
                                db.Services
-                               where (categoryid == 0 || service.CategoryID == categoryid)
+                               where  service.StatusID == (int)ServiceStatusEnum.Open
+                               && (categoryid == 0 || service.CategoryID == categoryid)
                                && (city == null || service.City.Contains(city))
                                && (postcode == null || service.PostalCode.Contains(postcode))
                                select service;
