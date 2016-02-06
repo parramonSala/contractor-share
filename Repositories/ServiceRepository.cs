@@ -17,6 +17,9 @@ namespace ContractorShareService.Repositories
         {
             try
             {
+                DateTime currenttime = DateTime.Now;
+                string sqlFormattedPostedDate = currenttime.ToString("yyyy-MM-dd HH:mm:ss");
+
                 Service newservice = new Service()
                 {
                     Name = servicerequest.Name,
@@ -29,7 +32,9 @@ namespace ContractorShareService.Repositories
                     CoordX = servicerequest.CoordX,
                     CoordY = servicerequest.CoordY,
                     ClientID = servicerequest.ClientID,
-                    CategoryID = servicerequest.CategoryID
+                    CategoryID = servicerequest.CategoryID,
+                    PostedDate = sqlFormattedPostedDate,
+                    ContractorID = null
                 };
 
                 db.Services.Add(newservice);
@@ -102,6 +107,8 @@ namespace ContractorShareService.Repositories
                 serviceinfo.CoordY = serviceselected.CoordY;
                 serviceinfo.ClientID = serviceselected.ClientID;
                 serviceinfo.CategoryID = serviceselected.CategoryID;
+                serviceinfo.PostedDate = serviceselected.PostedDate;
+                serviceinfo.ContractorID = serviceselected.ContractorID;
 
                 return serviceinfo;
             }
@@ -130,7 +137,7 @@ namespace ContractorShareService.Repositories
             catch (Exception ex)
             {
                 Logger.ErrorFormat("Error ServiceRepository.ChangeServiceStatus {0}: {1}", ServiceId.ToString(), ex);
-                return EnumHelper.GetDescription(ErrorListEnum.Service_Edit_Error);
+                return ex.ToString();
             }
         }
 
@@ -178,6 +185,8 @@ namespace ContractorShareService.Repositories
                     serviceinfo.CoordY = s.CoordY;
                     serviceinfo.ClientID = s.ClientID;
                     serviceinfo.CategoryID = s.CategoryID;
+                    serviceinfo.PostedDate = s.PostedDate;
+                    serviceinfo.ContractorID = s.ContractorID;
 
                     serviceinfolist.Add(serviceinfo);
                 }
@@ -218,6 +227,8 @@ namespace ContractorShareService.Repositories
                     serviceinfo.CoordY = s.CoordY;
                     serviceinfo.ClientID = s.ClientID;
                     serviceinfo.CategoryID = s.CategoryID;
+                    serviceinfo.PostedDate = s.PostedDate;
+                    serviceinfo.ContractorID = s.ContractorID;
 
                     serviceinfolist.Add(serviceinfo);
                 }
@@ -227,6 +238,91 @@ namespace ContractorShareService.Repositories
             catch (Exception ex)
             {
                 Logger.Error("Error ServiceRepository.GetMyCurrentServices", ex);
+                return null;
+            }
+        }
+
+        
+        public List<ServiceInfo> GetOpenServicesAssignedToMe(int contractor)
+        {
+            try
+            {
+                var services = from service in db.Services
+                               where service.ContractorID == contractor
+                               && (service.StatusID == (int)ServiceStatusEnum.Open|| service.StatusID == (int)ServiceStatusEnum.InProgress)
+                               select service;
+
+                List<ServiceInfo> serviceinfolist = new List<ServiceInfo>();
+
+                foreach (var s in services)
+                {
+                    ServiceInfo serviceinfo = new ServiceInfo();
+
+                    serviceinfo.Id = s.ID;
+                    serviceinfo.Name = s.Name;
+                    serviceinfo.Description = s.Description;
+                    serviceinfo.StatusID = s.StatusID;
+                    serviceinfo.Address = s.Address;
+                    serviceinfo.PostalCode = s.PostalCode;
+                    serviceinfo.City = s.City;
+                    serviceinfo.Country = s.Country;
+                    serviceinfo.CoordX = s.CoordX;
+                    serviceinfo.CoordY = s.CoordY;
+                    serviceinfo.ClientID = s.ClientID;
+                    serviceinfo.CategoryID = s.CategoryID;
+                    serviceinfo.PostedDate = s.PostedDate;
+                    serviceinfo.ContractorID = s.ContractorID;
+
+                    serviceinfolist.Add(serviceinfo);
+                }
+
+                return serviceinfolist;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error ServiceRepository.GetOpenServicesAssignedToMe", ex);
+                return null;
+            }
+        }
+
+        public List<ServiceInfo> GetClosedServicesAssignedToMe(int contractor)
+        {
+            try
+            {
+                var services = from service in db.Services
+                               where service.ContractorID == contractor
+                               && (service.StatusID == (int)ServiceStatusEnum.Cancelled || service.StatusID == (int)ServiceStatusEnum.Completed)
+                               select service;
+
+                List<ServiceInfo> serviceinfolist = new List<ServiceInfo>();
+
+                foreach (var s in services)
+                {
+                    ServiceInfo serviceinfo = new ServiceInfo();
+
+                    serviceinfo.Id = s.ID;
+                    serviceinfo.Name = s.Name;
+                    serviceinfo.Description = s.Description;
+                    serviceinfo.StatusID = s.StatusID;
+                    serviceinfo.Address = s.Address;
+                    serviceinfo.PostalCode = s.PostalCode;
+                    serviceinfo.City = s.City;
+                    serviceinfo.Country = s.Country;
+                    serviceinfo.CoordX = s.CoordX;
+                    serviceinfo.CoordY = s.CoordY;
+                    serviceinfo.ClientID = s.ClientID;
+                    serviceinfo.CategoryID = s.CategoryID;
+                    serviceinfo.PostedDate = s.PostedDate;
+                    serviceinfo.ContractorID = s.ContractorID;
+
+                    serviceinfolist.Add(serviceinfo);
+                }
+
+                return serviceinfolist;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error ServiceRepository.GetClosedServicesAssignedToMe", ex);
                 return null;
             }
         }
@@ -274,15 +370,44 @@ namespace ContractorShareService.Repositories
             }
         }
 
-        public List<GetListServices_Result> GetListServices(SearchService SearchParams)
+        public List<ServiceInfo> GetListServices(int categoryid, string city, string postcode)
         {
             try
             {
                 var services = from service in
-                                   db.GetListServices(SearchParams.CategoryId, SearchParams.City, SearchParams.PostCode)
+                               db.Services
+                               where  service.StatusID == (int)ServiceStatusEnum.Open
+                               && (categoryid == 0 || service.CategoryID == categoryid)
+                               && (city == null || service.City.Contains(city))
+                               && (postcode == null || service.PostalCode.Contains(postcode))
                                select service;
 
-                return services.ToList();
+                List<ServiceInfo> serviceinfolist = new List<ServiceInfo>();
+
+                foreach (var s in services)
+                {
+                    ServiceInfo serviceinfo = new ServiceInfo();
+
+                    serviceinfo.Id = s.ID;
+                    serviceinfo.Name = s.Name;
+                    serviceinfo.Description = s.Description;
+                    serviceinfo.StatusID = s.StatusID;
+                    serviceinfo.Address = s.Address;
+                    serviceinfo.PostalCode = s.PostalCode;
+                    serviceinfo.City = s.City;
+                    serviceinfo.Country = s.Country;
+                    serviceinfo.CoordX = s.CoordX;
+                    serviceinfo.CoordY = s.CoordY;
+                    serviceinfo.ClientID = s.ClientID;
+                    serviceinfo.CategoryID = s.CategoryID;
+                    serviceinfo.PostedDate = s.PostedDate;
+                    serviceinfo.ContractorID = s.ContractorID;
+
+                    serviceinfolist.Add(serviceinfo);
+                }
+
+                return serviceinfolist;
+
             }
             catch (Exception ex)
             {

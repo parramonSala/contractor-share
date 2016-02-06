@@ -47,6 +47,7 @@
         <AssociationConnector Association="ContractorShareModel.FK__UserDenun__FromU__4316F928" ManuallyRouted="false" />
         <AssociationConnector Association="ContractorShareModel.FK__UserFavou__FromU__440B1D61" ManuallyRouted="false" />
         <AssociationConnector Association="ContractorShareModel.FK__UserFavou__ToUse__44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="ContractorShareModel.FK__Service__Contrac__6E01572D" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

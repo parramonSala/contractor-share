@@ -120,6 +120,16 @@ namespace ContractorShareService
             return _serviceController.GetMyCompletedServices(Convert.ToInt32(clientId));
         }
 
+        public List<ServiceInfo> GetOpenServicesAssignedToMe(int contractorId)
+        {
+            return _serviceController.GetOpenServicesAssignedToMe(contractorId);
+        }
+
+        public List<ServiceInfo> GetClosedServicesAssignedToMe(int contractorId)
+        {
+            return _serviceController.GetClosedServicesAssignedToMe(contractorId);
+        }
+
         public string ChangeServiceStatus(string serviceID, int StatusID)
         {
             return _serviceController.ChangeServiceStatus(Convert.ToInt32(serviceID), StatusID);
@@ -136,11 +146,9 @@ namespace ContractorShareService
         }
 
         //Search for Available Service Requeste
-        public List<GetListServices_Result> SearchServices(int CategoryId, string City, string PostCode)
+        public List<ServiceInfo> SearchServices(int CategoryId, string City, string PostCode)
         {
-            SearchService searchService = new SearchService();
-            //TODO: Fill parameters
-            return _serviceController.GetListServices(searchService);
+            return _serviceController.GetListServices(CategoryId, City, PostCode);
         }
 
         #endregion

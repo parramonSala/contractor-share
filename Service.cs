@@ -36,6 +36,8 @@ namespace ContractorShareService
         public decimal CoordY { get; set; }
         public int ClientID { get; set; }
         public int CategoryID { get; set; }
+        public string PostedDate { get; set; }
+        public Nullable<int> ContractorID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Appointment> Appointments { get; set; }
@@ -50,5 +52,6 @@ namespace ContractorShareService
         public virtual Status Status { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Task> Tasks { get; set; }
+        public virtual User User1 { get; set; }
     }
 }

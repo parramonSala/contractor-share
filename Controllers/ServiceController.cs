@@ -100,6 +100,39 @@ namespace ContractorShareService.Controllers
             }
         }
 
+        public List<ServiceInfo> GetOpenServicesAssignedToMe(int ContractorId)
+        {
+            try
+            {
+                string message = string.Format("Executing GetOpenServicesAssignedToMe {0}", ContractorId.ToString());
+                Logger.Info(message);
+
+                return _serviceRepository.GetOpenServicesAssignedToMe(ContractorId);
+            }
+            catch (Exception ex)
+            {
+                string error_message = string.Format("Error Getting Open Services assigned to contractor {0}", ContractorId.ToString());
+                Logger.Error(error_message, ex);
+                return null;
+            }
+        }
+
+        public List<ServiceInfo> GetClosedServicesAssignedToMe(int ContractorId)
+        {
+            try
+            {
+                string message = string.Format("Executing GetClosedServicesAssignedToMe {0}", ContractorId.ToString());
+                Logger.Info(message);
+
+                return _serviceRepository.GetClosedServicesAssignedToMe(ContractorId);
+            }
+            catch (Exception ex)
+            {
+                string error_message = string.Format("Error Getting Closed Services assigned to contractor {0}", ContractorId.ToString());
+                Logger.Error(error_message, ex);
+                return null;
+            }
+        }
         public string ChangeServiceStatus(int ServiceId, int StatusId)
         {
             try
@@ -113,7 +146,7 @@ namespace ContractorShareService.Controllers
             {
                 string error_message = string.Format("Error ChangeServiceStatus {0}, {1}", ServiceId.ToString(), StatusId.ToString());
                 Logger.Error(error_message, ex);
-                return EnumHelper.GetDescription(ErrorListEnum.Service_Edit_Error);
+                return ex.ToString();
             }
         }
 
@@ -154,14 +187,14 @@ namespace ContractorShareService.Controllers
 
 
 
-        public List<GetListServices_Result> GetListServices(SearchService Searchservice)
+        public List<ServiceInfo> GetListServices(int categoryid, string city, string postcode)
         {
             try
              {
                 string message = string.Format("Executing GetListServices");
                 Logger.Info(message);
 
-                return _serviceRepository.GetListServices(Searchservice);
+                return _serviceRepository.GetListServices(categoryid, city, postcode);
             }
             catch (Exception ex)
             {
