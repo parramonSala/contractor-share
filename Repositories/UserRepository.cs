@@ -164,12 +164,18 @@ namespace ContractorShareService.Repositories
 
                 db.SaveChanges();
 
-                //Add categories to the user if is a client
-                if (userprofile.Categories.Count() > 0)
+                /*Add categories to the user.
+                First remove the current list of categories and then
+                add the new list of categories to the user*/
+
+                if (RemoveUserCategories(matcheduser.ID) == "OK")
                 {
-                    foreach (int category in userprofile.Categories)
+                    if (userprofile.Categories.Count() > 0)
                     {
-                        AddCategoryToTheClient(category, matcheduser.ID);
+                        foreach (int category in userprofile.Categories)
+                        {
+                            AddCategoryToTheClient(category, matcheduser.ID);
+                        }
                     }
                 }
 
@@ -480,5 +486,35 @@ namespace ContractorShareService.Repositories
                 return error.ToString();
             }
                 }
+
+        public string RemoveUserCategories(int userId)
+        {
+            try
+            {
+                List<UserCategory> usercategories = new List<UserCategory>();
+
+                usercategories = (from categories in db.UserCategories
+                                  where categories.UserID == userId
+                                  select categories).ToList();
+
+                if (usercategories.Count() > 0)
+                {
+                    foreach (UserCategory usercategory in usercategories)
+                    {
+                        db.UserCategories.Remove(usercategory);
+                        db.SaveChanges();
+                    }
+                }
+
+                Logger.Info("UserRepository.RemoveUserCategories OK");
+
+                return EnumHelper.GetDescription(ErrorListEnum.OK);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error UserRepository.RemoveUserCategories", ex);
+                return ex.ToString();
+            }
+        }
     }
 }
