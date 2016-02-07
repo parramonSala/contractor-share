@@ -68,29 +68,28 @@ namespace ContractorShareService
 
         //3.Manage Service Requests operations
         [OperationContract]
-        [WebInvoke(UriTemplate = "serviceRequests", Method = "POST")]
-        string CreateServiceRequest(ServiceInfo servicerequest);
+        [WebInvoke(UriTemplate = "jobs", Method = "POST")]
+        string CreateServiceRequest(ServiceInfo jobRequest);
 
         [OperationContract]
-        [WebInvoke(UriTemplate = "serviceRequests/{serviceRequestId}", Method = "PUT", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        string EditServiceRequest(string serviceRequestId, ServiceInfo servicerequest);
+        [WebInvoke(UriTemplate = "jobs/{jobId}", Method = "PUT", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        string EditServiceRequest(string jobId, ServiceInfo servicerequest);
 
         [OperationContract]
-        [WebGet(UriTemplate = "serviceRequests/{serviceRequestId}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        ServiceInfo GetServiceRequest(string serviceRequestId);
+        [WebGet(UriTemplate = "jobs/{jobId}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        ServiceInfo GetServiceRequest(string jobId);
 
         [OperationContract]
-        [WebGet(ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        List<ServiceInfo> GetMyCurrentServices(int clientId);
+        [WebGet(UriTemplate = "users/{userId}/jobs", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        List<ServiceInfo> GetMyCurrentServices(string userId);
 
         [OperationContract]
-        [WebGet(ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        List<ServiceInfo> GetMyCompletedServices(int clientId);
+        [WebGet(UriTemplate = "users/{userId}/completedjobs",ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        List<ServiceInfo> GetMyCompletedServices(string userId);
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         List<ServiceInfo> GetOpenServicesAssignedToMe(int contractorId);
-
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
@@ -98,31 +97,31 @@ namespace ContractorShareService
 
         //4. Service Operations
         [OperationContract]
-        [WebInvoke(UriTemplate = "services/{serviceRequestId}", Method = "PUT", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        string ChangeServiceStatus(string serviceRequestId, int StatusID);
+        [WebInvoke(UriTemplate = "jobs/{jobId}/status", Method = "PUT", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        string ChangeServiceStatus(string jobId, int StatusID);
 
         [OperationContract]
-        [WebGet(UriTemplate = "services?CategoryId={CategoryId}&City={City}&PostCode={PostCode}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        [WebGet(UriTemplate = "jobs?CategoryId={CategoryId}&City={City}&PostCode={PostCode}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         List<ServiceInfo> SearchServices(int CategoryId, string City, string PostCode);
 
         [OperationContract]
-        [WebGet(UriTemplate = "services/{serviceId}/serviceRate", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        double GetServiceRate(string ServiceID);
+        [WebGet(UriTemplate = "jobs/{jobId}/jobRate", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        double GetServiceRate(string jobId);
 
         //5.Create Task Operations
         [OperationContract]
-        [WebInvoke(UriTemplate = "services/{serviceId}/tasks", Method = "POST", BodyStyle = WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        string CreateTask(string serviceId, string name, string description);
+        [WebInvoke(UriTemplate = "jobs/{jobId}/tasks", Method = "POST", BodyStyle = WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        string CreateTask(string jobId, string name, string description);
       
 
         //6.Rating Operations
         [OperationContract]
-        [WebInvoke(UriTemplate = "user/{userId}/ratings", Method = "POST", BodyStyle = WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        [WebInvoke(UriTemplate = "users/{userId}/ratings", Method = "POST", BodyStyle = WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         string AddRating(string userId, int ToUser, int service, string title, string comment, float rate);
         
 
         [OperationContract]
-        [WebGet(UriTemplate = "user/{userId}/ratings", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        [WebGet(UriTemplate = "users/{userId}/ratings", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         List<Rate> GetUserRates(string userId);
     }
 

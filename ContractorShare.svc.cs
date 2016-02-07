@@ -110,14 +110,14 @@ namespace ContractorShareService
             return _serviceController.GetServiceInfo(Convert.ToInt32(serviceRequestId));
         }
 
-        public List<ServiceInfo> GetMyCurrentServices(int clientId)
+        public List<ServiceInfo> GetMyCurrentServices(string clientId)
         {
-            return _serviceController.GetMyCurrentServices(clientId);
+            return _serviceController.GetMyCurrentServices(Convert.ToInt32(clientId));
         }
 
-        public List<ServiceInfo> GetMyCompletedServices(int clientId)
+        public List<ServiceInfo> GetMyCompletedServices(string clientId)
         {
-            return _serviceController.GetMyCompletedServices(clientId);
+            return _serviceController.GetMyCompletedServices(Convert.ToInt32(clientId));
         }
 
         public List<ServiceInfo> GetOpenServicesAssignedToMe(int contractorId)
