@@ -28,6 +28,10 @@ namespace ContractorShareService
         string ResetPassword(ResetPasswordInfo resetpasswordinfo);
 
         [OperationContract]
+        [WebInvoke(UriTemplate = "users/{userId}/password", Method = "PUT", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        string ChangePassword(ChangePasswordInfo changepasswordinfo);
+
+        [OperationContract]
         [WebGet(UriTemplate = "users/contractors?CategoryId={CategoryId}&LocationCoordX={LocationCoordX}&LocationCoordY={LocationCoordY}&City={City}&CompanyName={CompanyName}&PricePerHour={PricePerHour}&NumOfRates={NumOfRates}&AverageRate={AverageRate}", ResponseFormat = WebMessageFormat.Json,RequestFormat = WebMessageFormat.Json)]
         List<GetListContractors_Result> SearchContractors(int CategoryId, decimal LocationCoordX, decimal LocationCoordY,
             string City, string CompanyName, double PricePerHour, int NumOfRates, double AverageRate);

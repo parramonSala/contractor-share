@@ -88,7 +88,7 @@ namespace ContractorShareService.Repositories
                     UserType = TypeOfUser,
                     Email = email,
                     EncPassword = password,
-                    ExpDate = DateTime.Now.AddDays(120),
+                    ExpDate = DateTime.Now.AddDays(360),
                     Active = true
                 };
 
@@ -485,7 +485,31 @@ namespace ContractorShareService.Repositories
                 Logger.ErrorFormat("Error when resetting user password: {0}", ex);
                 return error.ToString();
             }
-                }
+        }
+
+        public string ChangePassword(string email, string newpassword)
+        {
+            try
+            {
+                var users = from user in db.Users
+                            where user.Email == email
+                            select user;
+
+                User matcheduser = users.FirstOrDefault();
+
+                matcheduser.EncPassword = newpassword;
+                matcheduser.ExpDate = DateTime.Now.AddDays(360);
+
+                db.SaveChanges();
+
+                return EnumHelper.GetDescription(ErrorListEnum.OK);;
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("Error when changing user password: {0}", ex);
+                return ex.ToString();
+            }
+        }
 
         public string RemoveUserCategories(int userId)
         {

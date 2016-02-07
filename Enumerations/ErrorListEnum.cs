@@ -35,6 +35,10 @@ namespace ContractorShareService.Enumerations
         [Description("Reset Password: error user doesn't exist")]
         Reset_Password_UserNotExist = -31,
 
+        //Change Password Errors
+        [Description("Change Password: Incorrect current password")]
+        Change_Password_IncorrectOldPassword = -33,
+
         //Profile Errors
         [Description("Client firstname or surname missing")]
         Profile_ClientNameMissing = -8,

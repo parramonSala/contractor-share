@@ -7,6 +7,8 @@ using ContractorShareService.Repositories;
 using ContractorShareService.Enumerations;
 using ContractorShareService.Domain;
 using System.Net.Mail;
+using System.Web.Http;
+using System.Net;
 
 namespace ContractorShareService.Controllers
 {
@@ -34,6 +36,7 @@ namespace ContractorShareService.Controllers
                     string error_message = string.Format("Error Login: user with mail {0} doesn't exist in the DB", email);
                     Logger.Error(error_message);
                     return new LoginResult(EnumHelper.GetDescription(ErrorListEnum.Login_Client_NoExists));
+                    throw new HttpResponseException(HttpStatusCode.Unauthorized);
                 }
             }
             catch (Exception ex)
@@ -62,7 +65,11 @@ namespace ContractorShareService.Controllers
                         return EnumHelper.GetDescription(ErrorListEnum.OK);
                     }
                 }
-                else return EnumHelper.GetDescription(ErrorListEnum.Register_User_Exists);
+                else
+                {
+                    return EnumHelper.GetDescription(ErrorListEnum.Register_User_Exists);
+                    throw new HttpResponseException(HttpStatusCode.Unauthorized);
+                }
             }
             catch (Exception ex)
             {
@@ -334,6 +341,32 @@ namespace ContractorShareService.Controllers
                 string error_message = string.Format("Error Send Email");
                 Logger.Error(error_message, ex);
                 return false;
+            }
+        }
+
+        public string ChangePassword(ChangePasswordInfo changepasswordinfo)
+        {
+            try
+            {
+                string message = string.Format("Executing ChangePassword for user {0}", changepasswordinfo.email);
+                Logger.Info(message);
+
+                int userid = _userRepository.Authenticate(changepasswordinfo.email, changepasswordinfo.OldPassword).UserId;
+
+                if(userid > 0)
+                {
+                    return _userRepository.ChangePassword(changepasswordinfo.email, changepasswordinfo.NewPassword);
+                }
+                else
+                {
+                    return EnumHelper.GetDescription(ErrorListEnum.Change_Password_IncorrectOldPassword);
+                }
+            }
+            catch (Exception ex)
+            {
+                string error_message = string.Format("Error Change Password for user {0}", changepasswordinfo.email);
+                Logger.Error(error_message, ex);
+                return ex.ToString();
             }
         }
     }
