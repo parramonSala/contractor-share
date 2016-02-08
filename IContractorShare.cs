@@ -28,7 +28,7 @@ namespace ContractorShareService
         string ResetPassword(ResetPasswordInfo resetpasswordinfo);
 
         [OperationContract]
-        [WebInvoke(UriTemplate = "users/{userId}/password", Method = "PUT", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        [WebInvoke(UriTemplate = "users/password", Method = "PUT", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         string ChangePassword(ChangePasswordInfo changepasswordinfo);
 
         [OperationContract]
