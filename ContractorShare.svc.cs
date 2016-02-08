@@ -49,7 +49,7 @@ namespace ContractorShareService
             return _userController.ResetPassword(resetpasswordinfo.Email);
         }
 
-        public string ChangePassword(ChangePasswordInfo changepasswordinfo)
+        public string ChangePassword(string userId, ChangePasswordInfo changepasswordinfo)
         {
             return _userController.ChangePassword(changepasswordinfo);
         }
