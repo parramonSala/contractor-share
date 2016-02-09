@@ -62,7 +62,7 @@ namespace ContractorShareService.Controllers
                     else
                     {
                         Logger.Info("User with ID " + userid + "created");
-                        return EnumHelper.GetDescription(ErrorListEnum.OK);
+                        return CreateUserDefaultPreferences(userid);
                     }
                 }
                 else
@@ -344,6 +344,23 @@ namespace ContractorShareService.Controllers
             }
         }
 
+        public string ChangePreferences(string userId, ChangePreferencesInfo changepreferencesinfo)
+        {
+            try
+            {
+                string message = string.Format("Executing ChangePreferences for user {0}", userId);
+                Logger.Info(message);
+
+                return _userRepository.ChangePreferences(userId, changepreferencesinfo);
+            }
+            catch (Exception ex)
+            {
+                string error_message = string.Format("Error when changing Preferences for user {0}", userId);
+                Logger.Error(error_message, ex);
+                return ex.ToString();
+            }
+        }
+
         public string ChangePassword(ChangePasswordInfo changepasswordinfo)
         {
             try
@@ -353,7 +370,7 @@ namespace ContractorShareService.Controllers
 
                 int userid = _userRepository.Authenticate(changepasswordinfo.email, changepasswordinfo.OldPassword).UserId;
 
-                if(userid > 0)
+                if (userid > 0)
                 {
                     return _userRepository.ChangePassword(changepasswordinfo.email, changepasswordinfo.NewPassword);
                 }
@@ -369,5 +386,30 @@ namespace ContractorShareService.Controllers
                 return ex.ToString();
             }
         }
+
+        public string CreateUserDefaultPreferences(int userId)
+        {
+             try
+            {
+                string message = string.Format("Executing CreateUserDefaultSettings for user {0}", userId.ToString());
+                Logger.Info(message);
+
+                //set default Preferences to all true
+                ChangePreferencesInfo defaultpreferences = new ChangePreferencesInfo();
+                defaultpreferences.enableNotifications = true;
+                defaultpreferences.shareLocation = true;
+                defaultpreferences.showContactNumber = true;
+                defaultpreferences.showContactEmail = true;
+
+                return _userRepository.CreateUserPreferences(userId, defaultpreferences);
+            }
+            catch (Exception ex)
+            {
+                string error_message = string.Format("Error when creating Preferences for user {0}", userId.ToString());
+                Logger.Error(error_message, ex);
+                return ex.ToString();
+            }
+        }
+        
     }
 }

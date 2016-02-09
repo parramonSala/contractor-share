@@ -54,6 +54,11 @@ namespace ContractorShareService
             return _userController.ChangePassword(changepasswordinfo);
         }
 
+        public string ChangePreferences(string userId, ChangePreferencesInfo changepreferencesinfo)
+        {
+            return _userController.ChangePreferences(userId,changepreferencesinfo);
+        }
+
         #endregion
 
         #region Profile operations

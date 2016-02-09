@@ -502,11 +502,66 @@ namespace ContractorShareService.Repositories
 
                 db.SaveChanges();
 
-                return EnumHelper.GetDescription(ErrorListEnum.OK);;
+                return EnumHelper.GetDescription(ErrorListEnum.OK);
             }
             catch (Exception ex)
             {
                 Logger.ErrorFormat("Error when changing user password: {0}", ex);
+                return ex.ToString();
+            }
+        }
+
+        public string CreateUserPreferences(int userId, ChangePreferencesInfo defaultpreferences)
+        {
+            try
+            {
+                Preference newuserpreferences = new Preference()
+                {
+                    UserID = userId,
+                    EnableNotifications = defaultpreferences.enableNotifications,
+                    ShowContactEmail = defaultpreferences.showContactEmail,
+                    ShareLocation = defaultpreferences.shareLocation,
+                    ShowContactNumber = defaultpreferences.showContactNumber
+                };
+
+                db.Preferences.Add(newuserpreferences);
+                db.SaveChanges();
+
+                Logger.Info(String.Format("UserRepository.CreateUserPreferences: created userpreferences for user {0}", userId.ToString()));
+
+                return EnumHelper.GetDescription(ErrorListEnum.OK);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error UserRepository.CreateUser", ex);
+                return ex.ToString();
+            }
+        }
+
+        public string ChangePreferences(string userId, ChangePreferencesInfo preferences)
+        {
+            try
+            {
+                int userid = Convert.ToInt32(userId);
+
+                var userpreferences = from userpref in db.Preferences
+                                      where userpref.UserID == userid
+                                      select userpref;
+
+                Preference matcheduserpref = userpreferences.FirstOrDefault();
+
+                matcheduserpref.ShareLocation = preferences.shareLocation;
+                matcheduserpref.ShowContactEmail = preferences.showContactEmail;
+                matcheduserpref.ShowContactNumber = preferences.showContactNumber;
+                matcheduserpref.EnableNotifications = preferences.enableNotifications;
+
+                db.SaveChanges();
+
+                return EnumHelper.GetDescription(ErrorListEnum.OK); ;
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("Error when changing user preferences: {0}", ex);
                 return ex.ToString();
             }
         }
