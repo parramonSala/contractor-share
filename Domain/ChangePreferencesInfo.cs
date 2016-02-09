@@ -9,12 +9,16 @@ namespace ContractorShareService.Domain
     [DataContract]
     public class ChangePreferencesInfo
     {
+        [DataMember]
         public bool shareLocation { get; set; }
 
+        [DataMember]
         public bool showContactNumber { get; set; }
 
+        [DataMember]
         public bool showContactEmail { get; set; }
 
+        [DataMember]
         public bool enableNotifications { get; set; }
     }
 }
