@@ -344,6 +344,23 @@ namespace ContractorShareService.Controllers
             }
         }
 
+        public PreferencesResult GetPreferences(string userId)
+        {
+            try
+            {
+                string message = string.Format("Executing GetPreferences for user {0}", userId);
+                Logger.Info(message);
+
+                return _userRepository.GetPreferences(Convert.ToInt32(userId));
+            }
+            catch (Exception ex)
+            {
+                string error_message = string.Format("Error executing GetPreferences for user {0}", userId);
+                Logger.Error(error_message, ex);
+                return null;
+            }
+        }
+
         public string ChangePreferences(string userId, ChangePreferencesInfo changepreferencesinfo)
         {
             try

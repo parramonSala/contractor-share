@@ -538,6 +538,32 @@ namespace ContractorShareService.Repositories
             }
         }
 
+        public PreferencesResult GetPreferences(int userId)
+        {
+            try
+            {
+                var userpreferences = from preference in db.Preferences
+                                      where preference.UserID == userId
+                                      select preference;
+
+                Preference userpreference = userpreferences.FirstOrDefault();
+
+                PreferencesResult preferenceresult = new PreferencesResult();
+
+                preferenceresult.enableNotifications = userpreference.EnableNotifications;
+                preferenceresult.showContactEmail = userpreference.ShowContactEmail;
+                preferenceresult.showContactNumber = userpreference.ShowContactNumber;
+                preferenceresult.shareLocation = userpreference.ShareLocation;
+
+                return preferenceresult;
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("Error when getting user preferences: {0}", ex);
+                return null;
+            }
+        }
+
         public string ChangePreferences(string userId, ChangePreferencesInfo preferences)
         {
             try

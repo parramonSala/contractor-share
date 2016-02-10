@@ -36,6 +36,10 @@ namespace ContractorShareService
         string ChangePreferences(string userId, ChangePreferencesInfo changepreferencesinfo);
 
         [OperationContract]
+        [WebInvoke(UriTemplate = "users/{userId}/preferences", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        PreferencesResult GetPreferences(string userId);
+
+        [OperationContract]
         [WebGet(UriTemplate = "users/contractors?CategoryId={CategoryId}&LocationCoordX={LocationCoordX}&LocationCoordY={LocationCoordY}&City={City}&CompanyName={CompanyName}&PricePerHour={PricePerHour}&NumOfRates={NumOfRates}&AverageRate={AverageRate}", ResponseFormat = WebMessageFormat.Json,RequestFormat = WebMessageFormat.Json)]
         List<GetListContractors_Result> SearchContractors(int CategoryId, decimal LocationCoordX, decimal LocationCoordY,
             string City, string CompanyName, double PricePerHour, int NumOfRates, double AverageRate);

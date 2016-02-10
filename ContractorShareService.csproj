@@ -126,6 +126,7 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Domain\ChangePasswordInfo.cs" />
     <Compile Include="Domain\ChangePreferencesInfo.cs" />
+    <Compile Include="Domain\PreferencesResult.cs" />
     <Compile Include="Domain\ResetPasswordInfo.cs" />
     <Compile Include="Domain\RegisterInfo.cs" />
     <Compile Include="Domain\LoginResult.cs" />
