@@ -120,6 +120,11 @@ namespace ContractorShareService
         [WebGet(UriTemplate = "jobs/{jobId}/jobRate", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         double GetServiceRate(string jobId);
 
+        //Proposal Operations
+        [OperationContract]
+        [WebInvoke(UriTemplate = "proposals", Method = "POST")]
+        string CreateProposal(ProposalInfo proposal);
+
         //5.Create Task Operations
         [OperationContract]
         [WebInvoke(UriTemplate = "jobs/{jobId}/tasks", Method = "POST", BodyStyle = WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]

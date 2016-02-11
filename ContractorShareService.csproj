@@ -120,12 +120,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ContractorShareEntities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\ProposalController.cs" />
     <Compile Include="Controllers\RateController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Domain\ChangePasswordInfo.cs" />
     <Compile Include="Domain\ChangePreferencesInfo.cs" />
+    <Compile Include="Domain\ProposalInfo.cs" />
     <Compile Include="Domain\PreferencesResult.cs" />
     <Compile Include="Domain\ResetPasswordInfo.cs" />
     <Compile Include="Domain\RegisterInfo.cs" />
@@ -160,6 +162,7 @@
     <Compile Include="Rating.cs">
       <DependentUpon>ContractorShareEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\ProposalRepository.cs" />
     <Compile Include="Repositories\RateRepository.cs" />
     <Compile Include="Repositories\ServiceRepository.cs" />
     <Compile Include="Repositories\StatusRepository.cs" />

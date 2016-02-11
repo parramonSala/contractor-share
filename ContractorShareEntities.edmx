@@ -71,6 +71,7 @@
           <Property Name="ProposedTime" Type="datetime" />
           <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="AproxDuration" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="ProposedPrice" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="Rating">
           <Key>
@@ -781,6 +782,7 @@
           <NavigationProperty Name="Service" Relationship="Self.FK__Proposal__Servic__35BCFE0A" FromRole="Proposal" ToRole="Service" />
           <NavigationProperty Name="Status" Relationship="Self.FK__Proposal__Status__36B12243" FromRole="Proposal" ToRole="Status" />
           <NavigationProperty Name="User1" Relationship="Self.FK__Proposal__ToUser__37A5467C" FromRole="Proposal" ToRole="User" />
+          <Property Name="ProposedPrice" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="Rating">
           <Key>
@@ -1564,6 +1566,7 @@
           <EntitySetMapping Name="Proposals">
             <EntityTypeMapping TypeName="ContractorShareModel.Proposal">
               <MappingFragment StoreEntitySet="Proposal">
+                <ScalarProperty Name="ProposedPrice" ColumnName="ProposedPrice" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
                 <ScalarProperty Name="FromUserID" ColumnName="FromUserID" />

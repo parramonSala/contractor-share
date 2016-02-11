@@ -28,6 +28,7 @@ namespace ContractorShareService
         private ServiceController _serviceController = new ServiceController();
         private RateController _rateController = new RateController();
         private TaskController _taskController = new TaskController();
+        private ProposalController _proposalController = new ProposalController();
 
         #endregion
 
@@ -167,6 +168,16 @@ namespace ContractorShareService
         }
 
         #endregion
+
+        #region Proposal operations
+
+        public string CreateProposal(ProposalInfo proposal)
+        {
+            return _proposalController.Create(proposal);
+        }
+
+        #endregion
+
 
         #region Task operations
         //4. Task operations
