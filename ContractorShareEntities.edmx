@@ -62,7 +62,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ServiceID" Type="int" Nullable="false" />
           <Property Name="FromUserID" Type="int" Nullable="false" />
           <Property Name="ToUserID" Type="int" Nullable="false" />
@@ -294,7 +294,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Proposal__FromUs__34C8D9D1">
+        <Association Name="FK__Proposal__FromUs__02FC7413">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Proposal" Type="Self.Proposal" Multiplicity="*" />
           <ReferentialConstraint>
@@ -306,7 +306,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Proposal__Servic__35BCFE0A">
+        <Association Name="FK__Proposal__Servic__03F0984C">
           <End Role="Service" Type="Self.Service" Multiplicity="1" />
           <End Role="Proposal" Type="Self.Proposal" Multiplicity="*" />
           <ReferentialConstraint>
@@ -318,7 +318,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Proposal__Status__36B12243">
+        <Association Name="FK__Proposal__Status__04E4BC85">
           <End Role="Status" Type="Self.Status" Multiplicity="1" />
           <End Role="Proposal" Type="Self.Proposal" Multiplicity="*" />
           <ReferentialConstraint>
@@ -330,7 +330,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Proposal__ToUser__37A5467C">
+        <Association Name="FK__Proposal__ToUser__08B54D69">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Proposal" Type="Self.Proposal" Multiplicity="*" />
           <ReferentialConstraint>
@@ -620,19 +620,19 @@
             <End Role="User" EntitySet="User" />
             <End Role="Preference" EntitySet="Preference" />
           </AssociationSet>
-          <AssociationSet Name="FK__Proposal__FromUs__34C8D9D1" Association="Self.FK__Proposal__FromUs__34C8D9D1">
+          <AssociationSet Name="FK__Proposal__FromUs__02FC7413" Association="Self.FK__Proposal__FromUs__02FC7413">
             <End Role="User" EntitySet="User" />
             <End Role="Proposal" EntitySet="Proposal" />
           </AssociationSet>
-          <AssociationSet Name="FK__Proposal__Servic__35BCFE0A" Association="Self.FK__Proposal__Servic__35BCFE0A">
+          <AssociationSet Name="FK__Proposal__Servic__03F0984C" Association="Self.FK__Proposal__Servic__03F0984C">
             <End Role="Service" EntitySet="Service" />
             <End Role="Proposal" EntitySet="Proposal" />
           </AssociationSet>
-          <AssociationSet Name="FK__Proposal__Status__36B12243" Association="Self.FK__Proposal__Status__36B12243">
+          <AssociationSet Name="FK__Proposal__Status__04E4BC85" Association="Self.FK__Proposal__Status__04E4BC85">
             <End Role="Status" EntitySet="Status" />
             <End Role="Proposal" EntitySet="Proposal" />
           </AssociationSet>
-          <AssociationSet Name="FK__Proposal__ToUser__37A5467C" Association="Self.FK__Proposal__ToUser__37A5467C">
+          <AssociationSet Name="FK__Proposal__ToUser__08B54D69" Association="Self.FK__Proposal__ToUser__08B54D69">
             <End Role="User" EntitySet="User" />
             <End Role="Proposal" EntitySet="Proposal" />
           </AssociationSet>

@@ -176,6 +176,31 @@ namespace ContractorShareService
             return _proposalController.Create(proposal);
         }
 
+        public ProposalInfo GetProposal(string proposalId)
+        {
+            return _proposalController.GetProposal(Convert.ToInt32(proposalId));
+        }
+
+        public string EditProposal(string proposalId, ProposalInfo proposalinfo)
+        {
+            return _proposalController.EditProposal(Convert.ToInt32(proposalId), proposalinfo);
+        }
+
+        public string ChangeProposalStatus(string proposalId, int StatusId)
+        {
+            return _proposalController.ChangeProposalStatus(Convert.ToInt32(proposalId), StatusId);
+        }
+
+        public List<ProposalInfo> GetMyCreatedProposals(string userId)
+        {
+            return _proposalController.GetMyCreatedProposals(Convert.ToInt32(userId));
+        }
+
+        public List<ProposalInfo> GetMyReceivedProposals(string userId)
+        {
+            return _proposalController.GetMyReceivedProposals(Convert.ToInt32(userId));
+        }
+
         #endregion
 
 

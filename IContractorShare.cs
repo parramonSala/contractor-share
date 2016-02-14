@@ -125,6 +125,26 @@ namespace ContractorShareService
         [WebInvoke(UriTemplate = "proposals", Method = "POST")]
         string CreateProposal(ProposalInfo proposal);
 
+        [OperationContract]
+        [WebGet(UriTemplate = "proposals/{proposalId}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        ProposalInfo GetProposal(string proposalId);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "proposals/{proposalId}", Method = "PUT", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        string EditProposal(string proposalId, ProposalInfo proposalinfo);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "proposals/{proposalId}/status", Method = "PUT", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        string ChangeProposalStatus(string proposalId, int StatusId);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "users/{userId}/createdproposals", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        List<ProposalInfo> GetMyCreatedProposals(string userId);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "users/{userId}/receivedproposals", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        List<ProposalInfo> GetMyReceivedProposals(string userId);
+
         //5.Create Task Operations
         [OperationContract]
         [WebInvoke(UriTemplate = "jobs/{jobId}/tasks", Method = "POST", BodyStyle = WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
