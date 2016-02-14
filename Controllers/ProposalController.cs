@@ -117,6 +117,22 @@ namespace ContractorShareService.Controllers
             }
         }
 
+        public List<ProposalInfo> GetMyClosedProposals(int userId)
+        {
+            try
+            {
+                string message = string.Format("Executing GetMyClosedProposals");
+                Logger.Info(message);
+
+                return _proposalRepository.GetMyClosedProposals(userId);
+            }
+            catch (Exception ex)
+            {
+                string error_message = string.Format("Error GetMyClosedProposals");
+                Logger.Error(error_message, ex);
+                return null;
+            }
+        }
 
 
 

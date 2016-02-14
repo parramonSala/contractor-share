@@ -145,6 +145,11 @@ namespace ContractorShareService
         [WebGet(UriTemplate = "users/{userId}/receivedproposals", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         List<ProposalInfo> GetMyReceivedProposals(string userId);
 
+        [OperationContract]
+        [WebGet(UriTemplate = "users/{userId}/closedproposals", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        List<ProposalInfo> GetMyClosedProposals(int userId);
+
+
         //5.Create Task Operations
         [OperationContract]
         [WebInvoke(UriTemplate = "jobs/{jobId}/tasks", Method = "POST", BodyStyle = WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]

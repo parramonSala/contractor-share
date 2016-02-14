@@ -137,6 +137,7 @@ namespace ContractorShareService.Repositories
             {
                 var proposals = from proposal in db.Proposals
                                 where proposal.FromUserID == FromUserId
+                                && proposal.Active == true
                                 select proposal;
 
                 List<ProposalInfo> proposalinfolist = new List<ProposalInfo>();
@@ -174,6 +175,7 @@ namespace ContractorShareService.Repositories
             {
                 var proposals = from proposal in db.Proposals
                                 where proposal.ToUserID == ToUserId
+                                && proposal.Active == true
                                 select proposal;
 
                 List<ProposalInfo> proposalinfolist = new List<ProposalInfo>();
@@ -201,6 +203,44 @@ namespace ContractorShareService.Repositories
             catch (Exception ex)
             {
                 Logger.Error("Error ProposalRepository.GetMyReceivedProposals", ex);
+                return null;
+            }
+        }
+
+        public List<ProposalInfo> GetMyClosedProposals(int userId)
+        {
+            try
+            {
+                var proposals = from proposal in db.Proposals
+                                where (proposal.FromUserID == userId || proposal.ToUserID == userId)
+                                && proposal.Active == false
+                                select proposal;
+
+                List<ProposalInfo> proposalinfolist = new List<ProposalInfo>();
+
+                foreach (var selectedproposal in proposals)
+                {
+                    ProposalInfo proposalinfo = new ProposalInfo();
+
+                    proposalinfo.ProposalId = selectedproposal.ID;
+                    proposalinfo.JobId = selectedproposal.ServiceID;
+                    proposalinfo.FromUserId = selectedproposal.FromUserID;
+                    proposalinfo.ToUserId = selectedproposal.ToUserID;
+                    proposalinfo.Message = selectedproposal.Message;
+                    proposalinfo.StatusId = selectedproposal.StatusID;
+                    proposalinfo.ProposedPrice = (decimal)selectedproposal.ProposedPrice;
+                    proposalinfo.ProposedTime = selectedproposal.ProposedTime;
+                    proposalinfo.Active = selectedproposal.Active;
+                    proposalinfo.AproxDuration = selectedproposal.AproxDuration;
+
+                    proposalinfolist.Add(proposalinfo);
+                }
+
+                return proposalinfolist;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error ProposalRepository.GetMyClosedProposals", ex);
                 return null;
             }
         }
