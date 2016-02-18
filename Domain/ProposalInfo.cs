@@ -37,5 +37,8 @@ namespace ContractorShareService.Domain
 
         [DataMember]
         public decimal ProposedPrice { get; set; }
+
+        [DataMember]
+        public DateTime? Created { get; set; }
     }
 }

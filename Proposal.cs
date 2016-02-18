@@ -24,6 +24,7 @@ namespace ContractorShareService
         public bool Active { get; set; }
         public Nullable<decimal> AproxDuration { get; set; }
         public Nullable<decimal> ProposedPrice { get; set; }
+        public Nullable<System.DateTime> Created { get; set; }
     
         public virtual User User { get; set; }
         public virtual Service Service { get; set; }

@@ -29,7 +29,8 @@ namespace ContractorShareService.Repositories
                     Message = proposal.Message,
                     ProposedPrice = proposal.ProposedPrice,
                     ProposedTime = (Nullable<System.DateTime>)proposal.ProposedTime,
-                    AproxDuration = proposal.AproxDuration
+                    AproxDuration = proposal.AproxDuration,
+                    Created = DateTime.Now
                 };
 
                 db.Proposals.Add(newproposal);
@@ -68,6 +69,7 @@ namespace ContractorShareService.Repositories
                 proposalinfo.ProposedTime = selectedproposal.ProposedTime;
                 proposalinfo.Active = selectedproposal.Active;
                 proposalinfo.AproxDuration = selectedproposal.AproxDuration;
+                proposalinfo.Created = selectedproposal.Created;
 
                 return proposalinfo;
             }
@@ -156,6 +158,7 @@ namespace ContractorShareService.Repositories
                     proposalinfo.ProposedTime = selectedproposal.ProposedTime;
                     proposalinfo.Active = selectedproposal.Active;
                     proposalinfo.AproxDuration = selectedproposal.AproxDuration;
+                    proposalinfo.Created = selectedproposal.Created;
 
                     proposalinfolist.Add(proposalinfo);
                 }
@@ -194,6 +197,7 @@ namespace ContractorShareService.Repositories
                     proposalinfo.ProposedTime = selectedproposal.ProposedTime;
                     proposalinfo.Active = selectedproposal.Active;
                     proposalinfo.AproxDuration = selectedproposal.AproxDuration;
+                    proposalinfo.Created = selectedproposal.Created;
 
                     proposalinfolist.Add(proposalinfo);
                 }
@@ -232,6 +236,7 @@ namespace ContractorShareService.Repositories
                     proposalinfo.ProposedTime = selectedproposal.ProposedTime;
                     proposalinfo.Active = selectedproposal.Active;
                     proposalinfo.AproxDuration = selectedproposal.AproxDuration;
+                    proposalinfo.Created = selectedproposal.Created;
 
                     proposalinfolist.Add(proposalinfo);
                 }
