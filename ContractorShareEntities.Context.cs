@@ -42,6 +42,7 @@ namespace ContractorShareService
         public virtual DbSet<UserCategory> UserCategories { get; set; }
         public virtual DbSet<UserDenunce> UserDenunces { get; set; }
         public virtual DbSet<UserFavourite> UserFavourites { get; set; }
+        public virtual DbSet<ProposalMessage> ProposalMessages { get; set; }
     
         public virtual ObjectResult<GetListContractors_Result> GetListContractors(Nullable<int> categoryId, Nullable<decimal> locationCoordX, Nullable<decimal> locationCoordY, string city, string companyName, Nullable<double> pricePerHour, Nullable<int> numOfRates, Nullable<double> averageRate)
         {

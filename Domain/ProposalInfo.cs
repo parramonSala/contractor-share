@@ -40,5 +40,8 @@ namespace ContractorShareService.Domain
 
         [DataMember]
         public DateTime? Created { get; set; }
+
+        [DataMember]
+        public int? UpdatedByUserId { get; set; }
     }
 }

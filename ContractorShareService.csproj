@@ -159,6 +159,9 @@
     <Compile Include="Proposal.cs">
       <DependentUpon>ContractorShareEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProposalMessage.cs">
+      <DependentUpon>ContractorShareEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Rating.cs">
       <DependentUpon>ContractorShareEntities.tt</DependentUpon>
     </Compile>

@@ -73,6 +73,18 @@
           <Property Name="AproxDuration" Type="decimal" Precision="18" Scale="0" />
           <Property Name="ProposedPrice" Type="decimal" Precision="18" Scale="0" />
           <Property Name="Created" Type="datetime" />
+          <Property Name="UpdatedByUserID" Type="int" />
+        </EntityType>
+        <EntityType Name="ProposalMessage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProposalID" Type="int" Nullable="false" />
+          <Property Name="FromUserID" Type="int" Nullable="false" />
+          <Property Name="ToUserID" Type="int" Nullable="false" />
+          <Property Name="Message" Type="text" />
+          <Property Name="Created" Type="datetime" />
         </EntityType>
         <EntityType Name="Rating">
           <Key>
@@ -343,6 +355,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Proposal__Update__14270015">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Proposal" Type="Self.Proposal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Proposal">
+              <PropertyRef Name="UpdatedByUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProposalM__FromU__17036CC0">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="ProposalMessage" Type="Self.ProposalMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProposalMessage">
+              <PropertyRef Name="FromUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProposalM__Propo__17F790F9">
+          <End Role="Proposal" Type="Self.Proposal" Multiplicity="1" />
+          <End Role="ProposalMessage" Type="Self.ProposalMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proposal">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProposalMessage">
+              <PropertyRef Name="ProposalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProposalM__ToUse__18EBB532">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="ProposalMessage" Type="Self.ProposalMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProposalMessage">
+              <PropertyRef Name="ToUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Rating__FromUser__38996AB5">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
@@ -576,6 +636,7 @@
           <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Preference" EntityType="Self.Preference" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Proposal" EntityType="Self.Proposal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProposalMessage" EntityType="Self.ProposalMessage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rating" EntityType="Self.Rating" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
@@ -636,6 +697,22 @@
           <AssociationSet Name="FK__Proposal__ToUser__08B54D69" Association="Self.FK__Proposal__ToUser__08B54D69">
             <End Role="User" EntitySet="User" />
             <End Role="Proposal" EntitySet="Proposal" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Proposal__Update__14270015" Association="Self.FK__Proposal__Update__14270015">
+            <End Role="User" EntitySet="User" />
+            <End Role="Proposal" EntitySet="Proposal" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProposalM__FromU__17036CC0" Association="Self.FK__ProposalM__FromU__17036CC0">
+            <End Role="User" EntitySet="User" />
+            <End Role="ProposalMessage" EntitySet="ProposalMessage" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProposalM__Propo__17F790F9" Association="Self.FK__ProposalM__Propo__17F790F9">
+            <End Role="Proposal" EntitySet="Proposal" />
+            <End Role="ProposalMessage" EntitySet="ProposalMessage" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProposalM__ToUse__18EBB532" Association="Self.FK__ProposalM__ToUse__18EBB532">
+            <End Role="User" EntitySet="User" />
+            <End Role="ProposalMessage" EntitySet="ProposalMessage" />
           </AssociationSet>
           <AssociationSet Name="FK__Rating__FromUser__38996AB5" Association="Self.FK__Rating__FromUser__38996AB5">
             <End Role="User" EntitySet="User" />
@@ -785,6 +862,9 @@
           <NavigationProperty Name="User1" Relationship="Self.FK__Proposal__ToUser__37A5467C" FromRole="Proposal" ToRole="User" />
           <Property Name="ProposedPrice" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedByUserID" Type="Int32" />
+          <NavigationProperty Name="User2" Relationship="ContractorShareModel.FK__Proposal__Update__14270015" FromRole="Proposal" ToRole="User" />
+          <NavigationProperty Name="ProposalMessages" Relationship="ContractorShareModel.FK__ProposalM__Propo__17F790F9" FromRole="Proposal" ToRole="ProposalMessage" />
         </EntityType>
         <EntityType Name="Rating">
           <Key>
@@ -907,6 +987,9 @@
           <NavigationProperty Name="UserFavourites1" Relationship="Self.FK__UserFavou__ToUse__44FF419A" FromRole="User" ToRole="UserFavourite" />
           <Property Name="CTotalRate" Type="Double" />
           <NavigationProperty Name="Services1" Relationship="ContractorShareModel.FK__Service__Contrac__6E01572D" FromRole="User" ToRole="Service" />
+          <NavigationProperty Name="Proposals2" Relationship="ContractorShareModel.FK__Proposal__Update__14270015" FromRole="User" ToRole="Proposal" />
+          <NavigationProperty Name="ProposalMessages" Relationship="ContractorShareModel.FK__ProposalM__FromU__17036CC0" FromRole="User" ToRole="ProposalMessage" />
+          <NavigationProperty Name="ProposalMessages1" Relationship="ContractorShareModel.FK__ProposalM__ToUse__18EBB532" FromRole="User" ToRole="ProposalMessage" />
         </EntityType>
         <EntityType Name="UserCategory">
           <Key>
@@ -1437,6 +1520,23 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Service" EntitySet="Services" />
           </AssociationSet>
+          <EntitySet Name="ProposalMessages" EntityType="ContractorShareModel.ProposalMessage" />
+          <AssociationSet Name="FK__Proposal__Update__14270015" Association="ContractorShareModel.FK__Proposal__Update__14270015">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Proposal" EntitySet="Proposals" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProposalM__Propo__17F790F9" Association="ContractorShareModel.FK__ProposalM__Propo__17F790F9">
+            <End Role="Proposal" EntitySet="Proposals" />
+            <End Role="ProposalMessage" EntitySet="ProposalMessages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProposalM__FromU__17036CC0" Association="ContractorShareModel.FK__ProposalM__FromU__17036CC0">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ProposalMessage" EntitySet="ProposalMessages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProposalM__ToUse__18EBB532" Association="ContractorShareModel.FK__ProposalM__ToUse__18EBB532">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ProposalMessage" EntitySet="ProposalMessages" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="GetListContractors_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -1498,6 +1598,68 @@
             </Principal>
             <Dependent Role="Service">
               <PropertyRef Name="ContractorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ProposalMessage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProposalID" Type="Int32" Nullable="false" />
+          <Property Name="FromUserID" Type="Int32" Nullable="false" />
+          <Property Name="ToUserID" Type="Int32" Nullable="false" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Proposal" Relationship="ContractorShareModel.FK__ProposalM__Propo__17F790F9" FromRole="ProposalMessage" ToRole="Proposal" />
+          <NavigationProperty Name="User" Relationship="ContractorShareModel.FK__ProposalM__FromU__17036CC0" FromRole="ProposalMessage" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="ContractorShareModel.FK__ProposalM__ToUse__18EBB532" FromRole="ProposalMessage" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__Proposal__Update__14270015">
+          <End Type="ContractorShareModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="ContractorShareModel.Proposal" Role="Proposal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Proposal">
+              <PropertyRef Name="UpdatedByUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProposalM__Propo__17F790F9">
+          <End Type="ContractorShareModel.Proposal" Role="Proposal" Multiplicity="1" />
+          <End Type="ContractorShareModel.ProposalMessage" Role="ProposalMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proposal">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProposalMessage">
+              <PropertyRef Name="ProposalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProposalM__FromU__17036CC0">
+          <End Type="ContractorShareModel.User" Role="User" Multiplicity="1" />
+          <End Type="ContractorShareModel.ProposalMessage" Role="ProposalMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProposalMessage">
+              <PropertyRef Name="FromUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProposalM__ToUse__18EBB532">
+          <End Type="ContractorShareModel.User" Role="User" Multiplicity="1" />
+          <End Type="ContractorShareModel.ProposalMessage" Role="ProposalMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProposalMessage">
+              <PropertyRef Name="ToUserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1568,6 +1730,7 @@
           <EntitySetMapping Name="Proposals">
             <EntityTypeMapping TypeName="ContractorShareModel.Proposal">
               <MappingFragment StoreEntitySet="Proposal">
+                <ScalarProperty Name="UpdatedByUserID" ColumnName="UpdatedByUserID" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="ProposedPrice" ColumnName="ProposedPrice" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -1776,6 +1939,18 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="ContractorShareModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="ContractorShareModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="ProposalMessages">
+            <EntityTypeMapping TypeName="ContractorShareModel.ProposalMessage">
+              <MappingFragment StoreEntitySet="ProposalMessage">
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="ToUserID" ColumnName="ToUserID" />
+                <ScalarProperty Name="FromUserID" ColumnName="FromUserID" />
+                <ScalarProperty Name="ProposalID" ColumnName="ProposalID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

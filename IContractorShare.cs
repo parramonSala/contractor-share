@@ -138,12 +138,8 @@ namespace ContractorShareService
         string ChangeProposalStatus(string proposalId, int StatusId);
 
         [OperationContract]
-        [WebGet(UriTemplate = "users/{userId}/createdproposals", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        List<ProposalInfo> GetMyCreatedProposals(string userId);
-
-        [OperationContract]
-        [WebGet(UriTemplate = "users/{userId}/receivedproposals", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        List<ProposalInfo> GetMyReceivedProposals(string userId);
+        [WebGet(UriTemplate = "users/{userId}/activeproposals", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        List<ProposalInfo> GetActiveProposals(string userId);
 
         [OperationContract]
         [WebGet(UriTemplate = "users/{userId}/closedproposals", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]

@@ -14,6 +14,12 @@ namespace ContractorShareService
     
     public partial class Proposal
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Proposal()
+        {
+            this.ProposalMessages = new HashSet<ProposalMessage>();
+        }
+    
         public int ID { get; set; }
         public int ServiceID { get; set; }
         public int FromUserID { get; set; }
@@ -25,10 +31,14 @@ namespace ContractorShareService
         public Nullable<decimal> AproxDuration { get; set; }
         public Nullable<decimal> ProposedPrice { get; set; }
         public Nullable<System.DateTime> Created { get; set; }
+        public Nullable<int> UpdatedByUserID { get; set; }
     
         public virtual User User { get; set; }
         public virtual Service Service { get; set; }
         public virtual Status Status { get; set; }
         public virtual User User1 { get; set; }
+        public virtual User User2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProposalMessage> ProposalMessages { get; set; }
     }
 }

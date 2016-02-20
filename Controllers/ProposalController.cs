@@ -83,35 +83,18 @@ namespace ContractorShareService.Controllers
             }
         }
 
-        public List<ProposalInfo> GetMyCreatedProposals(int FromUserId)
+        public List<ProposalInfo> GetActiveProposals(int ToUserId)
         {
             try
             {
-                string message = string.Format("Executing GetMyCreatedProposals");
+                string message = string.Format("Executing GetActiveProposals");
                 Logger.Info(message);
 
-                return _proposalRepository.GetMyCreatedProposals(FromUserId);
+                return _proposalRepository.GetActiveProposals(ToUserId);
             }
             catch (Exception ex)
             {
-                string error_message = string.Format("Error GetMyCreatedProposals");
-                Logger.Error(error_message, ex);
-                return null;
-            }
-        }
-
-        public List<ProposalInfo> GetMyReceivedProposals(int ToUserId)
-        {
-            try
-            {
-                string message = string.Format("Executing GetMyReceivedProposals");
-                Logger.Info(message);
-
-                return _proposalRepository.GetMyReceivedProposals(ToUserId);
-            }
-            catch (Exception ex)
-            {
-                string error_message = string.Format("Error GetMyReceivedProposals");
+                string error_message = string.Format("Error GetActiveProposals");
                 Logger.Error(error_message, ex);
                 return null;
             }
