@@ -125,6 +125,11 @@ namespace ContractorShareService.Repositories
 
                 selectedproposal.StatusID = StatusId;
 
+                if (StatusId == (int)ProposalStatusEnum.Rejected || StatusId == (int)ProposalStatusEnum.Cancelled)
+                {
+                    selectedproposal.Active = false;
+                }
+
                 db.SaveChanges();
                 return EnumHelper.GetDescription(ErrorListEnum.OK);
             }
