@@ -147,15 +147,15 @@ namespace ContractorShareService
 
         [OperationContract]
         [WebInvoke(UriTemplate = "proposals/{proposalId}/accept", Method = "PUT", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        string AcceptProposal(int ProposalId, int userId);
+        string AcceptProposal(string ProposalId, int userId);
 
         [OperationContract]
         [WebInvoke(UriTemplate = "proposals/{proposalId}/reply", Method = "PUT", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        string SendProposalMessage(int proposalId, MessageInfo proposalmessageInfo);
+        string SendProposalMessage(string proposalId, MessageInfo proposalmessageInfo);
 
         [OperationContract]
         [WebGet(UriTemplate = "proposals/{proposalId}/messages", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        List<MessageInfo> GetProposalMessages(int proposalId);
+        List<MessageInfo> GetProposalMessages(string proposalId);
 
         //5.Create Task Operations
         [OperationContract]

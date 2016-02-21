@@ -201,19 +201,19 @@ namespace ContractorShareService
             return _proposalController.GetMyClosedProposals(Convert.ToInt32(userId));
         }
 
-        public string AcceptProposal(int ProposalId, int userId)
+        public string AcceptProposal(string ProposalId, int userId)
         {
-            return _proposalController.AcceptProposal(ProposalId, userId);
+            return _proposalController.AcceptProposal(Convert.ToInt32(ProposalId), userId);
         }
 
-        public string SendProposalMessage(int proposalId, MessageInfo proposalmessageInfo)
+        public string SendProposalMessage(string proposalId, MessageInfo proposalmessageInfo)
         {
-            return _proposalController.SendProposalMessage(proposalId, proposalmessageInfo);
+            return _proposalController.SendProposalMessage(Convert.ToInt32(proposalId), proposalmessageInfo);
         }
 
-        public List<MessageInfo> GetProposalMessages(int proposalId)
+        public List<MessageInfo> GetProposalMessages(string proposalId)
         {
-            return _proposalController.GetProposalMessages(proposalId);
+            return _proposalController.GetProposalMessages(Convert.ToInt32(proposalId));
         }
 
         #endregion
