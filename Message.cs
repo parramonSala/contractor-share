@@ -12,17 +12,17 @@ namespace ContractorShareService
     using System;
     using System.Collections.Generic;
     
-    public partial class ProposalMessage
+    public partial class Message
     {
         public int ID { get; set; }
         public int ProposalID { get; set; }
         public int FromUserID { get; set; }
         public int ToUserID { get; set; }
-        public string Message { get; set; }
+        public string Message1 { get; set; }
         public Nullable<System.DateTime> Created { get; set; }
     
-        public virtual Proposal Proposal { get; set; }
         public virtual User User { get; set; }
+        public virtual Proposal Proposal { get; set; }
         public virtual User User1 { get; set; }
     }
 }

@@ -34,8 +34,8 @@ namespace ContractorShareService
             this.UserFavourites1 = new HashSet<UserFavourite>();
             this.Services1 = new HashSet<Service>();
             this.Proposals2 = new HashSet<Proposal>();
-            this.ProposalMessages = new HashSet<ProposalMessage>();
-            this.ProposalMessages1 = new HashSet<ProposalMessage>();
+            this.Messages = new HashSet<Message>();
+            this.Messages1 = new HashSet<Message>();
         }
     
         public int ID { get; set; }
@@ -99,8 +99,8 @@ namespace ContractorShareService
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Proposal> Proposals2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProposalMessage> ProposalMessages { get; set; }
+        public virtual ICollection<Message> Messages { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProposalMessage> ProposalMessages1 { get; set; }
+        public virtual ICollection<Message> Messages1 { get; set; }
     }
 }

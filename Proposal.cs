@@ -17,7 +17,8 @@ namespace ContractorShareService
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Proposal()
         {
-            this.ProposalMessages = new HashSet<ProposalMessage>();
+            this.Appointments = new HashSet<Appointment>();
+            this.Messages = new HashSet<Message>();
         }
     
         public int ID { get; set; }
@@ -39,6 +40,8 @@ namespace ContractorShareService
         public virtual User User1 { get; set; }
         public virtual User User2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProposalMessage> ProposalMessages { get; set; }
+        public virtual ICollection<Appointment> Appointments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Message> Messages { get; set; }
     }
 }

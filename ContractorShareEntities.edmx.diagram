@@ -48,11 +48,12 @@
         <AssociationConnector Association="ContractorShareModel.FK__UserFavou__FromU__440B1D61" ManuallyRouted="false" />
         <AssociationConnector Association="ContractorShareModel.FK__UserFavou__ToUse__44FF419A" ManuallyRouted="false" />
         <AssociationConnector Association="ContractorShareModel.FK__Service__Contrac__6E01572D" />
-        <EntityTypeShape EntityType="ContractorShareModel.ProposalMessage" Width="1.5" PointX="11.25" PointY="16.5" />
         <AssociationConnector Association="ContractorShareModel.FK__Proposal__Update__14270015" />
-        <AssociationConnector Association="ContractorShareModel.FK__ProposalM__Propo__17F790F9" />
-        <AssociationConnector Association="ContractorShareModel.FK__ProposalM__FromU__17036CC0" />
-        <AssociationConnector Association="ContractorShareModel.FK__ProposalM__ToUse__18EBB532" />
+        <AssociationConnector Association="ContractorShareModel.FK__Appointme__Propo__19DFD96B" />
+        <EntityTypeShape EntityType="ContractorShareModel.Message" Width="1.5" PointX="11.25" PointY="23.625" />
+        <AssociationConnector Association="ContractorShareModel.FK__ProposalM__FromU__17036CC01" />
+        <AssociationConnector Association="ContractorShareModel.FK__ProposalM__Propo__17F790F91" />
+        <AssociationConnector Association="ContractorShareModel.FK__ProposalM__ToUse__18EBB5321" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

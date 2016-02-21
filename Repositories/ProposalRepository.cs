@@ -117,20 +117,22 @@ namespace ContractorShareService.Repositories
         {
             try
             {
-                var proposals = from proposal in db.Proposals
+                var selectedproposal = (from proposal in db.Proposals
                                 where proposal.ID == ProposalId
-                                select proposal;
+                                select proposal).FirstOrDefault();
 
-                Proposal selectedproposal = proposals.FirstOrDefault();
-
-                selectedproposal.StatusID = StatusId;
-
-                if (StatusId == (int)ProposalStatusEnum.Rejected || StatusId == (int)ProposalStatusEnum.Cancelled)
+                if (selectedproposal.StatusID != StatusId)
                 {
-                    selectedproposal.Active = false;
+                    selectedproposal.StatusID = StatusId;
+
+                    if ((StatusId == (int)ProposalStatusEnum.Rejected || StatusId == (int)ProposalStatusEnum.Cancelled) && selectedproposal.Active)
+                    {
+                        selectedproposal.Active = false;
+                    }
+
+                    db.SaveChanges();
                 }
 
-                db.SaveChanges();
                 return EnumHelper.GetDescription(ErrorListEnum.OK);
             }
             catch (Exception ex)
@@ -220,6 +222,87 @@ namespace ContractorShareService.Repositories
             }
         }
 
+        public string ChangeProposalUpdatedByUser(int proposalId, int userId)
+        {
+            try
+            {
+                var proposals = from proposal in db.Proposals
+                                where proposal.ID == proposalId
+                                select proposal;
+
+                Proposal selectedproposal = proposals.FirstOrDefault();
+
+                selectedproposal.UpdatedByUserID = userId;
+
+                db.SaveChanges();
+                return EnumHelper.GetDescription(ErrorListEnum.OK);
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("Error ProposalRepository.ChangeProposalUpdatedByUser {0}: {1}", proposalId.ToString(), ex);
+                return ex.ToString();
+            }
+        }
+
+        public string CreateMessage(MessageInfo message)
+        {
+            try
+            {
+                Message newmessage = new Message()
+                {
+                    ProposalID = message.ProposalId,
+                    FromUserID = message.FromUserId,
+                    ToUserID = message.ToUserId,
+                    Message1 = message.Message,
+                    Created = DateTime.Now
+                };
+
+                db.Messages.Add(newmessage);
+                db.SaveChanges();
+
+                Logger.Info(String.Format("ProposalRepository.CreateMessage: created message"));
+
+                return EnumHelper.GetDescription(ErrorListEnum.OK);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error ProposalRepository.CreateMessage", ex);
+                return ex.ToString();
+            }
+        }
+
+        public List<MessageInfo> GetProposalMessages(int proposalId)
+        {
+            try
+            {
+                var messages = from message in db.Messages
+                               where message.ProposalID == proposalId
+                               orderby message.ID descending
+                               select message;
+
+                List<MessageInfo> messagelist = new List<MessageInfo>();
+
+                foreach (var selectedmessage in messages)
+                {
+                    MessageInfo messageinfo = new MessageInfo();
+
+                    messageinfo.ProposalId = selectedmessage.ProposalID;
+                    messageinfo.FromUserId = selectedmessage.FromUserID;
+                    messageinfo.ToUserId = selectedmessage.ToUserID;
+                    messageinfo.Created = selectedmessage.Created;
+                    messageinfo.Message = selectedmessage.Message1;
+
+                    messagelist.Add(messageinfo);
+                }
+
+                return messagelist;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error ProposalRepository.GetProposalMessages", ex);
+                return null;
+            }
+        }
 
     }
 }

@@ -24,10 +24,12 @@ namespace ContractorShareService
         public Nullable<decimal> Duration { get; set; }
         public Nullable<decimal> CoordX { get; set; }
         public Nullable<decimal> CoordY { get; set; }
+        public Nullable<int> ProposalId { get; set; }
     
         public virtual User User { get; set; }
         public virtual User User1 { get; set; }
         public virtual Service Service { get; set; }
         public virtual Status Status { get; set; }
+        public virtual Proposal Proposal { get; set; }
     }
 }

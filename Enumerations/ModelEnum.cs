@@ -29,8 +29,16 @@ namespace ContractorShareService.Enumerations
     public enum ProposalStatusEnum
     {
         Open = 1,
+        Pending = 2,
         Cancelled = 4,
         Accepted = 5,
         Rejected = 6
+    }
+
+    public enum AppointmentStatusEnum
+    {
+        Open = 1,
+        Cancelled = 4,
+        Closed = 7
     }
 }

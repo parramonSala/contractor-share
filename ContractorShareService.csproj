@@ -120,6 +120,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ContractorShareEntities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\ProposalController.cs" />
     <Compile Include="Controllers\RateController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
@@ -127,6 +128,8 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Domain\ChangePasswordInfo.cs" />
     <Compile Include="Domain\ChangePreferencesInfo.cs" />
+    <Compile Include="Domain\AppointmentInfo.cs" />
+    <Compile Include="Domain\MessageInfo.cs" />
     <Compile Include="Domain\ProposalInfo.cs" />
     <Compile Include="Domain\PreferencesResult.cs" />
     <Compile Include="Domain\ResetPasswordInfo.cs" />
@@ -152,6 +155,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="IContractorShare.cs" />
+    <Compile Include="Message.cs">
+      <DependentUpon>ContractorShareEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Preference.cs">
       <DependentUpon>ContractorShareEntities.tt</DependentUpon>
     </Compile>
@@ -159,12 +165,10 @@
     <Compile Include="Proposal.cs">
       <DependentUpon>ContractorShareEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="ProposalMessage.cs">
-      <DependentUpon>ContractorShareEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Rating.cs">
       <DependentUpon>ContractorShareEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\AppointmentRepository.cs" />
     <Compile Include="Repositories\ProposalRepository.cs" />
     <Compile Include="Repositories\RateRepository.cs" />
     <Compile Include="Repositories\ServiceRepository.cs" />
