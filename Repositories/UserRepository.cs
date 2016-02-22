@@ -511,7 +511,7 @@ namespace ContractorShareService.Repositories
             }
         }
 
-        public string CreateUserPreferences(int userId, ChangePreferencesInfo defaultpreferences)
+        public String CreateUserPreferences(int userId, ChangePreferencesInfo defaultpreferences)
         {
             try
             {
@@ -529,7 +529,7 @@ namespace ContractorShareService.Repositories
 
                 Logger.Info(String.Format("UserRepository.CreateUserPreferences: created userpreferences for user {0}", userId.ToString()));
 
-                return EnumHelper.GetDescription(ErrorListEnum.OK);
+                return "OK";
             }
             catch (Exception ex)
             {

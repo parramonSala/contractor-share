@@ -47,27 +47,35 @@ namespace ContractorShareService.Controllers
             }
         }
 
-        public string Register(string email, string password, int TypeOfUser)
+        public LoginResult Register(string email, string password, int userTypeId)
         {
+            LoginResult result = new LoginResult() { UserId = -1, UserType = userTypeId, error = EnumHelper.GetDescription(ErrorListEnum.Register_Other_Error) };
             try
             {
                 string message = string.Format("Executing Register for user {0}", email);
                 Logger.Info(message);
 
-                if (!_userRepository.UserExists(email, TypeOfUser))
+                if (!_userRepository.UserExists(email, userTypeId))
                 {
-                    int userid = _userRepository.CreateUser(email, password, TypeOfUser);
+                    int userid = _userRepository.CreateUser(email, password, userTypeId);
 
-                    if (userid < 0) return EnumHelper.GetDescription(ErrorListEnum.Register_Other_Error);
+                    if (userid < 0) return new LoginResult() { UserId = userid, UserType = userTypeId, error = EnumHelper.GetDescription(ErrorListEnum.Register_Other_Error) };
                     else
                     {
                         Logger.Info("User with ID " + userid + "created");
-                        return CreateUserDefaultPreferences(userid);
+                        string preferences = CreateUserDefaultPreferences(userid);
+                        if (preferences == "OK")
+                        {
+                            result.UserId = userid;
+                            result.UserType = userTypeId;
+                            result.error = "OK";
+                        }
+                        return result;
                     }
                 }
                 else
                 {
-                    return EnumHelper.GetDescription(ErrorListEnum.Register_User_Exists);
+                    return new LoginResult() { UserId = -1, UserType = userTypeId, error = EnumHelper.GetDescription(ErrorListEnum.Register_User_Exists) }; ;
                     throw new HttpResponseException(HttpStatusCode.Unauthorized);
                 }
             }
@@ -75,7 +83,7 @@ namespace ContractorShareService.Controllers
             {
                 string error_message = string.Format("Error Register user {0}", email);
                 Logger.Error(error_message, ex);
-                return EnumHelper.GetDescription(ErrorListEnum.Register_Other_Error);
+                return result;
             }
         }
 
@@ -404,7 +412,7 @@ namespace ContractorShareService.Controllers
             }
         }
 
-        public string CreateUserDefaultPreferences(int userId)
+        public String CreateUserDefaultPreferences(int userId)
         {
              try
             {

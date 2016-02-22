@@ -10,3 +10,4 @@ packages
 ContractorShareService.v11.suo
 Web.config
 Web.config
+*.suo

@@ -40,7 +40,7 @@ namespace ContractorShareService
             return _userController.Login(loginInfo.Email, loginInfo.Password);
         }
 
-        public string Register(RegisterInfo registerinfo)
+        public LoginResult Register(RegisterInfo registerinfo)
         {
             return _userController.Register(registerinfo.Email, registerinfo.Password, registerinfo.UserType);
         }
