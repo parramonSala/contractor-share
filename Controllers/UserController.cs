@@ -18,7 +18,7 @@ namespace ContractorShareService.Controllers
         private UserRepository _userRepository = new UserRepository();
         private StatusRepository _statusRepository = new StatusRepository();
 
-        public LoginResult Login(string email, string password)
+        public AuthenticationResult Login(string email, string password)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace ContractorShareService.Controllers
                 {
                     string error_message = string.Format("Error Login: user with mail {0} doesn't exist in the DB", email);
                     Logger.Error(error_message);
-                    return new LoginResult(EnumHelper.GetDescription(ErrorListEnum.Login_Client_NoExists));
+                    return new AuthenticationResult(EnumHelper.GetDescription(ErrorListEnum.Login_Client_NoExists));
                     throw new HttpResponseException(HttpStatusCode.Unauthorized);
                 }
             }
@@ -43,13 +43,13 @@ namespace ContractorShareService.Controllers
             {
                 string error_message = string.Format("Error Login user {0}", email);
                 Logger.Error(error_message, ex);
-                return new LoginResult(EnumHelper.GetDescription(ErrorListEnum.Login_Other_Error));
+                return new AuthenticationResult(EnumHelper.GetDescription(ErrorListEnum.Login_Other_Error));
             }
         }
 
-        public LoginResult Register(string email, string password, int userTypeId)
+        public AuthenticationResult Register(string email, string password, int userTypeId)
         {
-            LoginResult result = new LoginResult() { UserId = -1, UserType = userTypeId, error = EnumHelper.GetDescription(ErrorListEnum.Register_Other_Error) };
+            AuthenticationResult result = new AuthenticationResult() { UserId = -1, UserType = userTypeId, error = EnumHelper.GetDescription(ErrorListEnum.Register_Other_Error) };
             try
             {
                 string message = string.Format("Executing Register for user {0}", email);
@@ -59,7 +59,7 @@ namespace ContractorShareService.Controllers
                 {
                     int userid = _userRepository.CreateUser(email, password, userTypeId);
 
-                    if (userid < 0) return new LoginResult() { UserId = userid, UserType = userTypeId, error = EnumHelper.GetDescription(ErrorListEnum.Register_Other_Error) };
+                    if (userid < 0) return new AuthenticationResult() { UserId = userid, UserType = userTypeId, error = EnumHelper.GetDescription(ErrorListEnum.Register_Other_Error) };
                     else
                     {
                         Logger.Info("User with ID " + userid + "created");
@@ -75,7 +75,7 @@ namespace ContractorShareService.Controllers
                 }
                 else
                 {
-                    return new LoginResult() { UserId = -1, UserType = userTypeId, error = EnumHelper.GetDescription(ErrorListEnum.Register_User_Exists) }; ;
+                    return new AuthenticationResult() { UserId = -1, UserType = userTypeId, error = EnumHelper.GetDescription(ErrorListEnum.Register_User_Exists) }; ;
                     throw new HttpResponseException(HttpStatusCode.Unauthorized);
                 }
             }
@@ -290,8 +290,10 @@ namespace ContractorShareService.Controllers
             }
         }
 
-        public string ResetPassword(string email)
+        public ResetPasswordResult ResetPassword(string email)
         {
+            ResetPasswordResult result = new ResetPasswordResult();
+            result.Email = email;
             try
             {
                 string message = string.Format("Executing ResetPassword for user {0}", email);
@@ -303,21 +305,23 @@ namespace ContractorShareService.Controllers
 
                     if (temporalpassword != "-1")
                     {
-                        if (SendEmail(temporalpassword, email)) return EnumHelper.GetDescription(ErrorListEnum.OK);
-                        else return EnumHelper.GetDescription(ErrorListEnum.Send_Email_Other_Error);
+                        if (SendEmail(temporalpassword, email)) result.Result= EnumHelper.GetDescription(ErrorListEnum.OK);
+                        else result.Result = EnumHelper.GetDescription(ErrorListEnum.Send_Email_Other_Error);
                     }
                     else
                     {
-                        return EnumHelper.GetDescription(ErrorListEnum.Reset_Password_Other_Error);
+                        result.Result = EnumHelper.GetDescription(ErrorListEnum.Reset_Password_Other_Error);
                     }
                 }
-                else return EnumHelper.GetDescription(ErrorListEnum.Reset_Password_UserNotExist);
+                result.Result = EnumHelper.GetDescription(ErrorListEnum.Reset_Password_UserNotExist);
+                return result;
             }
             catch (Exception ex)
             {
                 string error_message = string.Format("Error Reset Password for user {0}", email);
                 Logger.Error(error_message, ex);
-                return EnumHelper.GetDescription(ErrorListEnum.Reset_Password_Other_Error);
+                result.Result = EnumHelper.GetDescription(ErrorListEnum.Reset_Password_Other_Error);
+                return result;
             }
         }
 

@@ -35,17 +35,17 @@ namespace ContractorShareService
         #region Login operations
 
         //1.Login operations
-        public LoginResult Login(LoginInfo loginInfo)
+        public AuthenticationResult Login(LoginInfo loginInfo)
         {
             return _userController.Login(loginInfo.Email, loginInfo.Password);
         }
 
-        public LoginResult Register(RegisterInfo registerinfo)
+        public AuthenticationResult Register(RegisterInfo registerinfo)
         {
             return _userController.Register(registerinfo.Email, registerinfo.Password, registerinfo.UserType);
         }
 
-        public string ResetPassword(ResetPasswordInfo resetpasswordinfo)
+        public ResetPasswordResult ResetPassword(ResetPasswordInfo resetpasswordinfo)
         {
             return _userController.ResetPassword(resetpasswordinfo.Email);
         }
