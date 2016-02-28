@@ -146,9 +146,9 @@ namespace ContractorShareService
             return _serviceController.GetClosedServicesAssignedToMe(contractorId);
         }
 
-        public string ChangeServiceStatus(string serviceID, int StatusID)
+        public Result ChangeServiceStatus(string jobId, int StatusID)
         {
-            return _serviceController.ChangeServiceStatus(Convert.ToInt32(serviceID), StatusID);
+            return _serviceController.ChangeServiceStatus(Convert.ToInt32(jobId), StatusID);
         }
 
         public string AddServiceComment(int serviceID, int CreatedByUserID, string CommentTitle, string CommentText)

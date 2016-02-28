@@ -119,35 +119,13 @@ namespace ContractorShareService.Controllers
 
         public List<ServiceInfo> GetClosedServicesAssignedToMe(int ContractorId)
         {
-            try
-            {
-                string message = string.Format("Executing GetClosedServicesAssignedToMe {0}", ContractorId.ToString());
-                Logger.Info(message);
-
-                return _serviceRepository.GetClosedServicesAssignedToMe(ContractorId);
-            }
-            catch (Exception ex)
-            {
-                string error_message = string.Format("Error Getting Closed Services assigned to contractor {0}", ContractorId.ToString());
-                Logger.Error(error_message, ex);
-                return null;
-            }
+      
+            string message = string.Format("Executing GetClosedServicesAssignedToMe {0}", ContractorId.ToString());     
+            return _serviceRepository.GetClosedServicesAssignedToMe(ContractorId);   
         }
-        public string ChangeServiceStatus(int ServiceId, int StatusId)
+        public Result ChangeServiceStatus(int ServiceId, int StatusId)
         {
-            try
-            {
-                string message = string.Format("Executing ChangeServiceStatus {0}, {1}", ServiceId.ToString(), StatusId.ToString());
-                Logger.Info(message);
-
-                return _serviceRepository.ChangeServiceStatus(ServiceId, StatusId);
-            }
-            catch (Exception ex)
-            {
-                string error_message = string.Format("Error ChangeServiceStatus {0}, {1}", ServiceId.ToString(), StatusId.ToString());
-                Logger.Error(error_message, ex);
-                return ex.ToString();
-            }
+            return _serviceRepository.ChangeServiceStatus(ServiceId, StatusId);
         }
 
 
