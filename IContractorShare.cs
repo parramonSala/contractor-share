@@ -109,7 +109,7 @@ namespace ContractorShareService
 
         //4. Service Operations
         [OperationContract]
-        [WebInvoke(UriTemplate = "jobs/{jobId}/status", Method = "PUT", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        [WebInvoke(UriTemplate = "jobs/{jobId}/status", Method = "PUT", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         Result ChangeServiceStatus(string jobId, int StatusID);
 
         [OperationContract]
