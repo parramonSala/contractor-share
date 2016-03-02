@@ -48,5 +48,12 @@ namespace ContractorShareService.Controllers
             return _appointmentRepository.GetAppointment(appointmentId);
         }
 
+        public Result ChangeAppointmentStatus(int appointmentId, int statusId)
+        {
+            string message = string.Format("Executing ChangeAppointmentStatus");
+            Logger.Info(message);
+
+            return _appointmentRepository.ChangeAppointmentStatus(appointmentId, statusId);
+        }
     }
 }

@@ -117,6 +117,34 @@ namespace ContractorShareService.Repositories
             }
 
         }
-    
+
+        public Result ChangeAppointmentStatus(int appointmentId, int statusId)
+        {
+            try
+            {
+                var selectedappointment = (from appointment in db.Appointments
+                                           where appointment.ID == appointmentId
+                                           select appointment).FirstOrDefault();
+
+                if (selectedappointment.StatusID != statusId)
+                {
+                    selectedappointment.StatusID = statusId;
+
+                    if ((statusId == (int)AppointmentStatusEnum.Cancelled || statusId == (int)AppointmentStatusEnum.Cancelled) && selectedappointment.Active)
+                    {
+                        selectedappointment.Active = false;
+                    }
+
+                    db.SaveChanges();
+                }
+
+                return new Result();
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("Error AppointmentRepository.ChangeAppointmentStatus {0}: {1}", appointmentId.ToString(), ex);
+                return new Result(ex.ToString(), (int)ErrorListEnum.Appointment_Other_Error);
+            }
+        }
     }
 }

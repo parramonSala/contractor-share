@@ -101,7 +101,10 @@ namespace ContractorShareService.Enumerations
 
         //Send Email
         [Description("Not controled Send Email Error")]
-        Send_Email_Other_Error = -32
+        Send_Email_Other_Error = -32,
 
+        //Appointments Errors
+        [Description("Not controled Appointment Error")]
+        Appointment_Other_Error = -33
     }
 }

@@ -216,7 +216,9 @@ namespace ContractorShareService
         {
             return _proposalController.GetProposalMessages(Convert.ToInt32(proposalId));
         }
+        #endregion
 
+        #region Appointments operations
         public List<AppointmentInfo> GetActiveAppointments(string userId)
         {
             return _appointmentController.GetActiveAppointments(Convert.ToInt32(userId));
@@ -225,6 +227,11 @@ namespace ContractorShareService
         public AppointmentInfo GetAppointment(string appointmentId)
         {
             return _appointmentController.GetAppointment(Convert.ToInt32(appointmentId));
+        }
+
+        public Result ChangeAppointmentStatus(string appointmentId, int statusId)
+        {
+            return _appointmentController.ChangeAppointmentStatus(Convert.ToInt32(appointmentId), statusId);
         }
         #endregion
 
