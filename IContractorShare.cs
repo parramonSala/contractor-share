@@ -17,15 +17,15 @@ namespace ContractorShareService
         [OperationContract]
         //TODO: Try to wrapp this into UserInfo class so that I can build the json with a wrapping class with the same name.
         [WebInvoke(UriTemplate = "sessions", Method = "POST", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        LoginResult Login(LoginInfo loginInfo);
+        AuthenticationResult Login(LoginInfo loginInfo);
 
         [OperationContract]
         [WebInvoke(UriTemplate = "users", Method = "POST", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json,RequestFormat = WebMessageFormat.Json)]
-        string Register(RegisterInfo registerinfo);
+        AuthenticationResult Register(RegisterInfo registerinfo);
 
         [OperationContract]
         [WebInvoke(UriTemplate = "resetPassword", Method = "POST", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        string ResetPassword(ResetPasswordInfo resetpasswordinfo);
+        ResetPasswordResult ResetPassword(ResetPasswordInfo resetpasswordinfo);
 
         [OperationContract]
         [WebInvoke(UriTemplate = "users/{userId}/password", Method = "PUT", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
@@ -109,8 +109,8 @@ namespace ContractorShareService
 
         //4. Service Operations
         [OperationContract]
-        [WebInvoke(UriTemplate = "jobs/{jobId}/status", Method = "PUT", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        string ChangeServiceStatus(string jobId, int StatusID);
+        [WebInvoke(UriTemplate = "jobs/{jobId}/status/{statusId}", Method = "PUT", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        Result ChangeServiceStatus(string jobId, string statusId);
 
         [OperationContract]
         [WebGet(UriTemplate = "jobs?CategoryId={CategoryId}&City={City}&PostCode={PostCode}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]

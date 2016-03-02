@@ -107,7 +107,7 @@ namespace ContractorShareService.Repositories
             }
         }
 
-        public LoginResult Authenticate(string mail, string password)
+        public AuthenticationResult Authenticate(string mail, string password)
         {
             try
             {
@@ -115,13 +115,13 @@ namespace ContractorShareService.Repositories
                             where user.Email == mail && user.EncPassword == password
                             select user;
 
-                LoginResult loginresult = new LoginResult();
+                AuthenticationResult loginresult = new AuthenticationResult();
 
-                if (!users.Any()) return new LoginResult(EnumHelper.GetDescription(ErrorListEnum.Login_Incorrect_Password));
+                if (!users.Any()) return new AuthenticationResult(EnumHelper.GetDescription(ErrorListEnum.Login_Incorrect_Password));
 
                 User result = users.First();
 
-                if (result.ExpDate <= DateTime.Now) return new LoginResult (EnumHelper.GetDescription(ErrorListEnum.Login_Other_Error));
+                if (result.ExpDate <= DateTime.Now) return new AuthenticationResult (EnumHelper.GetDescription(ErrorListEnum.Login_Other_Error));
 
                 loginresult.UserId = result.ID;
                 loginresult.UserType = result.UserType;
@@ -132,7 +132,7 @@ namespace ContractorShareService.Repositories
             catch (Exception ex)
             {
                 Logger.Error("Error UserRepository.Login", ex);
-                return new LoginResult(EnumHelper.GetDescription(ErrorListEnum.Login_Other_Error));
+                return new AuthenticationResult(EnumHelper.GetDescription(ErrorListEnum.Login_Other_Error));
             }
 
         }
@@ -511,7 +511,7 @@ namespace ContractorShareService.Repositories
             }
         }
 
-        public string CreateUserPreferences(int userId, ChangePreferencesInfo defaultpreferences)
+        public String CreateUserPreferences(int userId, ChangePreferencesInfo defaultpreferences)
         {
             try
             {
@@ -529,7 +529,7 @@ namespace ContractorShareService.Repositories
 
                 Logger.Info(String.Format("UserRepository.CreateUserPreferences: created userpreferences for user {0}", userId.ToString()));
 
-                return EnumHelper.GetDescription(ErrorListEnum.OK);
+                return "OK";
             }
             catch (Exception ex)
             {

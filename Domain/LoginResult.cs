@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 namespace ContractorShareService.Domain
 {
     [DataContract]
-    public class LoginResult
+    public class AuthenticationResult
     {
         [DataMember(IsRequired = true)]
         public int UserId { get; set; }
@@ -18,14 +18,14 @@ namespace ContractorShareService.Domain
         [DataMember(IsRequired = true)]
         public string error { get; set; }
 
-        public LoginResult(string errormessage)
+        public AuthenticationResult(string errormessage)
         {
             UserId = -1;
             UserType = -1;
             error = errormessage;
         }
 
-        public LoginResult()
+        public AuthenticationResult()
         {
             UserId = -1;
             UserType = -1;

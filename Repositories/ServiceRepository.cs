@@ -119,8 +119,10 @@ namespace ContractorShareService.Repositories
             }
         }
 
-        public string ChangeServiceStatus(int ServiceId, int StatusId)
+        public Result ChangeServiceStatus(int ServiceId, int StatusId)
         {
+            Result result = new Result();
+            result.resultCode = -1;
             try
             {
                 var services = from service in db.Services
@@ -128,16 +130,19 @@ namespace ContractorShareService.Repositories
                                select service;
 
                 Service serviceselected = services.FirstOrDefault();
-
                 serviceselected.StatusID = StatusId;
-
                 db.SaveChanges();
-                return EnumHelper.GetDescription(ErrorListEnum.OK);
+
+                result.message = EnumHelper.GetDescription(ErrorListEnum.OK);
+                result.resultCode = (int)ErrorListEnum.OK;
+
+                return result;
             }
             catch (Exception ex)
             {
-                Logger.ErrorFormat("Error ServiceRepository.ChangeServiceStatus {0}: {1}", ServiceId.ToString(), ex);
-                return ex.ToString();
+                result.message = string.Format("Error ServiceRepository.ChangeServiceStatus {0}: {1}", ServiceId.ToString(), ex);
+                result.resultCode = (int)ErrorListEnum.Service_Edit_Error;
+                return result;
             }
         }
 

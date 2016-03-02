@@ -137,6 +137,8 @@
     <Compile Include="Domain\LoginResult.cs" />
     <Compile Include="Domain\LoginInfo.cs" />
     <Compile Include="Domain\Rate.cs" />
+    <Compile Include="Domain\ResetPasswordResult.cs" />
+    <Compile Include="Domain\Result.cs" />
     <Compile Include="Domain\SearchContractor.cs" />
     <Compile Include="Domain\SearchService.cs" />
     <Compile Include="Domain\ServiceInfo.cs" />
