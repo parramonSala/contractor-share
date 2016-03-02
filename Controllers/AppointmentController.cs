@@ -32,5 +32,21 @@ namespace ContractorShareService.Controllers
 
         }
 
+        public List<AppointmentInfo> GetActiveAppointments(int UserId)
+        {
+            string message = string.Format("Executing GetActiveAppointments");
+            Logger.Info(message);
+
+            return _appointmentRepository.GetActiveAppointments(UserId);
+        }
+
+        public AppointmentInfo GetAppointment(int appointmentId)
+        {
+            string message = string.Format("Executing GetAppointment");
+            Logger.Info(message);
+
+            return _appointmentRepository.GetAppointment(appointmentId);
+        }
+
     }
 }

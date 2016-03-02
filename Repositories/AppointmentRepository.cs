@@ -47,6 +47,76 @@ namespace ContractorShareService.Repositories
             }
         }
 
-        
+        public List<AppointmentInfo> GetActiveAppointments(int UserId)
+        {
+            try
+            {
+                var appointments = from appointment in db.Appointments
+                                   where (appointment.ClientID == UserId || appointment.ContractorID == UserId)
+                                   && appointment.Active == true
+                                   select appointment;
+
+                List<AppointmentInfo> appointmentsinfolist = new List<AppointmentInfo>();
+
+                foreach (var selectedappointment in appointments)
+                {
+                    AppointmentInfo appointmentinfo = new AppointmentInfo();
+
+                    appointmentinfo.Active = selectedappointment.Active;
+                    appointmentinfo.AproxDuration = selectedappointment.Duration;
+                    appointmentinfo.ClientId = selectedappointment.ClientID;
+                    appointmentinfo.ContractorId = selectedappointment.ContractorID;
+                    appointmentinfo.JobId = selectedappointment.ServiceID;
+                    appointmentinfo.ProposalId = selectedappointment.ProposalId;
+                    appointmentinfo.StatusId = selectedappointment.StatusID;
+                    appointmentinfo.MeetingTime = selectedappointment.MeetingTime;
+                    appointmentinfo.LocationCoordX = selectedappointment.CoordX;
+                    appointmentinfo.LocationCoordY = selectedappointment.CoordY;
+                    appointmentinfo.AppointmentId = selectedappointment.ID;
+
+                    appointmentsinfolist.Add(appointmentinfo);
+                }
+
+                return appointmentsinfolist;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error AppointmentRepository.GetActiveAppointments", ex);
+                return null;
+            }
+        }
+
+        public AppointmentInfo GetAppointment(int AppointmentId)
+        {
+            try
+            {
+                var appointment = (from app in db.Appointments
+                                   where app.ID == AppointmentId
+                                   select app).FirstOrDefault();
+                
+                AppointmentInfo appointmentinfo = new AppointmentInfo();
+
+                appointmentinfo.Active = appointment.Active;
+                appointmentinfo.AproxDuration = appointment.Duration;
+                appointmentinfo.ClientId = appointment.ClientID;
+                appointmentinfo.ContractorId = appointment.ContractorID;
+                appointmentinfo.JobId = appointment.ServiceID;
+                appointmentinfo.ProposalId = appointment.ProposalId;
+                appointmentinfo.StatusId = appointment.StatusID;
+                appointmentinfo.MeetingTime = appointment.MeetingTime;
+                appointmentinfo.LocationCoordX = appointment.CoordX;
+                appointmentinfo.LocationCoordY = appointment.CoordY;
+                appointmentinfo.AppointmentId = appointment.ID;
+
+                return appointmentinfo;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error AppointmentRepository.GetAppointment", ex);
+                return null;
+            }
+
+        }
+    
     }
 }

@@ -9,7 +9,10 @@ namespace ContractorShareService.Domain
     public class AppointmentInfo
     {
         [DataMember]
-        public int ProposalId { get; set; }
+        public int AppointmentId { get; set; }
+
+        [DataMember]
+        public int? ProposalId { get; set; }
 
         [DataMember]
         public int JobId { get; set; }

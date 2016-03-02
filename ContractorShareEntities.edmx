@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ServiceID" Type="int" Nullable="false" />
           <Property Name="ClientID" Type="int" Nullable="false" />
           <Property Name="ContractorID" Type="int" Nullable="false" />
@@ -200,7 +200,7 @@
           <Property Name="FromUserID" Type="int" Nullable="false" />
           <Property Name="ToUserID" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Appointme__Clien__2C3393D0">
+        <Association Name="FK__Appointme__Clien__1CBC4616">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -212,7 +212,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Appointme__Contr__2D27B809">
+        <Association Name="FK__Appointme__Contr__1DB06A4F">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -224,7 +224,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Appointme__Propo__19DFD96B">
+        <Association Name="FK__Appointme__Propo__1EA48E88">
           <End Role="Proposal" Type="Self.Proposal" Multiplicity="0..1" />
           <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -236,7 +236,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Appointme__Servi__2E1BDC42">
+        <Association Name="FK__Appointme__Servi__1F98B2C1">
           <End Role="Service" Type="Self.Service" Multiplicity="1" />
           <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -248,7 +248,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Appointme__Statu__2F10007B">
+        <Association Name="FK__Appointme__Statu__208CD6FA">
           <End Role="Status" Type="Self.Status" Multiplicity="1" />
           <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -659,23 +659,23 @@
           <EntitySet Name="UserCategory" EntityType="Self.UserCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserDenunce" EntityType="Self.UserDenunce" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserFavourite" EntityType="Self.UserFavourite" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Appointme__Clien__2C3393D0" Association="Self.FK__Appointme__Clien__2C3393D0">
+          <AssociationSet Name="FK__Appointme__Clien__1CBC4616" Association="Self.FK__Appointme__Clien__1CBC4616">
             <End Role="User" EntitySet="User" />
             <End Role="Appointment" EntitySet="Appointment" />
           </AssociationSet>
-          <AssociationSet Name="FK__Appointme__Contr__2D27B809" Association="Self.FK__Appointme__Contr__2D27B809">
+          <AssociationSet Name="FK__Appointme__Contr__1DB06A4F" Association="Self.FK__Appointme__Contr__1DB06A4F">
             <End Role="User" EntitySet="User" />
             <End Role="Appointment" EntitySet="Appointment" />
           </AssociationSet>
-          <AssociationSet Name="FK__Appointme__Propo__19DFD96B" Association="Self.FK__Appointme__Propo__19DFD96B">
+          <AssociationSet Name="FK__Appointme__Propo__1EA48E88" Association="Self.FK__Appointme__Propo__1EA48E88">
             <End Role="Proposal" EntitySet="Proposal" />
             <End Role="Appointment" EntitySet="Appointment" />
           </AssociationSet>
-          <AssociationSet Name="FK__Appointme__Servi__2E1BDC42" Association="Self.FK__Appointme__Servi__2E1BDC42">
+          <AssociationSet Name="FK__Appointme__Servi__1F98B2C1" Association="Self.FK__Appointme__Servi__1F98B2C1">
             <End Role="Service" EntitySet="Service" />
             <End Role="Appointment" EntitySet="Appointment" />
           </AssociationSet>
-          <AssociationSet Name="FK__Appointme__Statu__2F10007B" Association="Self.FK__Appointme__Statu__2F10007B">
+          <AssociationSet Name="FK__Appointme__Statu__208CD6FA" Association="Self.FK__Appointme__Statu__208CD6FA">
             <End Role="Status" EntitySet="Status" />
             <End Role="Appointment" EntitySet="Appointment" />
           </AssociationSet>

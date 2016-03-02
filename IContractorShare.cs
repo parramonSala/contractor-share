@@ -138,6 +138,10 @@ namespace ContractorShareService
         string ChangeProposalStatus(string proposalId, int StatusId);
 
         [OperationContract]
+        [WebGet(UriTemplate = "appointments/{appointmentId}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        AppointmentInfo GetAppointment(string appointmentId);
+
+        [OperationContract]
         [WebGet(UriTemplate = "users/{userId}/activeproposals", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         List<ProposalInfo> GetActiveProposals(string userId);
 
@@ -156,6 +160,10 @@ namespace ContractorShareService
         [OperationContract]
         [WebGet(UriTemplate = "proposals/{proposalId}/messages", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         List<MessageInfo> GetProposalMessages(string proposalId);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "users/{userId}/activeappointments", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        List<AppointmentInfo> GetActiveAppointments(string userId);
 
         //5.Create Task Operations
         [OperationContract]
