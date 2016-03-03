@@ -229,9 +229,14 @@ namespace ContractorShareService
             return _appointmentController.GetAppointment(Convert.ToInt32(appointmentId));
         }
 
-        public Result ChangeAppointmentStatus(string appointmentId, int statusId)
+        public Result CancelAppointment(string appointmentId)
         {
-            return _appointmentController.ChangeAppointmentStatus(Convert.ToInt32(appointmentId), statusId);
+            return _appointmentController.CancelAppointment(Convert.ToInt32(appointmentId));
+        }
+
+        public Result CloseAppointment(string appointmentId)
+        {
+            return _appointmentController.CloseAppointment(Convert.ToInt32(appointmentId));
         }
         #endregion
 
