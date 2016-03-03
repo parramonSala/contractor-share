@@ -86,6 +86,45 @@ namespace ContractorShareService.Repositories
             }
         }
 
+        public List<AppointmentInfo> GetClosedAppointments(int UserId)
+        {
+            try
+            {
+                var appointments = from appointment in db.Appointments
+                                   where (appointment.ClientID == UserId || appointment.ContractorID == UserId)
+                                   && appointment.Active == false
+                                   select appointment;
+
+                List<AppointmentInfo> appointmentsinfolist = new List<AppointmentInfo>();
+
+                foreach (var selectedappointment in appointments)
+                {
+                    AppointmentInfo appointmentinfo = new AppointmentInfo();
+
+                    appointmentinfo.Active = selectedappointment.Active;
+                    appointmentinfo.AproxDuration = selectedappointment.Duration;
+                    appointmentinfo.ClientId = selectedappointment.ClientID;
+                    appointmentinfo.ContractorId = selectedappointment.ContractorID;
+                    appointmentinfo.JobId = selectedappointment.ServiceID;
+                    appointmentinfo.ProposalId = selectedappointment.ProposalId;
+                    appointmentinfo.StatusId = selectedappointment.StatusID;
+                    appointmentinfo.MeetingTime = selectedappointment.MeetingTime;
+                    appointmentinfo.LocationCoordX = selectedappointment.CoordX;
+                    appointmentinfo.LocationCoordY = selectedappointment.CoordY;
+                    appointmentinfo.AppointmentId = selectedappointment.ID;
+
+                    appointmentsinfolist.Add(appointmentinfo);
+                }
+
+                return appointmentsinfolist;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error AppointmentRepository.GetClosedAppointments", ex);
+                return null;
+            }
+        }
+
         public AppointmentInfo GetAppointment(int AppointmentId)
         {
             try

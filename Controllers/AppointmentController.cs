@@ -44,6 +44,14 @@ namespace ContractorShareService.Controllers
             return _appointmentRepository.GetActiveAppointments(UserId);
         }
 
+        public List<AppointmentInfo> GetClosedAppointments(int UserId)
+        {
+            string message = string.Format("Executing GetClosedAppointments");
+            Logger.Info(message);
+
+            return _appointmentRepository.GetClosedAppointments(UserId);
+        }
+
         public AppointmentInfo GetAppointment(int appointmentId)
         {
             string message = string.Format("Executing GetAppointment");

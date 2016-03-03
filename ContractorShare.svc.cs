@@ -224,6 +224,11 @@ namespace ContractorShareService
             return _appointmentController.GetActiveAppointments(Convert.ToInt32(userId));
         }
 
+        public List<AppointmentInfo> GetClosedAppointments(string userId)
+        {
+            return _appointmentController.GetClosedAppointments(Convert.ToInt32(userId));
+        }
+
         public AppointmentInfo GetAppointment(string appointmentId)
         {
             return _appointmentController.GetAppointment(Convert.ToInt32(appointmentId));

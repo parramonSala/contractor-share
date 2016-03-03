@@ -162,6 +162,10 @@ namespace ContractorShareService
         List<AppointmentInfo> GetActiveAppointments(string userId);
 
         [OperationContract]
+        [WebGet(UriTemplate = "users/{userId}/closedappointments", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        List<AppointmentInfo> GetClosedAppointments(string userId);
+
+        [OperationContract]
         [WebGet(UriTemplate = "appointments/{appointmentId}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         AppointmentInfo GetAppointment(string appointmentId);
 
