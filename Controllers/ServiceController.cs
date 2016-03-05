@@ -14,7 +14,7 @@ namespace ContractorShareService.Controllers
         protected static ILog Logger = LogManager.GetLogger(typeof(ServiceController));
         private ServiceRepository _serviceRepository = new ServiceRepository();
 
-        public string Create(ServiceInfo servicerequest)
+        public string Create(JobInfo servicerequest)
         {
             try
             {
@@ -32,24 +32,12 @@ namespace ContractorShareService.Controllers
 
         }
 
-        public string EditServiceInfo(int ServiceId, ServiceInfo servicerequest)
+        public Result EditServiceInfo(int ServiceId, JobInfo servicerequest)
         {
-            try
-            {
-                string message = string.Format("Executing Edit ServiceRequest {0}", ServiceId.ToString());
-                Logger.Info(message);
-
-                return _serviceRepository.EditService(ServiceId, servicerequest);
-            }
-            catch (Exception ex)
-            {
-                string error_message = string.Format("Error Editing ServiceRequest {0}", ServiceId.ToString());
-                Logger.Error(error_message, ex);
-                return ex.ToString();
-            }
+            return _serviceRepository.EditJob(ServiceId, servicerequest);       
         }
 
-        public ServiceInfo GetServiceInfo(int ServiceId)
+        public JobInfo GetServiceInfo(int ServiceId)
         {
             try
             {
@@ -66,7 +54,7 @@ namespace ContractorShareService.Controllers
             }
         }
 
-        public List<ServiceInfo> GetMyCurrentServices(int ClientId)
+        public List<JobInfo> GetMyCurrentServices(int ClientId)
         {
             try
             {
@@ -83,7 +71,7 @@ namespace ContractorShareService.Controllers
             }
         }
 
-        public List<ServiceInfo> GetMyCompletedServices(int ClientId)
+        public List<JobInfo> GetMyCompletedServices(int ClientId)
         {
             try
             {
@@ -100,7 +88,7 @@ namespace ContractorShareService.Controllers
             }
         }
 
-        public List<ServiceInfo> GetOpenServicesAssignedToMe(int ContractorId)
+        public List<JobInfo> GetOpenServicesAssignedToMe(int ContractorId)
         {
             try
             {
@@ -117,7 +105,7 @@ namespace ContractorShareService.Controllers
             }
         }
 
-        public List<ServiceInfo> GetClosedServicesAssignedToMe(int ContractorId)
+        public List<JobInfo> GetClosedServicesAssignedToMe(int ContractorId)
         {
       
             string message = string.Format("Executing GetClosedServicesAssignedToMe {0}", ContractorId.ToString());     
@@ -165,7 +153,7 @@ namespace ContractorShareService.Controllers
 
 
 
-        public List<ServiceInfo> GetListServices(int categoryid, string city, string postcode)
+        public List<JobInfo> GetListServices(int categoryid, string city, string postcode)
         {
             try
              {

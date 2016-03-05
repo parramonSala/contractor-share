@@ -141,7 +141,7 @@
     <Compile Include="Domain\Result.cs" />
     <Compile Include="Domain\SearchContractor.cs" />
     <Compile Include="Domain\SearchService.cs" />
-    <Compile Include="Domain\ServiceInfo.cs" />
+    <Compile Include="Domain\JobInfo.cs" />
     <Compile Include="Domain\TaskInfo.cs" />
     <Compile Include="Domain\UserInfo.cs" />
     <Compile Include="Enumerations\EnumHelper.cs" />

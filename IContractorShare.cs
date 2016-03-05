@@ -81,31 +81,31 @@ namespace ContractorShareService
         //3.Manage Service Requests operations
         [OperationContract]
         [WebInvoke(UriTemplate = "jobs", Method = "POST")]
-        string CreateServiceRequest(ServiceInfo jobRequest);
+        string CreateServiceRequest(JobInfo jobRequest);
 
         [OperationContract]
-        [WebInvoke(UriTemplate = "jobs/{jobId}", Method = "PUT", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        string EditServiceRequest(string jobId, ServiceInfo servicerequest);
+        [WebInvoke(UriTemplate = "jobs/{jobId}", Method = "PUT", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        Result EditJob(string jobId, JobInfo jobRequest);
 
         [OperationContract]
         [WebGet(UriTemplate = "jobs/{jobId}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        ServiceInfo GetServiceRequest(string jobId);
+        JobInfo GetServiceRequest(string jobId);
 
         [OperationContract]
         [WebGet(UriTemplate = "users/{userId}/jobs", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        List<ServiceInfo> GetMyCurrentServices(string userId);
+        List<JobInfo> GetMyCurrentServices(string userId);
 
         [OperationContract]
         [WebGet(UriTemplate = "users/{userId}/completedjobs",ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        List<ServiceInfo> GetMyCompletedServices(string userId);
+        List<JobInfo> GetMyCompletedServices(string userId);
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        List<ServiceInfo> GetOpenServicesAssignedToMe(int contractorId);
+        List<JobInfo> GetOpenServicesAssignedToMe(int contractorId);
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        List<ServiceInfo> GetClosedServicesAssignedToMe(int contractorId);
+        List<JobInfo> GetClosedServicesAssignedToMe(int contractorId);
 
         //4. Service Operations
         [OperationContract]
@@ -114,7 +114,7 @@ namespace ContractorShareService
 
         [OperationContract]
         [WebGet(UriTemplate = "jobs?CategoryId={CategoryId}&City={City}&PostCode={PostCode}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        List<ServiceInfo> SearchServices(int CategoryId, string City, string PostCode);
+        List<JobInfo> SearchServices(int CategoryId, string City, string PostCode);
 
         [OperationContract]
         [WebGet(UriTemplate = "jobs/{jobId}/jobRate", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]

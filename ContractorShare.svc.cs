@@ -111,37 +111,37 @@ namespace ContractorShareService
         #region Service request operations
 
         //3.Service request operations
-        public string CreateServiceRequest(ServiceInfo servicerequest)
+        public string CreateServiceRequest(JobInfo servicerequest)
         {
             return _serviceController.Create(servicerequest);
         }
 
-        public string EditServiceRequest(string serviceID, ServiceInfo servicerequest)
+        public Result EditJob(string serviceID, JobInfo servicerequest)
         {
             return _serviceController.EditServiceInfo(Convert.ToInt32(serviceID), servicerequest);
         }
 
-        public ServiceInfo GetServiceRequest(string serviceRequestId)
+        public JobInfo GetServiceRequest(string serviceRequestId)
         {
             return _serviceController.GetServiceInfo(Convert.ToInt32(serviceRequestId));
         }
 
-        public List<ServiceInfo> GetMyCurrentServices(string clientId)
+        public List<JobInfo> GetMyCurrentServices(string clientId)
         {
             return _serviceController.GetMyCurrentServices(Convert.ToInt32(clientId));
         }
 
-        public List<ServiceInfo> GetMyCompletedServices(string clientId)
+        public List<JobInfo> GetMyCompletedServices(string clientId)
         {
             return _serviceController.GetMyCompletedServices(Convert.ToInt32(clientId));
         }
 
-        public List<ServiceInfo> GetOpenServicesAssignedToMe(int contractorId)
+        public List<JobInfo> GetOpenServicesAssignedToMe(int contractorId)
         {
             return _serviceController.GetOpenServicesAssignedToMe(contractorId);
         }
 
-        public List<ServiceInfo> GetClosedServicesAssignedToMe(int contractorId)
+        public List<JobInfo> GetClosedServicesAssignedToMe(int contractorId)
         {
             return _serviceController.GetClosedServicesAssignedToMe(contractorId);
         }
@@ -162,7 +162,7 @@ namespace ContractorShareService
         }
 
         //Search for Available Service Requeste
-        public List<ServiceInfo> SearchServices(int CategoryId, string City, string PostCode)
+        public List<JobInfo> SearchServices(int CategoryId, string City, string PostCode)
         {
             return _serviceController.GetListServices(CategoryId, City, PostCode);
         }

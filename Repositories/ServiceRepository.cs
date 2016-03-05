@@ -13,7 +13,7 @@ namespace ContractorShareService.Repositories
         protected static ILog Logger = LogManager.GetLogger(typeof(ServiceRepository));
         private ContractorShareEntities db = new ContractorShareEntities();
 
-        public string CreateService(ServiceInfo servicerequest)
+        public string CreateService(JobInfo servicerequest)
         {
             try
             {
@@ -51,39 +51,47 @@ namespace ContractorShareService.Repositories
             }
         }
 
-        public string EditService(int ServiceId, ServiceInfo servicerequest)
+        public Result EditJob(int jobId, JobInfo servicerequest)
         {
+            Result result = new Result();
+            result.message = EnumHelper.GetDescription(ErrorListEnum.OK);
+            result.resultCode = (int)ErrorListEnum.OK;
             try
             {
-                var services = from service in db.Services
-                               where service.ID == ServiceId
+                var jobs = from service in db.Services
+                               where service.ID == jobId
                                select service;
 
-                Service serviceselected = services.FirstOrDefault();
+                Service selectedJob = jobs.FirstOrDefault();
 
-                serviceselected.Name = servicerequest.Name;
-                serviceselected.Description = servicerequest.Description;
-                serviceselected.StatusID = servicerequest.StatusID;
-                serviceselected.Address = servicerequest.Address;
-                serviceselected.PostalCode = servicerequest.PostalCode;
-                serviceselected.City = servicerequest.City;
-                serviceselected.Country = servicerequest.Country;
-                serviceselected.CoordX = servicerequest.CoordX;
-                serviceselected.CoordY = servicerequest.CoordY;
-                serviceselected.ClientID = servicerequest.ClientID;
-                serviceselected.CategoryID = servicerequest.CategoryID;
+                selectedJob.Name = servicerequest.Name;
+                selectedJob.Description = servicerequest.Description;
+                selectedJob.StatusID = servicerequest.StatusID;
+                selectedJob.Address = servicerequest.Address;
+                selectedJob.PostalCode = servicerequest.PostalCode;
+                selectedJob.City = servicerequest.City;
+                selectedJob.Country = servicerequest.Country;
+                selectedJob.CoordX = servicerequest.CoordX;
+                selectedJob.CoordY = servicerequest.CoordY;
+                selectedJob.ClientID = servicerequest.ClientID;
+                selectedJob.CategoryID = servicerequest.CategoryID;
 
                 db.SaveChanges();
-                return EnumHelper.GetDescription(ErrorListEnum.OK);
+                return result;
             }
             catch (Exception ex)
             {
-                Logger.ErrorFormat("Error ServiceRepository.EditService {0}: {1}", ServiceId.ToString(), ex);
-                return ex.ToString();
+                string message = String.Format("Error ServiceRepository.EditService {0}: {1}", jobId.ToString(), ex);
+                Logger.ErrorFormat(message);
+
+                result.message = message;
+                result.resultCode = (int)ErrorListEnum.Service_Edit_Error;
+               
+                return result;
             }
         }
 
-        public ServiceInfo GetServiceInfo(int ServiceId)
+        public JobInfo GetServiceInfo(int ServiceId)
         {
             try
             {
@@ -93,7 +101,7 @@ namespace ContractorShareService.Repositories
 
                 Service serviceselected = services.FirstOrDefault();
 
-                ServiceInfo serviceinfo = new ServiceInfo();
+                JobInfo serviceinfo = new JobInfo();
 
                 serviceinfo.Id = serviceselected.ID;
                 serviceinfo.Name = serviceselected.Name;
@@ -163,7 +171,7 @@ namespace ContractorShareService.Repositories
             }
         }
 
-        public List<ServiceInfo> GetMyCurrentServices(int client)
+        public List<JobInfo> GetMyCurrentServices(int client)
         {
             try
             {
@@ -172,11 +180,11 @@ namespace ContractorShareService.Repositories
                                && (service.StatusID == (int)ServiceStatusEnum.Open|| service.StatusID == (int)ServiceStatusEnum.InProgress)
                                select service;
 
-                List<ServiceInfo> serviceinfolist = new List<ServiceInfo>();
+                List<JobInfo> serviceinfolist = new List<JobInfo>();
 
                 foreach (var s in services)
                 {
-                    ServiceInfo serviceinfo = new ServiceInfo();
+                    JobInfo serviceinfo = new JobInfo();
 
                     serviceinfo.Id = s.ID;
                     serviceinfo.Name = s.Name;
@@ -205,7 +213,7 @@ namespace ContractorShareService.Repositories
             }
         }
 
-        public List<ServiceInfo> GetMyCompletedServices(int client)
+        public List<JobInfo> GetMyCompletedServices(int client)
         {
             try
             {
@@ -214,11 +222,11 @@ namespace ContractorShareService.Repositories
                                && (service.StatusID == (int)ServiceStatusEnum.Completed || service.StatusID == (int)ServiceStatusEnum.Cancelled)
                                select service;
 
-                List<ServiceInfo> serviceinfolist = new List<ServiceInfo>();
+                List<JobInfo> serviceinfolist = new List<JobInfo>();
 
                 foreach (var s in services)
                 {
-                    ServiceInfo serviceinfo = new ServiceInfo();
+                    JobInfo serviceinfo = new JobInfo();
 
                     serviceinfo.Id = s.ID;
                     serviceinfo.Name = s.Name;
@@ -248,7 +256,7 @@ namespace ContractorShareService.Repositories
         }
 
         
-        public List<ServiceInfo> GetOpenServicesAssignedToMe(int contractor)
+        public List<JobInfo> GetOpenServicesAssignedToMe(int contractor)
         {
             try
             {
@@ -257,11 +265,11 @@ namespace ContractorShareService.Repositories
                                && (service.StatusID == (int)ServiceStatusEnum.Open|| service.StatusID == (int)ServiceStatusEnum.InProgress)
                                select service;
 
-                List<ServiceInfo> serviceinfolist = new List<ServiceInfo>();
+                List<JobInfo> serviceinfolist = new List<JobInfo>();
 
                 foreach (var s in services)
                 {
-                    ServiceInfo serviceinfo = new ServiceInfo();
+                    JobInfo serviceinfo = new JobInfo();
 
                     serviceinfo.Id = s.ID;
                     serviceinfo.Name = s.Name;
@@ -290,7 +298,7 @@ namespace ContractorShareService.Repositories
             }
         }
 
-        public List<ServiceInfo> GetClosedServicesAssignedToMe(int contractor)
+        public List<JobInfo> GetClosedServicesAssignedToMe(int contractor)
         {
             try
             {
@@ -299,11 +307,11 @@ namespace ContractorShareService.Repositories
                                && (service.StatusID == (int)ServiceStatusEnum.Cancelled || service.StatusID == (int)ServiceStatusEnum.Completed)
                                select service;
 
-                List<ServiceInfo> serviceinfolist = new List<ServiceInfo>();
+                List<JobInfo> serviceinfolist = new List<JobInfo>();
 
                 foreach (var s in services)
                 {
-                    ServiceInfo serviceinfo = new ServiceInfo();
+                    JobInfo serviceinfo = new JobInfo();
 
                     serviceinfo.Id = s.ID;
                     serviceinfo.Name = s.Name;
@@ -375,7 +383,7 @@ namespace ContractorShareService.Repositories
             }
         }
 
-        public List<ServiceInfo> GetListServices(int categoryid, string city, string postcode)
+        public List<JobInfo> GetListServices(int categoryid, string city, string postcode)
         {
             try
             {
@@ -387,11 +395,11 @@ namespace ContractorShareService.Repositories
                                && (postcode == null || service.PostalCode.Contains(postcode))
                                select service;
 
-                List<ServiceInfo> serviceinfolist = new List<ServiceInfo>();
+                List<JobInfo> serviceinfolist = new List<JobInfo>();
 
                 foreach (var s in services)
                 {
-                    ServiceInfo serviceinfo = new ServiceInfo();
+                    JobInfo serviceinfo = new JobInfo();
 
                     serviceinfo.Id = s.ID;
                     serviceinfo.Name = s.Name;
