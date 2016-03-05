@@ -29,6 +29,7 @@ namespace ContractorShareService
         private RateController _rateController = new RateController();
         private TaskController _taskController = new TaskController();
         private ProposalController _proposalController = new ProposalController();
+        private AppointmentController _appointmentController = new AppointmentController();
 
         #endregion
 
@@ -215,7 +216,33 @@ namespace ContractorShareService
         {
             return _proposalController.GetProposalMessages(Convert.ToInt32(proposalId));
         }
+        #endregion
 
+        #region Appointments operations
+        public List<AppointmentInfo> GetActiveAppointments(string userId)
+        {
+            return _appointmentController.GetActiveAppointments(Convert.ToInt32(userId));
+        }
+
+        public List<AppointmentInfo> GetClosedAppointments(string userId)
+        {
+            return _appointmentController.GetClosedAppointments(Convert.ToInt32(userId));
+        }
+
+        public AppointmentInfo GetAppointment(string appointmentId)
+        {
+            return _appointmentController.GetAppointment(Convert.ToInt32(appointmentId));
+        }
+
+        public Result CancelAppointment(string appointmentId)
+        {
+            return _appointmentController.CancelAppointment(Convert.ToInt32(appointmentId));
+        }
+
+        public Result CloseAppointment(string appointmentId)
+        {
+            return _appointmentController.CloseAppointment(Convert.ToInt32(appointmentId));
+        }
         #endregion
 
 

@@ -157,6 +157,26 @@ namespace ContractorShareService
         [WebGet(UriTemplate = "proposals/{proposalId}/messages", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         List<MessageInfo> GetProposalMessages(string proposalId);
 
+        [OperationContract]
+        [WebGet(UriTemplate = "users/{userId}/activeappointments", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        List<AppointmentInfo> GetActiveAppointments(string userId);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "users/{userId}/closedappointments", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        List<AppointmentInfo> GetClosedAppointments(string userId);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "appointments/{appointmentId}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        AppointmentInfo GetAppointment(string appointmentId);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "appointments/{appointmentId}/close", Method = "PUT", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        Result CloseAppointment(string appointmentId);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "appointments/{appointmentId}/cancel", Method = "PUT", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        Result CancelAppointment(string appointmentId);
+
         //5.Create Task Operations
         [OperationContract]
         [WebInvoke(UriTemplate = "jobs/{jobId}/tasks", Method = "POST", BodyStyle = WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]

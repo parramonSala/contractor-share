@@ -337,9 +337,9 @@ namespace ContractorShareService.Controllers
 
                 mail.From = new MailAddress("findmyhandyman@gmail.com");
                 mail.To.Add(email);
-                mail.Subject = "ContractorShare Reset Password";
-                mail.Body = "ContractorShare recently received a request to reset your password. Your new temporal password is "
-                    + temporalpassword + ". This password will expire in 24 hours, so please log into your ContractorShare account and change your password";
+                mail.Subject = "FindYourHandyMan Reset Password";
+                mail.Body = "FindYourHandyMan recently received a request to reset your password. Your new temporal password is "
+                    + temporalpassword + ". This password will expire in 24 hours, so please log into your FindYourHandyMan account and change your password";
                 SmtpServer.Port = 587;
                 SmtpServer.Credentials = new System.Net.NetworkCredential("findmyhandyman@gmail.com", "contractorshare");
                 SmtpServer.EnableSsl = true;

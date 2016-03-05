@@ -134,7 +134,7 @@
     <Compile Include="Domain\PreferencesResult.cs" />
     <Compile Include="Domain\ResetPasswordInfo.cs" />
     <Compile Include="Domain\RegisterInfo.cs" />
-    <Compile Include="Domain\LoginResult.cs" />
+    <Compile Include="Domain\AuthenticationResult.cs" />
     <Compile Include="Domain\LoginInfo.cs" />
     <Compile Include="Domain\Rate.cs" />
     <Compile Include="Domain\ResetPasswordResult.cs" />
