@@ -125,6 +125,7 @@ namespace ContractorShareService.Repositories
 
                 loginresult.UserId = result.ID;
                 loginresult.UserType = result.UserType;
+                loginresult.error = EnumHelper.GetDescription(ErrorListEnum.OK);
 
                 return loginresult;
 
