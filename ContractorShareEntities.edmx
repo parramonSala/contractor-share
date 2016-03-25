@@ -47,6 +47,7 @@
           <Property Name="CreatedByUserID" Type="int" Nullable="false" />
           <Property Name="TaskID" Type="int" />
           <Property Name="ServiceID" Type="int" />
+          <Property Name="Created" Type="date" />
         </EntityType>
         <EntityType Name="Message">
           <Key>
@@ -849,6 +850,7 @@
           <NavigationProperty Name="User" Relationship="Self.FK__Comment__Created__30F848ED" FromRole="Comment" ToRole="User" />
           <NavigationProperty Name="Service" Relationship="Self.FK__Comment__Service__31EC6D26" FromRole="Comment" ToRole="Service" />
           <NavigationProperty Name="Task" Relationship="Self.FK__Comment__TaskID__32E0915F" FromRole="Comment" ToRole="Task" />
+          <Property Name="Created" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="Preference">
           <Key>
@@ -1742,6 +1744,7 @@
           <EntitySetMapping Name="Comments">
             <EntityTypeMapping TypeName="ContractorShareModel.Comment">
               <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="CommentText" ColumnName="CommentText" />
