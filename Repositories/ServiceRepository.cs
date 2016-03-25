@@ -340,16 +340,19 @@ namespace ContractorShareService.Repositories
             }
         }
 
-        public int AddComment(int serviceID, int UserID, string Comment_Title, string Comment_Text)
+        public Result AddComment(int serviceID, CommentInfo Commentinfo)
         {
+            Result result = new Result();
+
             try
             {
                 Comment newcomment = new Comment()
                 {
-                    Title = Comment_Title,
-                    CommentText = Comment_Text,
-                    ServiceID = serviceID,
-                    CreatedByUserID = UserID
+                    Title = Commentinfo.Title,
+                    CommentText = Commentinfo.Message,
+                    ServiceID = Commentinfo.JobId,
+                    CreatedByUserID = Commentinfo.CreatedByUserId,
+                    Created = Commentinfo.Created
                 };
 
                 db.Comments.Add(newcomment);
@@ -358,27 +361,50 @@ namespace ContractorShareService.Repositories
 
                 Logger.Info(String.Format("ServiceRepository.AddComment: created comment with ID {0}", id));
 
-                return id;
+                result.message = EnumHelper.GetDescription(ErrorListEnum.OK);
+                result.resultCode = (int)ErrorListEnum.OK;
+
+                return result;
             }
             catch (Exception ex)
             {
                 Logger.Error("Error ServiceRepository.AddComment", ex);
-                return (int)(ErrorListEnum.Comment_AddError);
+
+                result.message = ex.ToString();
+                result.resultCode = (int)(ErrorListEnum.Comment_AddError);
+
+                return result;
             }
         }
 
-        public List<Comment> GetServiceComments(int ServiceId)
+        public List<CommentInfo> GetServiceComments(int ServiceId)
         {
             try
             {
                 List<Comment> servicecomments = (from comment in db.Comments
                                                  where comment.ServiceID == ServiceId
                                                  select comment).ToList();
-                return servicecomments;
+
+                List<CommentInfo> commentinfolist = new List<CommentInfo>();
+
+                foreach (var c in servicecomments)
+                {
+                    CommentInfo commentinfo = new CommentInfo();
+
+                    commentinfo.JobId = c.ServiceID;
+                    commentinfo.Message = c.CommentText;
+                    commentinfo.Title = c.Title;
+                    commentinfo.Created = c.Created;
+                    commentinfo.CreatedByUserId = c.CreatedByUserID;
+
+                    commentinfolist.Add(commentinfo);
+                }
+
+                return commentinfolist;
             }
             catch (Exception ex)
             {
-                Logger.ErrorFormat("ServiceRepository.GetServiceComment {0}: {1}", ServiceId.ToString(), ex);
+                Logger.ErrorFormat("ServiceRepository.GetServiceComment {0}: {1}", ServiceId.ToString(), ex.ToString());
                 return null;
             }
         }

@@ -78,7 +78,7 @@ namespace ContractorShareService
         [WebInvoke(UriTemplate = "users/{userId}/blocks/", Method = "POST", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         string BlockUser(string userId, int ToUser);
 
-        //3.Manage Service Requests operations
+        //3.Manage Jobs operations
         [OperationContract]
         [WebInvoke(UriTemplate = "jobs", Method = "POST")]
         string CreateServiceRequest(JobInfo jobRequest);
@@ -106,6 +106,15 @@ namespace ContractorShareService
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         List<JobInfo> GetClosedServicesAssignedToMe(int contractorId);
+
+        //Job Comments
+        [OperationContract]
+        [WebInvoke(UriTemplate = "jobs/{jobId}/addcomment", Method = "PUT", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        Result AddJobComment(string jobId, CommentInfo jobcommentinfo);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "jobs/{jobId}/comments", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        List<CommentInfo> GetJobComments(string jobId);
 
         //4. Service Operations
         [OperationContract]

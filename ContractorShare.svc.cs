@@ -152,20 +152,22 @@ namespace ContractorShareService
             return _serviceController.ChangeServiceStatus(Convert.ToInt32(jobId), Convert.ToInt32(StatusID));
         }
 
-        public string AddServiceComment(int serviceID, int CreatedByUserID, string CommentTitle, string CommentText)
-        {
-            return _serviceController.AddServiceComment(serviceID, CreatedByUserID, CommentTitle, CommentText);
-        }
-
-        public List<Comment> GetServiceComments(int serviceID)
-        {
-            return _serviceController.GetServiceComment(serviceID);
-        }
 
         //Search for Available Service Requeste
         public List<JobInfo> SearchServices(int CategoryId, string City, string PostCode)
         {
             return _serviceController.GetListServices(CategoryId, City, PostCode);
+        }
+        
+        //Job Comments
+        public Result AddJobComment(string jobId, CommentInfo jobcommentinfo)
+        {
+            return _serviceController.AddJobComment(Convert.ToInt32(jobId), jobcommentinfo);
+        }
+
+        public List<CommentInfo> GetJobComments(string jobId)
+        {
+            return _serviceController.GetServiceComments(Convert.ToInt32(jobId));
         }
 
         #endregion

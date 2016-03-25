@@ -116,42 +116,15 @@ namespace ContractorShareService.Controllers
             return _serviceRepository.ChangeServiceStatus(ServiceId, StatusId);
         }
 
-
-        public string AddServiceComment(int serviceID, int userID, string CommentTitle, string CommentText)
+        public Result AddJobComment(int jobId, CommentInfo commentinfo)
         {
-            try
-            {
-                string message = string.Format("Executing AddServiceComment {0}", serviceID.ToString());
-                Logger.Info(message);
-
-                return _serviceRepository.AddComment(serviceID, userID, CommentTitle, CommentText).ToString();
-            }
-            catch (Exception ex)
-            {
-                string error_message = string.Format("Error AddServiceComment {0}", serviceID.ToString()); 
-                Logger.Error(error_message, ex);
-                return EnumHelper.GetDescription(ErrorListEnum.Comment_AddError);
-            }
+            return _serviceRepository.AddComment(jobId, commentinfo);
         }
 
-        public List<Comment> GetServiceComment(int serviceID)
+        public List<CommentInfo> GetServiceComments(int jobId)
         {
-            try
-            {
-                string message = string.Format("Executing GetServiceComment {0}", serviceID.ToString());
-                Logger.Info(message);
-
-                return _serviceRepository.GetServiceComments(serviceID);
-            }
-            catch (Exception ex)
-            {
-                string error_message = string.Format("Error Getting ServiceComment {0}", serviceID.ToString());
-                Logger.Error(error_message, ex);
-                return null;
-            }
+            return _serviceRepository.GetServiceComments(jobId);
         }
-
-
 
         public List<JobInfo> GetListServices(int categoryid, string city, string postcode)
         {
