@@ -9,6 +9,9 @@ namespace ContractorShareService.Domain
     public class CommentInfo
     {
         [DataMember]
+        public int? CommentId { get; set; }
+
+        [DataMember]
         public int? JobId { get; set; }
 
         [DataMember]

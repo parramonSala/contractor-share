@@ -391,6 +391,7 @@ namespace ContractorShareService.Repositories
                 {
                     CommentInfo commentinfo = new CommentInfo();
 
+                    commentinfo.CommentId = c.ID;
                     commentinfo.JobId = c.ServiceID;
                     commentinfo.Message = c.CommentText;
                     commentinfo.Title = c.Title;
