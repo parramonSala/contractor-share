@@ -116,6 +116,10 @@ namespace ContractorShareService
         [WebGet(UriTemplate = "jobs/{jobId}/comments", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         List<CommentInfo> GetJobComments(string jobId);
 
+        [OperationContract]
+        [WebInvoke(UriTemplate = "jobs/{jobId}/comments/{jobCommentId}/delete", Method = "DELETE", BodyStyle = WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        Result DeleteJobComment(string jobCommentId);
+
         //4. Service Operations
         [OperationContract]
         [WebInvoke(UriTemplate = "jobs/{jobId}/status/{statusId}", Method = "PUT", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]

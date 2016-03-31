@@ -170,6 +170,10 @@ namespace ContractorShareService
             return _serviceController.GetServiceComments(Convert.ToInt32(jobId));
         }
 
+        public Result DeleteJobComment(string jobCommentId)
+        {
+            return _serviceController.DeleteJobComment(Convert.ToInt32(jobCommentId));
+        }
         #endregion
 
         #region Proposal operations

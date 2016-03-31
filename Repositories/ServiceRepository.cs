@@ -410,6 +410,31 @@ namespace ContractorShareService.Repositories
             }
         }
 
+        public Result DeleteServiceComment(int jobCommentId)
+        {
+            try
+            {
+                Comment jobcomment = (from comment in db.Comments
+                                     where comment.ID == jobCommentId
+                                     select comment).First();
+
+                db.Comments.Remove(jobcomment);
+                db.SaveChanges();
+
+                Logger.Info(String.Format("ServiceRepository.DeleteServiceComment"));
+
+                return new Result();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error ServiceRepository.DeleteServiceComment", ex);
+                return new Result(ex.ToString(),(int)(ErrorListEnum.Comment_DeleteError));
+            }
+
+        }
+
+
+
         public List<JobInfo> GetListServices(int categoryid, string city, string postcode)
         {
             try

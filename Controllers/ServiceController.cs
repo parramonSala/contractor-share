@@ -126,6 +126,11 @@ namespace ContractorShareService.Controllers
             return _serviceRepository.GetServiceComments(jobId);
         }
 
+        public Result DeleteJobComment(int jobCommentId)
+        {
+            return _serviceRepository.DeleteServiceComment(jobCommentId);
+        }
+
         public List<JobInfo> GetListServices(int categoryid, string city, string postcode)
         {
             try

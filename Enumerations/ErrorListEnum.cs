@@ -6,6 +6,8 @@ using System.ComponentModel;
 
 namespace ContractorShareService.Enumerations
 {
+    //NEXT ID 36
+
     public enum ErrorListEnum
     {
         //-------USER ERRORS----------
@@ -95,9 +97,12 @@ namespace ContractorShareService.Enumerations
         [Description("Error when updating user's AverageRate")]
         Rate_UpdateUserAverageRate = -29,
 
-        //COMMENTS ERROR
+        //COMMENTS ERRORS
         [Description("Not controled Comment Error")]
         Comment_AddError = -25,
+
+        [Description("Not controled Delete Comment Error")]
+        Comment_DeleteError = -35,
 
         //Send Email
         [Description("Not controled Send Email Error")]
@@ -105,6 +110,6 @@ namespace ContractorShareService.Enumerations
 
         //Appointments Errors
         [Description("Not controled Appointment Error")]
-        Appointment_Other_Error = -33
+        Appointment_Other_Error = -34
     }
 }
