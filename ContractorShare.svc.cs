@@ -170,7 +170,7 @@ namespace ContractorShareService
             return _serviceController.GetServiceComments(Convert.ToInt32(jobId));
         }
 
-        public Result DeleteJobComment(string jobCommentId)
+        public Result DeleteJobComment(string jobId, string jobCommentId)
         {
             return _serviceController.DeleteJobComment(Convert.ToInt32(jobCommentId));
         }

@@ -118,7 +118,7 @@ namespace ContractorShareService
 
         [OperationContract]
         [WebInvoke(UriTemplate = "jobs/{jobId}/comments/{jobCommentId}/delete", Method = "DELETE", BodyStyle = WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        Result DeleteJobComment(string jobCommentId);
+        Result DeleteJobComment(string jobId, string jobCommentId);
 
         //4. Service Operations
         [OperationContract]
