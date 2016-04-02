@@ -305,5 +305,28 @@ namespace ContractorShareService.Repositories
             }
         }
 
+        public Result DeleteMessage(int MessageId)
+        {
+            try
+            {
+                Message proposalmessage = (from message in db.Messages
+                                      where message.ID == MessageId
+                                           select message).First();
+
+                db.Messages.Remove(proposalmessage);
+                db.SaveChanges();
+
+                Logger.Info(String.Format("DeleteMessage"));
+
+                return new Result();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error DeleteMessage", ex);
+                return new Result(ex.ToString(), (int)(ErrorListEnum.DeleteMessage_Other_Error));
+            }
+
+        }
+
     }
 }

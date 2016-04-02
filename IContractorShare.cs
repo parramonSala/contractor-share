@@ -171,6 +171,10 @@ namespace ContractorShareService
         List<MessageInfo> GetProposalMessages(string proposalId);
 
         [OperationContract]
+        [WebInvoke(UriTemplate = "proposals/{proposalId}/messages/{MessageId}/delete", Method = "DELETE", BodyStyle = WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        Result DeleteMessage(string proposalId, string MessageId);
+
+        [OperationContract]
         [WebGet(UriTemplate = "users/{userId}/activeappointments", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         List<AppointmentInfo> GetActiveAppointments(string userId);
 

@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace ContractorShareService.Enumerations
 {
-    //NEXT ID 36
+    //NEXT ID 37
 
     public enum ErrorListEnum
     {
@@ -110,6 +110,10 @@ namespace ContractorShareService.Enumerations
 
         //Appointments Errors
         [Description("Not controled Appointment Error")]
-        Appointment_Other_Error = -34
+        Appointment_Other_Error = -34,
+
+        //Proposals Errors
+        [Description("Not controled Delete Message Error")]
+        DeleteMessage_Other_Error = -36
     }
 }

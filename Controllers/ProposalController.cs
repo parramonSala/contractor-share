@@ -119,6 +119,42 @@ namespace ContractorShareService.Controllers
             }
         }
 
+                public string SendProposalMessage(int proposalId, MessageInfo proposalmessageInfo)
+        {
+            try
+            {
+                string message = string.Format("Executing SendProposalMessage");
+                Logger.Info(message);
+
+                //1. Create New Proposal Message
+                string result =_proposalRepository.CreateMessage(proposalmessageInfo);
+
+                if (result != "OK")
+                {
+                    return result;
+                }
+
+                //2. Update the UpdatedByUser field in the proposal
+                result = ChangeProposalUpdatedByUser(proposalId, proposalmessageInfo.FromUserId);
+                if (result != "OK")
+                {
+                    return result;
+                }
+
+                //3. Update the status of the proposal to Pending
+                int pendingstatus = (int)ProposalStatusEnum.Pending;
+                
+                return ChangeProposalStatus(proposalId, pendingstatus);
+            }
+            catch (Exception ex)
+            {
+                string error_message = string.Format("Error SendProposalMessage");
+                Logger.Error(error_message, ex);
+                return null;
+            }
+            
+        }
+
 
         public string AcceptProposal(int ProposalId, int userId)
         {
@@ -151,6 +187,33 @@ namespace ContractorShareService.Controllers
             }
         }
 
+
+        public List<MessageInfo> GetProposalMessages(int proposalId)
+        {
+            try
+            {
+                string message = string.Format("Executing GetProposalMessages");
+                Logger.Info(message);
+
+                return _proposalRepository.GetProposalMessages(proposalId);
+            }
+            catch (Exception ex)
+            {
+                string error_message = string.Format("Error GetProposalMessages");
+                Logger.Error(error_message, ex);
+                return null;
+            }
+        }
+
+        public Result DeleteMessage(int MessageId)
+        {
+            string message = string.Format("Executing DeleteMessage");
+            Logger.Info(message);
+
+            return _proposalRepository.DeleteMessage(MessageId);
+        }
+
+        //Private function
         private string ChangeProposalUpdatedByUser(int proposalId, int userId)
         {
              try
@@ -197,57 +260,7 @@ namespace ContractorShareService.Controllers
             return _appointmentController.Create(newappointment);
         }
 
-        public string SendProposalMessage(int proposalId, MessageInfo proposalmessageInfo)
-        {
-            try
-            {
-                string message = string.Format("Executing SendProposalMessage");
-                Logger.Info(message);
 
-                //1. Create New Proposal Message
-                string result =_proposalRepository.CreateMessage(proposalmessageInfo);
 
-                if (result != "OK")
-                {
-                    return result;
-                }
-
-                //2. Update the UpdatedByUser field in the proposal
-                result = ChangeProposalUpdatedByUser(proposalId, proposalmessageInfo.FromUserId);
-                if (result != "OK")
-                {
-                    return result;
-                }
-
-                //3. Update the status of the proposal to Pending
-                int pendingstatus = (int)ProposalStatusEnum.Pending;
-                
-                return ChangeProposalStatus(proposalId, pendingstatus);
-            }
-            catch (Exception ex)
-            {
-                string error_message = string.Format("Error SendProposalMessage");
-                Logger.Error(error_message, ex);
-                return null;
-            }
-            
-        }
-
-        public List<MessageInfo> GetProposalMessages(int proposalId)
-        {
-            try
-            {
-                string message = string.Format("Executing GetProposalMessages");
-                Logger.Info(message);
-
-                return _proposalRepository.GetProposalMessages(proposalId);
-            }
-            catch (Exception ex)
-            {
-                string error_message = string.Format("Error GetProposalMessages");
-                Logger.Error(error_message, ex);
-                return null;
-            }
-        }
     }
 }

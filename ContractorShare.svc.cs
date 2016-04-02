@@ -222,6 +222,11 @@ namespace ContractorShareService
         {
             return _proposalController.GetProposalMessages(Convert.ToInt32(proposalId));
         }
+
+        public Result DeleteMessage(string proposalId, string MessageId)
+        {
+            return _proposalController.DeleteMessage(Convert.ToInt32(MessageId));
+        }
         #endregion
 
         #region Appointments operations
