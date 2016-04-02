@@ -286,6 +286,7 @@ namespace ContractorShareService.Repositories
                 {
                     MessageInfo messageinfo = new MessageInfo();
 
+                    messageinfo.MessageId = selectedmessage.ID;
                     messageinfo.ProposalId = selectedmessage.ProposalID;
                     messageinfo.FromUserId = selectedmessage.FromUserID;
                     messageinfo.ToUserId = selectedmessage.ToUserID;

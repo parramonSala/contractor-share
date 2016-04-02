@@ -9,6 +9,9 @@ namespace ContractorShareService.Domain
     public class MessageInfo
     {
         [DataMember]
+        public int MessageId { get; set; }
+        
+        [DataMember]
         public int ProposalId { get; set; }
 
         [DataMember]
