@@ -143,6 +143,7 @@
           <Property Name="Description" Type="text" />
           <Property Name="StatusID" Type="int" Nullable="false" />
           <Property Name="ServiceID" Type="int" Nullable="false" />
+          <Property Name="Created" Type="datetime" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -963,6 +964,7 @@
           <NavigationProperty Name="Comments" Relationship="Self.FK__Comment__TaskID__32E0915F" FromRole="Task" ToRole="Comment" />
           <NavigationProperty Name="Service" Relationship="Self.FK__Task__ServiceID__3F466844" FromRole="Task" ToRole="Service" />
           <NavigationProperty Name="Status" Relationship="Self.FK__Task__StatusID__403A8C7D" FromRole="Task" ToRole="Status" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -1838,6 +1840,7 @@
           <EntitySetMapping Name="Tasks">
             <EntityTypeMapping TypeName="ContractorShareModel.Task">
               <MappingFragment StoreEntitySet="Task">
+                <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />

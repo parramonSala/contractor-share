@@ -15,80 +15,45 @@ namespace ContractorShareService.Controllers
         private TaskRepository _taskRepository = new TaskRepository();
 
 
-        public string CreateTask(string name, string description, int serviceId)
+        public Result CreateTask(TaskInfo taskinfo)
         {
-            try
-            {
-                string message = string.Format("Executing Create TaskRequest");
-                Logger.Info(message);
+            string message = string.Format("Executing Create Task");
+            Logger.Info(message);
 
-                TaskInfo taskInfo = new TaskInfo();
-                taskInfo.Name = name;
-                taskInfo.Description = description;
-                taskInfo.ServiceId = serviceId;
-
-                int id = _taskRepository.CreateTask(taskInfo);
-                if (id < 0) return EnumHelper.GetDescription(ErrorListEnum.Task_Create_Error);
-                else return id.ToString();
-            }
-            catch (Exception ex)
-            {
-                string error_message = string.Format("Error Creating TaskRequest");
-                Logger.Error(error_message, ex);
-                return EnumHelper.GetDescription(ErrorListEnum.Task_Create_Error);
-            }
-
+            return _taskRepository.CreateTask(taskinfo);
         }
 
-        public string EditTask(int taskId, TaskInfo taskRequest)
-        {
-            try
-            {
-                string message = string.Format("Executing Edit TaskRequest {0}", taskId.ToString());
-                Logger.Info(message);
+        public Result EditTask(int taskId, TaskInfo taskRequest)
+        { 
+            string message = string.Format("Executing Edit TaskRequest {0}", taskId.ToString());
+            Logger.Info(message);
 
-                return _taskRepository.EditTask(taskId, taskRequest);
-            }
-            catch (Exception ex)
-            {
-                string error_message = string.Format("Error Editing TaskRequest {0}", taskId.ToString());
-                Logger.Error(error_message, ex);
-                return EnumHelper.GetDescription(ErrorListEnum.Task_Edit_Error);
-            }
+            return _taskRepository.EditTask(taskId, taskRequest);
+
         }
 
         public TaskInfo GetTask(int taskId)
         {
-            try
-            {
-                string message = string.Format("Executing Get Task Request {0}", taskId.ToString());
-                Logger.Info(message);
+            
+            string message = string.Format("Executing Get Task {0}", taskId.ToString());
+            Logger.Info(message);
 
-                return _taskRepository.GetTask(taskId);
-            }
-            catch (Exception ex)
-            {
-                string error_message = string.Format("Error Getting Task Request {0}", taskId.ToString());
-                Logger.Error(error_message, ex);
-                return null;
-            }
+            return _taskRepository.GetTask(taskId);
+
         }
 
-        public string CloseTask(int taskId)
+        public Result ChangeTaskStatus(int taskId, int StatusId)
         {
-            try
-            {
-                string message = string.Format("Executing Close TaskR equest {0}", taskId.ToString());
-                Logger.Info(message);
+            string message = string.Format("Executing Close TaskR equest {0}", taskId.ToString());
+            Logger.Info(message);
 
-                return _taskRepository.CloseTask(taskId);
-            }
-            catch (Exception ex)
-            {
-                string error_message = string.Format("Error CloseTaskRequest {0}", taskId.ToString());
-                Logger.Error(error_message, ex);
-                return EnumHelper.GetDescription(ErrorListEnum.Task_Close_Error);
-            }
+            return _taskRepository.ChangeTaskStatus(taskId, StatusId);
         }
+
+        public List<TaskInfo> GetJobTasks(int jobId)
+        {
+            return _taskRepository.GetJobTasks(jobId);
+        }
+    
     }
 }

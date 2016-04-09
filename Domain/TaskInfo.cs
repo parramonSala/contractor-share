@@ -9,10 +9,16 @@ namespace ContractorShareService.Domain
     public class TaskInfo
     {
         [DataMember]
+        public int TaskId { get; set; }
+        [DataMember]
         public string Name { get; set; }
         [DataMember]
         public string Description { get; set; }
         [DataMember]
         public int ServiceId { get; set; }
+        [DataMember]
+        public int StatusId { get; set; }
+        [DataMember]
+        public DateTime? Created { get; set; }
     }
 }

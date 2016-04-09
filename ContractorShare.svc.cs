@@ -260,9 +260,29 @@ namespace ContractorShareService
         #region Task operations
         //4. Task operations
 
-        public string CreateTask(string serviceId,string name, string description)
+        public Result CreateTask(string jobId, TaskInfo taskinfo)
         {
-            return _taskController.CreateTask(name, description, Convert.ToInt32(serviceId));
+            return _taskController.CreateTask(taskinfo);
+        }
+
+        public Result EditTask(string jobId, string taskId, TaskInfo taskinfo)
+        {
+            return _taskController.EditTask(Convert.ToInt32(taskId), taskinfo);
+        }
+
+        public TaskInfo GetTask(string jobId, string taskId)
+        {
+            return _taskController.GetTask(Convert.ToInt32(taskId));
+        }
+
+        public  Result ChangeTaskStatus(string jobId, string taskId, string statusId)
+        {
+            return _taskController.ChangeTaskStatus(Convert.ToInt32(taskId), Convert.ToInt32(statusId));
+        }
+
+        public List<TaskInfo> GetJobTasks(string jobId)
+        {
+            return _taskController.GetJobTasks(Convert.ToInt32(jobId));
         }
 
         #endregion

@@ -196,10 +196,25 @@ namespace ContractorShareService
 
         //5.Create Task Operations
         [OperationContract]
-        [WebInvoke(UriTemplate = "jobs/{jobId}/tasks", Method = "POST", BodyStyle = WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        string CreateTask(string jobId, string name, string description);
-      
+        [WebInvoke(UriTemplate = "jobs/{jobId}/addtask", Method = "POST")]
+        Result CreateTask(string jobId, TaskInfo taskinfo);
 
+        [OperationContract]
+        [WebInvoke(UriTemplate = "jobs/{jobId}/tasks/{taskId}", Method = "PUT", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        Result EditTask(string jobId, string taskId, TaskInfo taskinfo);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "jobs/{jobId}/tasks/{taskId}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        TaskInfo GetTask(string jobId, string taskId);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "jobs/{jobId}/tasks/{taskId}/status/{statusId}", Method = "PUT", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        Result ChangeTaskStatus(string jobId, string taskId, string statusId);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "jobs/{jobId}/tasks", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        List<TaskInfo> GetJobTasks(string jobId);
+      
         //6.Rating Operations
         [OperationContract]
         [WebInvoke(UriTemplate = "users/{userId}/ratings", Method = "POST", BodyStyle = WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]

@@ -62,8 +62,8 @@ namespace ContractorShareService.Enumerations
         Task_Create_Error = -14,
         [Description("Edit task error")]
         Task_Edit_Error = -15,
-        [Description("Close task error")]
-        Task_Close_Error = -16,
+        [Description("Change task status error")]
+        Task_Status_Error = -16,
 
         //SEARCH ERRORS
         [Description("Search Contractor error")]

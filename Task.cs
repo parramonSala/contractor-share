@@ -25,6 +25,7 @@ namespace ContractorShareService
         public string Description { get; set; }
         public int StatusID { get; set; }
         public int ServiceID { get; set; }
+        public Nullable<System.DateTime> Created { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }

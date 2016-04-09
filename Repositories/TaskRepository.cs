@@ -13,16 +13,19 @@ namespace ContractorShareService.Repositories
         protected static ILog Logger = LogManager.GetLogger(typeof(ServiceRepository));
         private ContractorShareEntities db = new ContractorShareEntities();
 
-        public int CreateTask(TaskInfo taskRequest)
+        public Result CreateTask(TaskInfo taskRequest)
         {
             try
             {
+                DateTime currenttime = DateTime.Now;
+
                 Task newTask = new Task()
                 {
                     Name = taskRequest.Name,
                     Description = taskRequest.Description,
                     ServiceID = taskRequest.ServiceId,
-                    StatusID = (int)TaskStatusEnum.Open
+                    StatusID = (int)TaskStatusEnum.Open,
+                    Created = currenttime
                 };
 
                 db.Tasks.Add(newTask);
@@ -30,17 +33,16 @@ namespace ContractorShareService.Repositories
                 
                 int id = newTask.ID;
                 Logger.Info(String.Format("TaskRepository.CreateTaskx: created task with ID {0}", id));
-                return id;
+                return new Result();
             }
             catch (Exception ex)
             {
                 Logger.Error("Error TaskRepository.CreateTask", ex);
-                return (int)(ErrorListEnum.Service_Create_Error);
-                throw new Exception("Error TaskRepository.CreateTask: Couldn't create the task", ex);
+                return new Result(ex.ToString(), (int)(ErrorListEnum.Task_Create_Error));
             }
         }
 
-        public string EditTask(int taskId, TaskInfo taskRequest)
+        public Result EditTask(int taskId, TaskInfo taskRequest)
         {
             try
             {
@@ -50,15 +52,14 @@ namespace ContractorShareService.Repositories
 
                 task.Name = taskRequest.Name;
                 task.Description = taskRequest.Description;
-                task.ServiceID = taskRequest.ServiceId;
 
                 db.SaveChanges();
-                return EnumHelper.GetDescription(ErrorListEnum.OK);
+                return new Result();
             }
             catch (Exception ex)
             {
-                Logger.ErrorFormat("Error TaskRepository.EditTask {0}: {1}", taskId.ToString(), ex);
-                return EnumHelper.GetDescription(ErrorListEnum.Task_Edit_Error);
+                Logger.ErrorFormat("Error TaskRepository.EditTask {0}: {1}", taskId.ToString(), ex.ToString());
+                return new Result(ex.ToString(), (int)(ErrorListEnum.Task_Edit_Error));
             }
         }
 
@@ -72,38 +73,74 @@ namespace ContractorShareService.Repositories
 
                 TaskInfo taskInfo = new TaskInfo();
 
+                taskInfo.TaskId = task.ID;
                 taskInfo.Name = task.Name;
                 taskInfo.Description = task.Description;
                 taskInfo.ServiceId = task.ServiceID;
+                taskInfo.StatusId = task.StatusID;
+                taskInfo.Created = task.Created;
 
                 return taskInfo;
             }
             catch (Exception ex)
             {
-                Logger.ErrorFormat("ServiceRepository.GetServiceInfo {0}: {1}", taskId.ToString(), ex);
+                Logger.ErrorFormat("ServiceRepository.GetTask {0}: {1}", taskId.ToString(), ex.ToString());
                 return null;
             }
         }
 
-        public string CloseTask(int ServiceId)
+        public Result ChangeTaskStatus(int taskId, int StatusId)
         {
             try
             {
-                var services = from service in db.Services
-                               where service.ID == ServiceId
-                               select service;
+                var task = (from t in db.Tasks
+                            where t.ID == taskId
+                            select t).FirstOrDefault();
 
-                Service selectedService = services.FirstOrDefault();
-                selectedService.StatusID = (int)ServiceStatusEnum.Completed;
+                task.StatusID = StatusId;
 
                 db.SaveChanges();
-                return EnumHelper.GetDescription(ErrorListEnum.OK);
+                return new Result();
             }
             catch (Exception ex)
             {
-                Logger.ErrorFormat("Error ServiceRepository.CloseService {0}: {1}", ServiceId.ToString(), ex);
-                return EnumHelper.GetDescription(ErrorListEnum.Service_Close_Error);
+                Logger.ErrorFormat("Error TaskRepository.ChangeTaskStatus {0}: {1}", taskId.ToString(), ex.ToString());
+                return new Result(ex.ToString(), (int)(ErrorListEnum.Task_Status_Error));
             }
         }
+
+        public List<TaskInfo> GetJobTasks(int jobId)
+        {
+            try
+            {
+                List<Task> jobtasks = (from task in db.Tasks
+                                                 where task.ServiceID == jobId
+                                                 select task).ToList();
+
+                List<TaskInfo> taskinfolist = new List<TaskInfo>();
+
+                foreach (var t in jobtasks)
+                {
+                    TaskInfo taskinfo = new TaskInfo();
+
+                    taskinfo.TaskId = t.ID;
+                    taskinfo.Name = t.Name;
+                    taskinfo.Description = t.Description;
+                    taskinfo.ServiceId = t.ServiceID;
+                    taskinfo.StatusId = t.StatusID;
+                    taskinfo.Created = t.Created;
+
+                    taskinfolist.Add(taskinfo);
+                }
+
+                return taskinfolist;
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("TaskRepository.GetJobTasks {0}: {1}", jobId.ToString(), ex.ToString());
+                return null;
+            }
+        }
+    
     }
 }
