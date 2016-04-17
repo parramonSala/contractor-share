@@ -52,6 +52,7 @@ namespace ContractorShareService.Repositories
 
                 task.Name = taskRequest.Name;
                 task.Description = taskRequest.Description;
+                task.StatusID = taskRequest.StatusId;
 
                 db.SaveChanges();
                 return new Result();
