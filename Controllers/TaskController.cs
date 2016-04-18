@@ -50,6 +50,11 @@ namespace ContractorShareService.Controllers
             return _taskRepository.ChangeTaskStatus(taskId, StatusId);
         }
 
+        public Result DeleteTask(int taskId)
+        {
+            return _taskRepository.DeleteTask(taskId);
+        }
+
         public List<TaskInfo> GetJobTasks(int jobId)
         {
             return _taskRepository.GetJobTasks(jobId);

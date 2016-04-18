@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace ContractorShareService.Enumerations
 {
-    //NEXT ID 37
+    //NEXT ID 38
 
     public enum ErrorListEnum
     {
@@ -64,6 +64,8 @@ namespace ContractorShareService.Enumerations
         Task_Edit_Error = -15,
         [Description("Change task status error")]
         Task_Status_Error = -16,
+        [Description("Delete task error")]
+        Task_Delete_Error=-37,
 
         //SEARCH ERRORS
         [Description("Search Contractor error")]

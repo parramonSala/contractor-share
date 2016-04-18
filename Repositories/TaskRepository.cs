@@ -110,6 +110,28 @@ namespace ContractorShareService.Repositories
             }
         }
 
+        public Result DeleteTask(int taskId)
+        {
+            try
+            {
+                Task task = (from t in db.Tasks
+                                      where t.ID == taskId
+                                      select t).First();
+
+                db.Tasks.Remove(task);
+                db.SaveChanges();
+
+                Logger.Info(String.Format("TaskRepository.DeleteTask"));
+
+                return new Result();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error TaskRepository.DeleteTask", ex);
+                return new Result(ex.ToString(), (int)(ErrorListEnum.Task_Delete_Error));
+            }
+        }
+
         public List<TaskInfo> GetJobTasks(int jobId)
         {
             try

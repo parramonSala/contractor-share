@@ -285,6 +285,11 @@ namespace ContractorShareService
             return _taskController.GetJobTasks(Convert.ToInt32(jobId));
         }
 
+        public Result DeleteTask(string jobId, string taskId)
+        {
+            return _taskController.DeleteTask(Convert.ToInt32(taskId));
+        }
+
         #endregion
 
         #region Search contractors operations

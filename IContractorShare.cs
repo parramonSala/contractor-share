@@ -212,6 +212,10 @@ namespace ContractorShareService
         Result ChangeTaskStatus(string jobId, string taskId, string statusId);
 
         [OperationContract]
+        [WebInvoke(UriTemplate = "jobs/{jobId}/tasks/{taskId}/delete", Method = "DELETE", BodyStyle = WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        Result DeleteTask(string jobId, string taskId);
+
+        [OperationContract]
         [WebGet(UriTemplate = "jobs/{jobId}/tasks", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         List<TaskInfo> GetJobTasks(string jobId);
       
