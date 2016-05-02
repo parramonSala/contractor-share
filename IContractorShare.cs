@@ -40,11 +40,9 @@ namespace ContractorShareService
         PreferencesResult GetPreferences(string userId);
 
         [OperationContract]
-        [WebGet(UriTemplate = "users/contractors?CategoryId={CategoryId}&LocationCoordX={LocationCoordX}&LocationCoordY={LocationCoordY}&City={City}&CompanyName={CompanyName}&PricePerHour={PricePerHour}&NumOfRates={NumOfRates}&AverageRate={AverageRate}", ResponseFormat = WebMessageFormat.Json,RequestFormat = WebMessageFormat.Json)]
-        List<GetListContractors_Result> SearchContractors(int CategoryId, decimal LocationCoordX, decimal LocationCoordY,
-            string City, string CompanyName, double PricePerHour, int NumOfRates, double AverageRate);
+        [WebGet(UriTemplate = "contractors?CategoryId={CategoryId}&City={City}&PostCode={PostCode}&PricePerHour={PricePerHour}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        List<ContractorInfo> SearchContractors(int CategoryId, string City, string PostCode, double PricePerHour);
         
-
         [OperationContract]
         [WebGet(UriTemplate = "users/{userId}/averageRating", ResponseFormat = WebMessageFormat.Json,RequestFormat = WebMessageFormat.Json)]
         double GetUserAverageRating(string UserID);

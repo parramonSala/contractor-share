@@ -44,41 +44,25 @@ namespace ContractorShareService
         public virtual DbSet<UserFavourite> UserFavourites { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
     
-        public virtual ObjectResult<GetListContractors_Result> GetListContractors(Nullable<int> categoryId, Nullable<decimal> locationCoordX, Nullable<decimal> locationCoordY, string city, string companyName, Nullable<double> pricePerHour, Nullable<int> numOfRates, Nullable<double> averageRate)
+        public virtual ObjectResult<GetListContractors_Result> GetListContractors(Nullable<int> categoryId, string postalCode, string city, Nullable<double> pricePerHour)
         {
             var categoryIdParameter = categoryId.HasValue ?
                 new ObjectParameter("CategoryId", categoryId) :
                 new ObjectParameter("CategoryId", typeof(int));
     
-            var locationCoordXParameter = locationCoordX.HasValue ?
-                new ObjectParameter("LocationCoordX", locationCoordX) :
-                new ObjectParameter("LocationCoordX", typeof(decimal));
-    
-            var locationCoordYParameter = locationCoordY.HasValue ?
-                new ObjectParameter("LocationCoordY", locationCoordY) :
-                new ObjectParameter("LocationCoordY", typeof(decimal));
+            var postalCodeParameter = postalCode != null ?
+                new ObjectParameter("PostalCode", postalCode) :
+                new ObjectParameter("PostalCode", typeof(string));
     
             var cityParameter = city != null ?
                 new ObjectParameter("City", city) :
                 new ObjectParameter("City", typeof(string));
     
-            var companyNameParameter = companyName != null ?
-                new ObjectParameter("CompanyName", companyName) :
-                new ObjectParameter("CompanyName", typeof(string));
-    
             var pricePerHourParameter = pricePerHour.HasValue ?
                 new ObjectParameter("PricePerHour", pricePerHour) :
                 new ObjectParameter("PricePerHour", typeof(double));
     
-            var numOfRatesParameter = numOfRates.HasValue ?
-                new ObjectParameter("NumOfRates", numOfRates) :
-                new ObjectParameter("NumOfRates", typeof(int));
-    
-            var averageRateParameter = averageRate.HasValue ?
-                new ObjectParameter("AverageRate", averageRate) :
-                new ObjectParameter("AverageRate", typeof(double));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetListContractors_Result>("GetListContractors", categoryIdParameter, locationCoordXParameter, locationCoordYParameter, cityParameter, companyNameParameter, pricePerHourParameter, numOfRatesParameter, averageRateParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetListContractors_Result>("GetListContractors", categoryIdParameter, postalCodeParameter, cityParameter, pricePerHourParameter);
         }
     
         public virtual ObjectResult<GetListServices_Result> GetListServices(Nullable<int> categoryId, string city, string postCode)

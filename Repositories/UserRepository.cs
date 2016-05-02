@@ -271,17 +271,42 @@ namespace ContractorShareService.Repositories
 
         }
 
-        public List<GetListContractors_Result> GetListContractors(SearchContractor SearchParams)
+        public List<ContractorInfo> GetListContractors(SearchContractor SearchParams)
         {
             try
             {
                 var contractors = from contractor in
-                                      db.GetListContractors(SearchParams.CategoryId, SearchParams.LocationCoordX, SearchParams.LocationCoordY,
-                                      SearchParams.City, SearchParams.CompanyName, SearchParams.PricePerHour, SearchParams.NumOfRates,
-                                      SearchParams.AverageRate)
+                                  db.GetListContractors(SearchParams.CategoryId, SearchParams.PostCode, SearchParams.City, SearchParams.PricePerHour)
                                   select contractor;
 
-                return contractors.ToList();
+                var contractorslist = contractors.ToList();
+
+                List<ContractorInfo> contractorsinfolist = new List<ContractorInfo>();
+
+                foreach (var selectedcontractor in contractorslist)
+                {
+                    ContractorInfo contractorinfo = new ContractorInfo();
+
+                    contractorinfo.ID = selectedcontractor.ID;
+                    contractorinfo.Email = selectedcontractor.Email;
+                    contractorinfo.Address = selectedcontractor.Address;
+                    contractorinfo.PostalCode = selectedcontractor.PostalCode;
+                    contractorinfo.City = selectedcontractor.City;
+                    contractorinfo.Country = selectedcontractor.Country;
+                    contractorinfo.PhoneNumber = selectedcontractor.PhoneNumber;
+                    contractorinfo.MobileNumber = selectedcontractor.MobileNumber;
+                    contractorinfo.CompanyName = selectedcontractor.CompanyName;
+                    contractorinfo.website = selectedcontractor.Contractor_website;
+                    contractorinfo.Description = selectedcontractor.Description;
+                    contractorinfo.Categories = GetUserCategoryList(selectedcontractor.ID);
+                    contractorinfo.PricePerHour = selectedcontractor.PricePerHour;
+                    contractorinfo.NumberOfRates = selectedcontractor.CNumOfRates;
+                    contractorinfo.AverageRate = selectedcontractor.CAverageRate;
+
+                    contractorsinfolist.Add(contractorinfo);
+                }
+
+                return contractorsinfolist;
             }
             catch (Exception ex)
             {

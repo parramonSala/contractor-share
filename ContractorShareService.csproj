@@ -130,6 +130,7 @@
     <Compile Include="Domain\ChangePreferencesInfo.cs" />
     <Compile Include="Domain\AppointmentInfo.cs" />
     <Compile Include="Domain\CommentInfo.cs" />
+    <Compile Include="Domain\ContractorInfo.cs" />
     <Compile Include="Domain\MessageInfo.cs" />
     <Compile Include="Domain\ProposalInfo.cs" />
     <Compile Include="Domain\PreferencesResult.cs" />

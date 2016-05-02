@@ -295,11 +295,15 @@ namespace ContractorShareService
         #region Search contractors operations
 
         //5.Search Contractors (WIP)
-        public List<GetListContractors_Result> SearchContractors(int CategoryId, decimal LocationCoordX, decimal LocationCoordY,
-            string City, string CompanyName, double PricePerHour, int NumOfRates, double AverageRate)
+        public List<ContractorInfo> SearchContractors(int CategoryId, string City, string PostCode, double PricePerHour)
         {
             SearchContractor searchContractor = new SearchContractor();
-            //TODO: Fill searchContractor with parameters
+
+            searchContractor.CategoryId = CategoryId;
+            searchContractor.City = City;
+            searchContractor.PostCode = PostCode;
+            searchContractor.PricePerHour = PricePerHour;
+
             return _userController.GetListContractors(searchContractor);
         }
 

@@ -601,13 +601,9 @@
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="GetListContractors" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CategoryId" Type="int" Mode="In" />
-          <Parameter Name="LocationCoordX" Type="decimal" Mode="In" />
-          <Parameter Name="LocationCoordY" Type="decimal" Mode="In" />
+          <Parameter Name="PostalCode" Type="varchar" Mode="In" />
           <Parameter Name="City" Type="varchar" Mode="In" />
-          <Parameter Name="CompanyName" Type="varchar" Mode="In" />
           <Parameter Name="PricePerHour" Type="float" Mode="In" />
-          <Parameter Name="NumOfRates" Type="int" Mode="In" />
-          <Parameter Name="AverageRate" Type="float" Mode="In" />
         </Function>
         <Function Name="GetListServices" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CategoryId" Type="int" Mode="In" />
@@ -1497,13 +1493,9 @@
           </AssociationSet>
           <FunctionImport Name="GetListContractors" ReturnType="Collection(ContractorShareModel.GetListContractors_Result)">
             <Parameter Name="CategoryId" Mode="In" Type="Int32" />
-            <Parameter Name="LocationCoordX" Mode="In" Type="Decimal" />
-            <Parameter Name="LocationCoordY" Mode="In" Type="Decimal" />
+            <Parameter Name="PostalCode" Mode="In" Type="String" />
             <Parameter Name="City" Mode="In" Type="String" />
-            <Parameter Name="CompanyName" Mode="In" Type="String" />
             <Parameter Name="PricePerHour" Mode="In" Type="Double" />
-            <Parameter Name="NumOfRates" Mode="In" Type="Int32" />
-            <Parameter Name="AverageRate" Mode="In" Type="Double" />
           </FunctionImport>
           <FunctionImport Name="GetListServices" ReturnType="Collection(ContractorShareModel.GetListServices_Result)">
             <Parameter Name="CategoryId" Mode="In" Type="Int32" />

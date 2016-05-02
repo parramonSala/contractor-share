@@ -131,7 +131,7 @@ namespace ContractorShareService.Controllers
             }
         }
 
-        public List<GetListContractors_Result> GetListContractors(SearchContractor SearchParams)
+        public List<ContractorInfo> GetListContractors(SearchContractor SearchParams)
         {
             try
             {
