@@ -53,7 +53,7 @@ namespace ContractorShareService
         string EditUserProfile(string userId,UserInfo userprofile);
 
         [OperationContract]
-        [WebGet(UriTemplate = "user/{userId}/profile")]
+        [WebGet(UriTemplate = "users/{userId}/profile")]
         UserInfo GetUserProfile(string userId);
 
         [OperationContract]
@@ -65,7 +65,7 @@ namespace ContractorShareService
         string RemoveFavourite(string userId, string favouriteUserId);
 
         [OperationContract]
-        [WebGet(UriTemplate = "user/{userId}/favourites", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        [WebGet(UriTemplate = "users/{userId}/favourites", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         List<UserFavourite> GetUserFavourites(string userID);
 
         [OperationContract]
@@ -150,7 +150,7 @@ namespace ContractorShareService
 
         [OperationContract]
         [WebGet(UriTemplate = "users/{userId}/activeproposals", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        List<ProposalInfo> GetActiveProposals(string userId);
+        List<ProposalInfo> GetActiveProposals(string userId, bool? includeFromMe = true);
 
         [OperationContract]
         [WebGet(UriTemplate = "users/{userId}/closedproposals", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]

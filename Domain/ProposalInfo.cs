@@ -15,6 +15,12 @@ namespace ContractorShareService.Domain
         public int JobId { get; set; }
 
         [DataMember]
+        public string JobName { get; set; }
+
+        [DataMember]
+        public string FromUsername { get; set; }
+
+        [DataMember]
         public int FromUserId { get; set; }
 
         [DataMember]
@@ -43,5 +49,6 @@ namespace ContractorShareService.Domain
 
         [DataMember]
         public int? UpdatedByUserId { get; set; }
+
     }
 }

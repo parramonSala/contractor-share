@@ -85,14 +85,14 @@ namespace ContractorShareService.Controllers
             }
         }
 
-        public List<ProposalInfo> GetActiveProposals(int ToUserId)
+        public List<ProposalInfo> GetActiveProposals(int ToUserId, bool includeFromMe)
         {
             try
             {
                 string message = string.Format("Executing GetActiveProposals");
                 Logger.Info(message);
 
-                return _proposalRepository.GetActiveProposals(ToUserId);
+                return _proposalRepository.GetActiveProposals(ToUserId, includeFromMe);
             }
             catch (Exception ex)
             {

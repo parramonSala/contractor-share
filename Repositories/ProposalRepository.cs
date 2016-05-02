@@ -142,35 +142,42 @@ namespace ContractorShareService.Repositories
             }
         }
 
-        public List<ProposalInfo> GetActiveProposals(int UserId)
+        public List<ProposalInfo> GetActiveProposals(int UserId, bool includeFromMe)
         {
             try
             {
                 var proposals = from proposal in db.Proposals
+                                join u in db.Users on proposal.FromUserID equals u.ID
+                                join j in db.Services on proposal.ServiceID equals j.ID
                                 where (proposal.FromUserID == UserId || proposal.ToUserID == UserId)
                                 && proposal.Active == true
-                                select proposal;
+                                select new { proposal, u.Email, j.Name};
+                                //select proposal;
 
                 List<ProposalInfo> proposalinfolist = new List<ProposalInfo>();
 
                 foreach (var selectedproposal in proposals)
                 {
-                    ProposalInfo proposalinfo = new ProposalInfo();
+                    if (includeFromMe || (includeFromMe == false && selectedproposal.proposal.ToUserID == UserId))
+                    {
+                        ProposalInfo proposalinfo = new ProposalInfo();
+                        proposalinfo.ProposalId = selectedproposal.proposal.ID;
+                        proposalinfo.JobId = selectedproposal.proposal.ServiceID;
+                        proposalinfo.JobName = selectedproposal.Name;
+                        proposalinfo.FromUserId = selectedproposal.proposal.FromUserID;
+                        proposalinfo.FromUsername = selectedproposal.Email;
+                        proposalinfo.ToUserId = selectedproposal.proposal.ToUserID;
+                        proposalinfo.Message = selectedproposal.proposal.Message;
+                        proposalinfo.StatusId = selectedproposal.proposal.StatusID;
+                        proposalinfo.ProposedPrice = (decimal)selectedproposal.proposal.ProposedPrice;
+                        proposalinfo.ProposedTime = selectedproposal.proposal.ProposedTime;
+                        proposalinfo.Active = selectedproposal.proposal.Active;
+                        proposalinfo.AproxDuration = selectedproposal.proposal.AproxDuration;
+                        proposalinfo.Created = selectedproposal.proposal.Created;
+                        proposalinfo.UpdatedByUserId = selectedproposal.proposal.UpdatedByUserID;
 
-                    proposalinfo.ProposalId = selectedproposal.ID;
-                    proposalinfo.JobId = selectedproposal.ServiceID;
-                    proposalinfo.FromUserId = selectedproposal.FromUserID;
-                    proposalinfo.ToUserId = selectedproposal.ToUserID;
-                    proposalinfo.Message = selectedproposal.Message;
-                    proposalinfo.StatusId = selectedproposal.StatusID;
-                    proposalinfo.ProposedPrice = (decimal)selectedproposal.ProposedPrice;
-                    proposalinfo.ProposedTime = selectedproposal.ProposedTime;
-                    proposalinfo.Active = selectedproposal.Active;
-                    proposalinfo.AproxDuration = selectedproposal.AproxDuration;
-                    proposalinfo.Created = selectedproposal.Created;
-                    proposalinfo.UpdatedByUserId = selectedproposal.UpdatedByUserID;
-
-                    proposalinfolist.Add(proposalinfo);
+                        proposalinfolist.Add(proposalinfo);
+                    }
                 }
 
                 return proposalinfolist;
