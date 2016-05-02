@@ -242,6 +242,8 @@ namespace ContractorShareService.Repositories
                 userinfo.CompanyCoordY = userprofile.CompanyCoordY;
                 userinfo.PricePerHour = userprofile.PricePerHour;
                 userinfo.Categories = GetUserCategoryList(userId);
+                userinfo.AverageRate = userprofile.CAverageRate;
+                userinfo.NumOfRates = userprofile.CNumOfRates;
 
                 return userinfo;
             }
