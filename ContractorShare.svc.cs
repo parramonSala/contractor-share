@@ -198,9 +198,9 @@ namespace ContractorShareService
             return _proposalController.ChangeProposalStatus(Convert.ToInt32(proposalId), StatusId);
         }
 
-        public List<ProposalInfo> GetActiveProposals(string userId, bool? includeFromMe)
+        public List<ProposalInfo> GetActiveProposals(string userId, bool includeFromMe)
         {
-            return _proposalController.GetActiveProposals(Convert.ToInt32(userId), includeFromMe ?? true);
+            return _proposalController.GetActiveProposals(Convert.ToInt32(userId), includeFromMe);
         }
 
         public List<ProposalInfo> GetMyClosedProposals(string userId)

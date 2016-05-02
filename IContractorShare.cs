@@ -149,8 +149,8 @@ namespace ContractorShareService
         string ChangeProposalStatus(string proposalId, int StatusId);
 
         [OperationContract]
-        [WebGet(UriTemplate = "users/{userId}/activeproposals", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        List<ProposalInfo> GetActiveProposals(string userId, bool? includeFromMe = true);
+        [WebGet(UriTemplate = "users/{userId}/activeproposals?includeFromMe={includeFromMe}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        List<ProposalInfo> GetActiveProposals(string userId, bool includeFromMe = true);
 
         [OperationContract]
         [WebGet(UriTemplate = "users/{userId}/closedproposals", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
