@@ -96,6 +96,10 @@ namespace ContractorShareService
             return _userController.GetUserFavourites(Convert.ToInt32(userId));
         }
 
+        public bool UserIsFavourite(string fromuserId, string userId)
+        {
+            return _userController.UserIsFavourite(Convert.ToInt32(fromuserId), Convert.ToInt32(userId));
+        }
 
         public string AddDenunce(string userId, int ToUser, string Comment, bool BlockUser)
         {

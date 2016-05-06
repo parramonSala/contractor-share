@@ -384,6 +384,24 @@ namespace ContractorShareService.Repositories
             }
         }
 
+        public bool UserIsFavourite(int FromUser, int ToUser)
+        {
+            try
+            {
+                var favourite = from userfavourite in db.UserFavourites
+                                where userfavourite.FromUserID == FromUser
+                                && userfavourite.ToUserID == ToUser
+                                select userfavourite;
+                return (favourite.Count() != 0);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error UserRepository.UserIsFavourite", ex);
+                return false;
+            }
+        }
+
+
         public string AddDenunce(int FromUser, int ToUser, string Comment, int statusid, bool blockUser)
         {
             try

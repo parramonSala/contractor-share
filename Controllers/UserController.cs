@@ -211,6 +211,14 @@ namespace ContractorShareService.Controllers
             }
         }
 
+        public bool UserIsFavourite(int fromuserID, int touserID)
+        {
+            string message = string.Format("Executing UserIsFavourite(From {0} to {1})", fromuserID.ToString(), touserID.ToString());
+            Logger.Info(message);
+
+            return _userRepository.UserIsFavourite(fromuserID,touserID);
+        }
+
         public string AddDenunce(int FromUser, int ToUser, string Comment, bool BlockUser)
         {
             try
