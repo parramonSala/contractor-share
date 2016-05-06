@@ -490,6 +490,29 @@ namespace ContractorShareService.Repositories
             }
         }
 
+        public Result UnBlockUser(int FromUser, int ToUser)
+        {
+            try
+            {
+                UserBlock userblock = (from block in db.UserBlocks
+                                       where block.FromUserID == FromUser && block.ToUserID == ToUser
+                                       select block).FirstOrDefault();
+
+                db.UserBlocks.Remove(userblock);
+                db.SaveChanges();
+
+                Logger.Info(String.Format("UserRepository.UnBlock"));
+
+                return new Result();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error UserRepository.RemoveFavourite", ex);
+                return new Result(ex.ToString(), (int)ErrorListEnum.BlockUserOtherError);
+            }
+        }
+
+
         public double GetUserAverage(int UserID)
         {
             try

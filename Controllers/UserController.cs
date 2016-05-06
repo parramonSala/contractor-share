@@ -261,7 +261,7 @@ namespace ContractorShareService.Controllers
 
             if (_userRepository.UserIsBlocked(FromUser, ToUser))
             {
-                return new Result(EnumHelper.GetDescription(ErrorListEnum.UserAlreadyBlocked), (int)ErrorListEnum.UserAlreadyBlocked);
+                return _userRepository.UnBlockUser(FromUser, ToUser);
             }
 
             return _userRepository.BlockUser(FromUser, ToUser);
