@@ -348,12 +348,12 @@ namespace ContractorShareService.Repositories
             {
                 UserFavourite favouriterelation = (from favourite in db.UserFavourites
                                                    where favourite.FromUserID == FromUser && favourite.ToUserID == ToUser
-                                                   select favourite).First();
+                                                   select favourite).FirstOrDefault();
 
                 db.UserFavourites.Remove(favouriterelation);
                 db.SaveChanges();
 
-                Logger.Info(String.Format("UserRepository.RemoveFavourite: removed favourite relationship From {1} To {2}", FromUser.ToString(), ToUser.ToString()));
+                Logger.Info(String.Format("UserRepository.RemoveFavourite: removed favourite"));
 
                 return EnumHelper.GetDescription(ErrorListEnum.OK);
             }
