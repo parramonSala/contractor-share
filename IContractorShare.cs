@@ -72,14 +72,17 @@ namespace ContractorShareService
         [WebGet(UriTemplate = "users/{userId}/isfavourite/{fromuserId}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         bool UserIsFavourite(string fromuserId, string userId);
 
-
         [OperationContract]
         [WebInvoke(UriTemplate = "users/{userId}/denunces/", Method = "POST", BodyStyle = WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         string AddDenunce(string userId, int ToUser, string Comment, bool BlockUser);
 
         [OperationContract]
         [WebInvoke(UriTemplate = "users/{userId}/blocks/", Method = "POST", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        string BlockUser(string userId, int ToUser);
+        Result BlockUser(string userId, int ToUser);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "users/{userId}/isblocked/{fromuserId}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        bool UserIsBlocked(string fromuserId, string userId);
 
         //3.Manage Jobs operations
         [OperationContract]
