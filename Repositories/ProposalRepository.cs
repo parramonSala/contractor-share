@@ -146,7 +146,7 @@ namespace ContractorShareService.Repositories
                           }
                     }
 
-                    if ((statusId == (int)ProposalStatusEnum.Rejected || statusId == (int)ProposalStatusEnum.Cancelled) && selectedproposal.Active)
+                    if ((statusId == (int)ProposalStatusEnum.Rejected || statusId ==  (int)ProposalStatusEnum.Accepted || statusId == (int)ProposalStatusEnum.Cancelled) && selectedproposal.Active)
                     {
                         selectedproposal.Active = false;
                     }
