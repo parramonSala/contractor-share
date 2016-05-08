@@ -202,9 +202,9 @@ namespace ContractorShareService
             return _proposalController.EditProposal(Convert.ToInt32(proposalId), proposalinfo);
         }
 
-        public string ChangeProposalStatus(string proposalId, int StatusId)
+        public string UpdateProposalStatus(string proposalId, UpdateProposalStatusInfo info)
         {
-            return _proposalController.ChangeProposalStatus(Convert.ToInt32(proposalId), StatusId);
+            return _proposalController.UpdateProposalStatus(Convert.ToInt32(proposalId), info.StatusId, info.UpdatedByUserId);
         }
 
         public List<ProposalInfo> GetActiveProposals(string userId, bool includeFromMe)
@@ -217,10 +217,10 @@ namespace ContractorShareService
             return _proposalController.GetMyClosedProposals(Convert.ToInt32(userId));
         }
 
-        public string AcceptProposal(string ProposalId, int userId)
-        {
-            return _proposalController.AcceptProposal(Convert.ToInt32(ProposalId), userId);
-        }
+        //public string AcceptProposal(string ProposalId, int userId)
+        //{
+        //    return _proposalController.AcceptProposal(Convert.ToInt32(ProposalId), userId);
+        //}
 
         public string SendProposalMessage(string proposalId, MessageInfo proposalmessageInfo)
         {

@@ -132,6 +132,7 @@
     <Compile Include="Domain\CommentInfo.cs" />
     <Compile Include="Domain\ContractorInfo.cs" />
     <Compile Include="Domain\MessageInfo.cs" />
+    <Compile Include="Domain\ProposalChangeStatusInfo.cs" />
     <Compile Include="Domain\ProposalInfo.cs" />
     <Compile Include="Domain\PreferencesResult.cs" />
     <Compile Include="Domain\ResetPasswordInfo.cs" />

@@ -113,19 +113,40 @@ namespace ContractorShareService.Repositories
             }
         }
 
-        public string ChangeProposalStatus(int ProposalId, int StatusId)
+        public string UpdateProposalStatus(int proposalId, int statusId, int? updatedByUserId)
         {
             try
             {
                 var selectedproposal = (from proposal in db.Proposals
-                                where proposal.ID == ProposalId
-                                select proposal).FirstOrDefault();
+                                        where proposal.ID == proposalId
+                                        select proposal).FirstOrDefault();
 
-                if (selectedproposal.StatusID != StatusId)
+                if (selectedproposal.StatusID != statusId)
                 {
-                    selectedproposal.StatusID = StatusId;
+                    selectedproposal.StatusID = statusId;
 
-                    if ((StatusId == (int)ProposalStatusEnum.Rejected || StatusId == (int)ProposalStatusEnum.Cancelled) && selectedproposal.Active)
+                    if (updatedByUserId.HasValue) selectedproposal.UpdatedByUserID = updatedByUserId;
+
+                    if ((statusId == (int)ProposalStatusEnum.Accepted))
+                    {
+                          //Update job to In progress
+                          selectedproposal.Service.StatusID = (int)ServiceStatusEnum.InProgress;
+
+                          // Client is the only one who can accept, so updateByuserId will always be the clientId. We need the contractorId.
+                          selectedproposal.Service.ContractorID = updatedByUserId == selectedproposal.FromUserID ? selectedproposal.ToUserID : selectedproposal.FromUserID;                        
+
+                          //Reject all other proposals
+                          var otherProposals = (from proposal in db.Proposals
+                                               where proposal.ID != selectedproposal.ID && proposal.ServiceID ==selectedproposal.ServiceID
+                                              select proposal).ToList();
+
+                          foreach (var proposal in otherProposals)
+                          {
+                              proposal.StatusID = (int)ProposalStatusEnum.Rejected;
+                          }
+                    }
+
+                    if ((statusId == (int)ProposalStatusEnum.Rejected || statusId == (int)ProposalStatusEnum.Cancelled) && selectedproposal.Active)
                     {
                         selectedproposal.Active = false;
                     }
@@ -137,7 +158,7 @@ namespace ContractorShareService.Repositories
             }
             catch (Exception ex)
             {
-                Logger.ErrorFormat("Error ProposalRepository.ChangeProposalStatus {0}: {1}", ProposalId.ToString(), ex);
+                Logger.ErrorFormat("Error ProposalRepository.ChangeProposalStatus {0}: {1}", proposalId.ToString(), ex);
                 return ex.ToString();
             }
         }

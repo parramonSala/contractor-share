@@ -154,7 +154,7 @@ namespace ContractorShareService
 
         [OperationContract]
         [WebInvoke(UriTemplate = "proposals/{proposalId}/status", Method = "PUT", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        string ChangeProposalStatus(string proposalId, int StatusId);
+        string UpdateProposalStatus(string proposalId, UpdateProposalStatusInfo info);
 
         [OperationContract]
         [WebGet(UriTemplate = "users/{userId}/activeproposals?includeFromMe={includeFromMe}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
@@ -164,9 +164,9 @@ namespace ContractorShareService
         [WebGet(UriTemplate = "users/{userId}/closedproposals", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         List<ProposalInfo> GetMyClosedProposals(string userId);
 
-        [OperationContract]
-        [WebInvoke(UriTemplate = "proposals/{proposalId}/accept", Method = "PUT", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        string AcceptProposal(string ProposalId, int userId);
+        //[OperationContract]
+        //[WebInvoke(UriTemplate = "proposals/{proposalId}/accept", Method = "PUT", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        //string AcceptProposal(string ProposalId, int userId);
 
         [OperationContract]
         [WebInvoke(UriTemplate = "proposals/{proposalId}/reply", Method = "PUT", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
