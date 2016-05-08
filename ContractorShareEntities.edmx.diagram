@@ -54,6 +54,7 @@
         <AssociationConnector Association="ContractorShareModel.FK__ProposalM__FromU__17036CC01" />
         <AssociationConnector Association="ContractorShareModel.FK__ProposalM__Propo__17F790F91" />
         <AssociationConnector Association="ContractorShareModel.FK__ProposalM__ToUse__18EBB5321" />
+        <EntityTypeShape EntityType="ContractorShareModel.UserBlock" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

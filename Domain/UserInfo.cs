@@ -41,5 +41,9 @@ namespace ContractorShareService.Domain
         public List<int> Categories { get; set; }
         [DataMember]
         public double? PricePerHour { get; set; }
+        [DataMember]
+        public double? AverageRate { get; set; }
+        [DataMember]
+        public int? NumOfRates { get; set; }
     }
 }

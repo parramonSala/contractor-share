@@ -41,4 +41,12 @@ namespace ContractorShareService.Enumerations
         Cancelled = 4,
         Closed = 7
     }
+
+    public enum DenunceStatusEnum
+    {
+        Open = 1,
+        InProgress = 2,
+        Completed = 3,
+        Cancelled = 4
+    }
 }

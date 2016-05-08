@@ -96,15 +96,24 @@ namespace ContractorShareService
             return _userController.GetUserFavourites(Convert.ToInt32(userId));
         }
 
+        public bool UserIsFavourite(string fromuserId, string userId)
+        {
+            return _userController.UserIsFavourite(Convert.ToInt32(fromuserId), Convert.ToInt32(userId));
+        }
 
         public string AddDenunce(string userId, int ToUser, string Comment, bool BlockUser)
         {
             return _userController.AddDenunce(Convert.ToInt32(userId), ToUser, Comment, BlockUser);
         }
 
-        public string BlockUser(string userId, int ToUser)
+        public Result BlockUser(string userId, int ToUser)
         {
             return _userController.BlockUser(Convert.ToInt32(userId), ToUser);
+        }
+
+        public bool UserIsBlocked(string FromUser, string ToUser)
+        {
+            return _userController.UserIsBlocked(Convert.ToInt32(FromUser), Convert.ToInt32(ToUser));
         }
 
         #endregion

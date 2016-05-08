@@ -175,6 +175,14 @@
           <Property Name="PricePerHour" Type="float" />
           <Property Name="CTotalRate" Type="float" />
         </EntityType>
+        <EntityType Name="UserBlock">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FromUserID" Type="int" Nullable="false" />
+          <Property Name="ToUserID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="UserCategory">
           <Key>
             <PropertyRef Name="ID" />
@@ -574,6 +582,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__UserFavou__FromU__29221CFB">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserFavourite" Type="Self.UserFavourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserFavourite">
+              <PropertyRef Name="FromUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__UserFavou__FromU__440B1D61">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="UserFavourite" Type="Self.UserFavourite" Multiplicity="*" />
@@ -583,6 +603,18 @@
             </Principal>
             <Dependent Role="UserFavourite">
               <PropertyRef Name="FromUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserFavou__ToUse__2A164134">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserFavourite" Type="Self.UserFavourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserFavourite">
+              <PropertyRef Name="ToUserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -654,6 +686,7 @@
           <EntitySet Name="Suggestion" EntityType="Self.Suggestion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Task" EntityType="Self.Task" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserBlock" EntityType="Self.UserBlock" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserCategory" EntityType="Self.UserCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserDenunce" EntityType="Self.UserDenunce" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserFavourite" EntityType="Self.UserFavourite" Schema="dbo" store:Type="Tables" />
@@ -781,7 +814,15 @@
             <End Role="User" EntitySet="User" />
             <End Role="UserDenunce" EntitySet="UserDenunce" />
           </AssociationSet>
+          <AssociationSet Name="FK__UserFavou__FromU__29221CFB" Association="Self.FK__UserFavou__FromU__29221CFB">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserFavourite" EntitySet="UserFavourite" />
+          </AssociationSet>
           <AssociationSet Name="FK__UserFavou__FromU__440B1D61" Association="Self.FK__UserFavou__FromU__440B1D61">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserFavourite" EntitySet="UserFavourite" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserFavou__ToUse__2A164134" Association="Self.FK__UserFavou__ToUse__2A164134">
             <End Role="User" EntitySet="User" />
             <End Role="UserFavourite" EntitySet="UserFavourite" />
           </AssociationSet>
@@ -1557,6 +1598,7 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Message" EntitySet="Messages" />
           </AssociationSet>
+          <EntitySet Name="UserBlocks" EntityType="ContractorShareModel.UserBlock" />
         </EntityContainer>
         <ComplexType Name="GetListContractors_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -1695,6 +1737,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="UserBlock">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FromUserID" Type="Int32" Nullable="false" />
+          <Property Name="ToUserID" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1982,6 +2032,15 @@
                 <ScalarProperty Name="ToUserID" ColumnName="ToUserID" />
                 <ScalarProperty Name="FromUserID" ColumnName="FromUserID" />
                 <ScalarProperty Name="ProposalID" ColumnName="ProposalID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserBlocks">
+            <EntityTypeMapping TypeName="ContractorShareModel.UserBlock">
+              <MappingFragment StoreEntitySet="UserBlock">
+                <ScalarProperty Name="ToUserID" ColumnName="ToUserID" />
+                <ScalarProperty Name="FromUserID" ColumnName="FromUserID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -211,6 +211,14 @@ namespace ContractorShareService.Controllers
             }
         }
 
+        public bool UserIsFavourite(int fromuserID, int touserID)
+        {
+            string message = string.Format("Executing UserIsFavourite(From {0} to {1})", fromuserID.ToString(), touserID.ToString());
+            Logger.Info(message);
+
+            return _userRepository.UserIsFavourite(fromuserID,touserID);
+        }
+
         public string AddDenunce(int FromUser, int ToUser, string Comment, bool BlockUser)
         {
             try
@@ -223,14 +231,7 @@ namespace ContractorShareService.Controllers
                     return EnumHelper.GetDescription(ErrorListEnum.Denunce_UserNotExistError);
                 }
 
-                int statusid = _statusRepository.GetStatusId("NEW");
-
-                if (_statusRepository.GetStatusId("NEW") < 0)
-                {
-                    return EnumHelper.GetDescription(ErrorListEnum.Status_Error);
-                }
-
-                return _userRepository.AddDenunce(FromUser, ToUser, Comment, statusid, BlockUser);
+                return _userRepository.AddDenunce(FromUser, ToUser, Comment, (int)DenunceStatusEnum.Open, BlockUser);
             }
             catch (Exception ex)
             {
@@ -241,38 +242,28 @@ namespace ContractorShareService.Controllers
 
         }
 
-        public string BlockUser(int FromUser, int ToUser)
+        public Result BlockUser(int FromUser, int ToUser)
+        { 
+            string message = string.Format("Executing BlockUser(From {0}, To {1})", FromUser.ToString(), ToUser.ToString());
+            Logger.Info(message);
+
+            if (!_userRepository.UserIdExists(FromUser) || !_userRepository.UserIdExists(ToUser))
+            {
+                return new Result(EnumHelper.GetDescription(ErrorListEnum.Denunce_UserNotExistError), (int)ErrorListEnum.Denunce_UserNotExistError);
+            }
+
+            if (_userRepository.UserIsBlocked(FromUser, ToUser))
+            {
+                return _userRepository.UnBlockUser(FromUser, ToUser);
+            }
+
+            return _userRepository.BlockUser(FromUser, ToUser);
+        }
+
+        public bool UserIsBlocked(int FromUser, int ToUser)
         {
-            try
-            {
-                string message = string.Format("Executing BlockUser(From {0}, To {1})", FromUser.ToString(), ToUser.ToString());
-                Logger.Info(message);
-
-                if (!_userRepository.UserIdExists(FromUser) || !_userRepository.UserIdExists(ToUser))
-                {
-                    return EnumHelper.GetDescription(ErrorListEnum.Denunce_UserNotExistError);
-                }
-
-                if (!_userRepository.UserDenunceExists(FromUser, ToUser))
-                {
-                    return EnumHelper.GetDescription(ErrorListEnum.UserDenunceNotExists);
-                }
-
-                if (_userRepository.UserIsBlocked(FromUser, ToUser))
-                {
-                    return EnumHelper.GetDescription(ErrorListEnum.UserAlreadyBlocked);
-                }
-
-                return _userRepository.BlockUser(FromUser, ToUser);
-            }
-            catch (Exception ex)
-            {
-                string error_message = string.Format("Error executing AddFavourite(From {0}, To {1})", FromUser.ToString(), ToUser.ToString());
-                Logger.Error(error_message, ex);
-                return EnumHelper.GetDescription(ErrorListEnum.Favourite_Error);
-            }
+            return _userRepository.UserIsBlocked(FromUser, ToUser);
         }
-
         public double GetUserAverage(int UserID)
         {
             try

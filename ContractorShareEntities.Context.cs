@@ -43,6 +43,7 @@ namespace ContractorShareService
         public virtual DbSet<UserDenunce> UserDenunces { get; set; }
         public virtual DbSet<UserFavourite> UserFavourites { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
+        public virtual DbSet<UserBlock> UserBlocks { get; set; }
     
         public virtual ObjectResult<GetListContractors_Result> GetListContractors(Nullable<int> categoryId, string postalCode, string city, Nullable<double> pricePerHour)
         {

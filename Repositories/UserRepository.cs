@@ -242,6 +242,8 @@ namespace ContractorShareService.Repositories
                 userinfo.CompanyCoordY = userprofile.CompanyCoordY;
                 userinfo.PricePerHour = userprofile.PricePerHour;
                 userinfo.Categories = GetUserCategoryList(userId);
+                userinfo.AverageRate = userprofile.CAverageRate;
+                userinfo.NumOfRates = userprofile.CNumOfRates;
 
                 return userinfo;
             }
@@ -346,12 +348,12 @@ namespace ContractorShareService.Repositories
             {
                 UserFavourite favouriterelation = (from favourite in db.UserFavourites
                                                    where favourite.FromUserID == FromUser && favourite.ToUserID == ToUser
-                                                   select favourite).First();
+                                                   select favourite).FirstOrDefault();
 
                 db.UserFavourites.Remove(favouriterelation);
                 db.SaveChanges();
 
-                Logger.Info(String.Format("UserRepository.RemoveFavourite: removed favourite relationship From {1} To {2}", FromUser.ToString(), ToUser.ToString()));
+                Logger.Info(String.Format("UserRepository.RemoveFavourite: removed favourite"));
 
                 return EnumHelper.GetDescription(ErrorListEnum.OK);
             }
@@ -381,6 +383,24 @@ namespace ContractorShareService.Repositories
                 return null;
             }
         }
+
+        public bool UserIsFavourite(int FromUser, int ToUser)
+        {
+            try
+            {
+                var favourite = from userfavourite in db.UserFavourites
+                                where userfavourite.FromUserID == FromUser
+                                && userfavourite.ToUserID == ToUser
+                                select userfavourite;
+                return (favourite.Count() != 0);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error UserRepository.UserIsFavourite", ex);
+                return false;
+            }
+        }
+
 
         public string AddDenunce(int FromUser, int ToUser, string Comment, int statusid, bool blockUser)
         {
@@ -431,12 +451,12 @@ namespace ContractorShareService.Repositories
         {
             try
             {
-                var denunce = from userdenunce in db.UserDenunces
-                              where userdenunce.FromUserID == FromUser
-                              && userdenunce.ToUserID == ToUser
-                              && userdenunce.BlockUser == true
-                              select userdenunce;
-                return (denunce.Count() != 0);
+                var userblock = from block in db.UserBlocks
+                              where block.FromUserID == FromUser
+                              && block.ToUserID == ToUser
+                              select block;
+                
+                return (userblock.Count() != 0);
             }
             catch (Exception ex)
             {
@@ -445,29 +465,53 @@ namespace ContractorShareService.Repositories
             }
         }
 
-        public string BlockUser(int FromUser, int ToUser)
+        public Result BlockUser(int FromUser, int ToUser)
         {
             try
             {
-                var denunce = from userdenunce in db.UserDenunces
-                              where userdenunce.FromUserID == FromUser
-                              && userdenunce.ToUserID == ToUser
-                              select userdenunce;
+                UserBlock userblock = new UserBlock
+                {
+                    FromUserID = FromUser,
+                    ToUserID = ToUser,
+                };
 
-                UserDenunce matched_denunce = denunce.FirstOrDefault();
-
-                matched_denunce.BlockUser = true;
-
+                db.UserBlocks.Add(userblock);
                 db.SaveChanges();
+                int id = (int)userblock.ID;
 
-                return EnumHelper.GetDescription(ErrorListEnum.OK);
+                Logger.Info(String.Format("UserRepository.BlockUser: created denunce {0} From {1} To {2}", id.ToString(), FromUser.ToString(), ToUser.ToString()));
+
+                return new Result();
             }
             catch (Exception ex)
             {
-                Logger.ErrorFormat("Error when blocking a user: {0}", ex);
-                return EnumHelper.GetDescription(ErrorListEnum.BlockUserOtherError);
+                Logger.Error("Error UserRepository.BlockUser", ex);
+                return new Result(ex.ToString(), (int)(ErrorListEnum.BlockUserOtherError));
             }
         }
+
+        public Result UnBlockUser(int FromUser, int ToUser)
+        {
+            try
+            {
+                UserBlock userblock = (from block in db.UserBlocks
+                                       where block.FromUserID == FromUser && block.ToUserID == ToUser
+                                       select block).FirstOrDefault();
+
+                db.UserBlocks.Remove(userblock);
+                db.SaveChanges();
+
+                Logger.Info(String.Format("UserRepository.UnBlock"));
+
+                return new Result();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error UserRepository.RemoveFavourite", ex);
+                return new Result(ex.ToString(), (int)ErrorListEnum.BlockUserOtherError);
+            }
+        }
+
 
         public double GetUserAverage(int UserID)
         {

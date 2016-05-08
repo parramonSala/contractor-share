@@ -200,6 +200,9 @@
     <Compile Include="User.cs">
       <DependentUpon>ContractorShareEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserBlock.cs">
+      <DependentUpon>ContractorShareEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="UserCategory.cs">
       <DependentUpon>ContractorShareEntities.tt</DependentUpon>
     </Compile>
