@@ -231,14 +231,7 @@ namespace ContractorShareService.Controllers
                     return EnumHelper.GetDescription(ErrorListEnum.Denunce_UserNotExistError);
                 }
 
-                int statusid = _statusRepository.GetStatusId("NEW");
-
-                if (_statusRepository.GetStatusId("NEW") < 0)
-                {
-                    return EnumHelper.GetDescription(ErrorListEnum.Status_Error);
-                }
-
-                return _userRepository.AddDenunce(FromUser, ToUser, Comment, statusid, BlockUser);
+                return _userRepository.AddDenunce(FromUser, ToUser, Comment, (int)DenunceStatusEnum.Open, BlockUser);
             }
             catch (Exception ex)
             {
