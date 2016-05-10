@@ -18,22 +18,9 @@ namespace ContractorShareService.Controllers
         private AppointmentRepository _appointmentRepository = new AppointmentRepository();
         private UserController _userController = new UserController();
 
-        public string Create(AppointmentInfo appointment)
+        public Result Create(AppointmentInfo appointment)
         {
-            try
-            {
-                string message = string.Format("Executing Create Appointment");
-                Logger.Info(message);
-
-                return _appointmentRepository.CreateAppointment(appointment);
-            }
-            catch (Exception ex)
-            {
-                string error_message = string.Format("Error Creating Appointment");
-                Logger.Error(error_message, ex);
-                return ex.ToString();
-            }
-
+             return _appointmentRepository.CreateAppointment(appointment);
         }
 
         public List<AppointmentInfo> GetActiveAppointments(int UserId)

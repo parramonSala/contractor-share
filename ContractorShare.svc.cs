@@ -187,7 +187,7 @@ namespace ContractorShareService
 
         #region Proposal operations
 
-        public string CreateProposal(ProposalInfo proposal)
+        public Result CreateProposal(ProposalInfo proposal)
         {
             return _proposalController.Create(proposal);
         }
@@ -197,12 +197,12 @@ namespace ContractorShareService
             return _proposalController.GetProposal(Convert.ToInt32(proposalId));
         }
 
-        public string EditProposal(string proposalId, ProposalInfo proposalinfo)
+        public Result EditProposal(string proposalId, ProposalInfo proposalinfo)
         {
             return _proposalController.EditProposal(Convert.ToInt32(proposalId), proposalinfo);
         }
 
-        public string UpdateProposalStatus(string proposalId, UpdateProposalStatusInfo info)
+        public Result UpdateProposalStatus(string proposalId, UpdateProposalStatusInfo info)
         {
             return _proposalController.UpdateProposalStatus(Convert.ToInt32(proposalId), info.StatusId, info.UpdatedByUserId);
         }
@@ -222,7 +222,7 @@ namespace ContractorShareService
         //    return _proposalController.AcceptProposal(Convert.ToInt32(ProposalId), userId);
         //}
 
-        public string SendProposalMessage(string proposalId, MessageInfo proposalmessageInfo)
+        public Result SendProposalMessage(string proposalId, MessageInfo proposalmessageInfo)
         {
             return _proposalController.SendProposalMessage(Convert.ToInt32(proposalId), proposalmessageInfo);
         }

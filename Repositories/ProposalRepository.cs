@@ -13,7 +13,7 @@ namespace ContractorShareService.Repositories
         protected static ILog Logger = LogManager.GetLogger(typeof(ServiceRepository));
         private ContractorShareEntities db = new ContractorShareEntities();
 
-        public string CreateProposal(ProposalInfo proposal)
+        public Result CreateProposal(ProposalInfo proposal)
         {
             try
             {
@@ -39,12 +39,13 @@ namespace ContractorShareService.Repositories
 
                 Logger.Info(String.Format("ProposalRepository.CreateProposal: created proposal"));
 
-                return EnumHelper.GetDescription(ErrorListEnum.OK);
+                 return new Result { message = EnumHelper.GetDescription(ErrorListEnum.OK), resultCode = (int)ErrorListEnum.OK };
             }
             catch (Exception ex)
             {
                 Logger.Error("Error ProposalRepository.CreateProposal", ex);
-                return ex.ToString();
+                string error = String.Format("Error ProposalRepository.CreateProposal {0}: {1}", ex);
+                return new Result { message = error, resultCode = (int)ErrorListEnum.Proposal_Create_Error };
             }
         }
 
@@ -82,7 +83,7 @@ namespace ContractorShareService.Repositories
             }
         }
 
-        public string EditProposal(int ProposalId, ProposalInfo proposalinfo)
+        public Result EditProposal(int ProposalId, ProposalInfo proposalinfo)
         {
             try
             {
@@ -104,16 +105,16 @@ namespace ContractorShareService.Repositories
                 selectedproposal.AproxDuration = proposalinfo.AproxDuration;
 
                 db.SaveChanges();
-                return EnumHelper.GetDescription(ErrorListEnum.OK);
+                return new Result { message = EnumHelper.GetDescription(ErrorListEnum.OK), resultCode = (int)ErrorListEnum.OK };
             }
             catch (Exception ex)
             {
-                Logger.ErrorFormat("Error ProposalRepository.EditProposal{0}: {1}", ProposalId.ToString(), ex);
-                return ex.ToString();
+                string error = String.Format("Error ProposalRepository.EditProposal{0}: {1}", ProposalId.ToString(), ex);
+                return new Result { message = error, resultCode = (int)ErrorListEnum.Proposal_Update_Error };
             }
         }
 
-        public string UpdateProposalStatus(int proposalId, int statusId, int? updatedByUserId)
+        public Result UpdateProposalStatus(int proposalId, int statusId, int? updatedByUserId)
         {
             try
             {
@@ -143,10 +144,11 @@ namespace ContractorShareService.Repositories
                           foreach (var proposal in otherProposals)
                           {
                               proposal.StatusID = (int)ProposalStatusEnum.Rejected;
+                              proposal.Active = false;
                           }
                     }
 
-                    if ((statusId == (int)ProposalStatusEnum.Rejected || statusId ==  (int)ProposalStatusEnum.Accepted || statusId == (int)ProposalStatusEnum.Cancelled) && selectedproposal.Active)
+                    if (statusId == (int)ProposalStatusEnum.Rejected || statusId ==  (int)ProposalStatusEnum.Accepted || statusId == (int)ProposalStatusEnum.Cancelled)
                     {
                         selectedproposal.Active = false;
                     }
@@ -154,12 +156,12 @@ namespace ContractorShareService.Repositories
                     db.SaveChanges();
                 }
 
-                return EnumHelper.GetDescription(ErrorListEnum.OK);
+                return new Result { message = EnumHelper.GetDescription(ErrorListEnum.OK), resultCode = (int)ErrorListEnum.OK };
             }
             catch (Exception ex)
             {
-                Logger.ErrorFormat("Error ProposalRepository.ChangeProposalStatus {0}: {1}", proposalId.ToString(), ex);
-                return ex.ToString();
+                string error = String.Format( "Error ProposalRepository.ChangeProposalStatus {0}: {1}", proposalId.ToString(), ex);
+                return new Result { message = error, resultCode = (int)ErrorListEnum.Proposal_Update_Error };
             }
         }
 
@@ -250,7 +252,7 @@ namespace ContractorShareService.Repositories
             }
         }
 
-        public string ChangeProposalUpdatedByUser(int proposalId, int userId)
+        public Result ChangeProposalUpdatedByUser(int proposalId, int userId)
         {
             try
             {
@@ -263,16 +265,16 @@ namespace ContractorShareService.Repositories
                 selectedproposal.UpdatedByUserID = userId;
 
                 db.SaveChanges();
-                return EnumHelper.GetDescription(ErrorListEnum.OK);
+                return new Result { message = EnumHelper.GetDescription(ErrorListEnum.OK), resultCode = (int)ErrorListEnum.OK };
             }
             catch (Exception ex)
             {
-                Logger.ErrorFormat("Error ProposalRepository.ChangeProposalUpdatedByUser {0}: {1}", proposalId.ToString(), ex);
-                return ex.ToString();
+                string error = String.Format("Error ProposalRepository.ChangeProposalUpdatedByUser {0}: {1}", proposalId.ToString(), ex);
+                return new Result { message = EnumHelper.GetDescription(ErrorListEnum.Proposal_Update_Error), resultCode = (int)ErrorListEnum.Proposal_Update_Error };
             }
         }
 
-        public string CreateMessage(MessageInfo message)
+        public Result CreateMessage(MessageInfo message)
         {
             try
             {
@@ -290,12 +292,12 @@ namespace ContractorShareService.Repositories
 
                 Logger.Info(String.Format("ProposalRepository.CreateMessage: created message"));
 
-                return EnumHelper.GetDescription(ErrorListEnum.OK);
+                return new Result { message = EnumHelper.GetDescription(ErrorListEnum.OK), resultCode = (int)ErrorListEnum.OK };
             }
             catch (Exception ex)
             {
-                Logger.Error("Error ProposalRepository.CreateMessage", ex);
-                return ex.ToString();
+                string error = String.Format("Error ProposalRepository.CreateMessage", ex);
+                return new Result { message = EnumHelper.GetDescription(ErrorListEnum.CreateMessage_Other_Error), resultCode = (int)ErrorListEnum.CreateMessage_Other_Error };
             }
         }
 

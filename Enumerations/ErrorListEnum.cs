@@ -114,8 +114,18 @@ namespace ContractorShareService.Enumerations
         [Description("Not controled Appointment Error")]
         Appointment_Other_Error = -34,
 
-        //Proposals Errors
+        //Mesagge Errors
         [Description("Not controled Delete Message Error")]
-        DeleteMessage_Other_Error = -36
+        DeleteMessage_Other_Error = -36,
+
+        [Description("Not controled Create Message Error")]
+        CreateMessage_Other_Error = -40,
+
+        //Proposal Errors
+        [Description("Couldnt update proposal error")]
+        Proposal_Update_Error = -37,
+
+        [Description("Couldnt create proposal error")]
+        Proposal_Create_Error = -39
     }
 }

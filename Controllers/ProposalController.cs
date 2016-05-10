@@ -16,22 +16,10 @@ namespace ContractorShareService.Controllers
         private AppointmentController _appointmentController = new AppointmentController();
         private ServiceController _serviceController = new ServiceController();
 
-        public string Create(ProposalInfo proposal)
+        public Result Create(ProposalInfo proposal)
         {
-            try
-            {
-                string message = string.Format("Executing Create Proposal");
-                Logger.Info(message);
 
-                return _proposalRepository.CreateProposal(proposal);
-            }
-            catch (Exception ex)
-            {
-                string error_message = string.Format("Error Creating Proposal");
-                Logger.Error(error_message, ex);
-                return ex.ToString();
-            }
-
+            return _proposalRepository.CreateProposal(proposal);
         }
 
         public ProposalInfo GetProposal(int ProposalId)
@@ -51,46 +39,28 @@ namespace ContractorShareService.Controllers
             }
         }
 
-        public string EditProposal(int ProposalId, ProposalInfo proposalinfo)
-        {
-            try
-            {
-                string message = string.Format("Executing Edit Proposal");
-                Logger.Info(message);
+        public Result EditProposal(int ProposalId, ProposalInfo proposalinfo)
+        {     
+            string message = string.Format("Executing Edit Proposal");
+            Logger.Info(message);
 
-                return _proposalRepository.EditProposal(ProposalId, proposalinfo);
-            }
-            catch (Exception ex)
-            {
-                string error_message = string.Format("Error Edit Proposal");
-                Logger.Error(error_message, ex);
-                return ex.ToString();
-            }
+            return _proposalRepository.EditProposal(ProposalId, proposalinfo);
         }
 
-        public string UpdateProposalStatus(int proposalId, int statusId, int? userId)
+        public Result UpdateProposalStatus(int proposalId, int statusId, int? userId)
         {
-            try
-            {
-                string message = string.Format("Executing ChangeProposalStatus");
+            string message = string.Format("Executing ChangeProposalStatus");
                 Logger.Info(message);
 
-                string result = _proposalRepository.UpdateProposalStatus(proposalId, statusId, userId ?? null);
+                Result result = _proposalRepository.UpdateProposalStatus(proposalId, statusId, userId ?? null);
 
                 if (statusId == (int)ProposalStatusEnum.Accepted)
                 {
                     //Add appointment
-                    result = CreateNewAppointment(proposalId, userId ?? null);
+                    result= CreateNewAppointment(proposalId, userId ?? null);
                 }
 
                 return result;
-            }
-            catch (Exception ex)
-            {
-                string error_message = string.Format("Error ChangeProposalStatus");
-                Logger.Error(error_message, ex);
-                return ex.ToString();
-            }
         }
 
         public List<ProposalInfo> GetActiveProposals(int ToUserId, bool includeFromMe)
@@ -127,24 +97,22 @@ namespace ContractorShareService.Controllers
             }
         }
 
-       public string SendProposalMessage(int proposalId, MessageInfo proposalmessageInfo)
+        public Result SendProposalMessage(int proposalId, MessageInfo proposalmessageInfo)
         {
-            try
-            {
                 string message = string.Format("Executing SendProposalMessage");
                 Logger.Info(message);
 
                 //1. Create New Proposal Message
-                string result =_proposalRepository.CreateMessage(proposalmessageInfo);
+                Result result =_proposalRepository.CreateMessage(proposalmessageInfo);
 
-                if (result != "OK")
+                if (result.message != "OK")
                 {
                     return result;
                 }
 
                 //2. Update the UpdatedByUser field in the proposal
                 result = ChangeProposalUpdatedByUser(proposalId, proposalmessageInfo.FromUserId);
-                if (result != "OK")
+                if (result.message != "OK")
                 {
                     return result;
                 }
@@ -153,15 +121,7 @@ namespace ContractorShareService.Controllers
                 int pendingstatus = (int)ProposalStatusEnum.Pending;
                 
                 return UpdateProposalStatus(proposalId, pendingstatus, null);
-            }
-            catch (Exception ex)
-            {
-                string error_message = string.Format("Error SendProposalMessage");
-                Logger.Error(error_message, ex);
-                return null;
-            }
-            
-        }
+            }            
 
 
         //public string AcceptProposal(int ProposalId, int userId)
@@ -222,24 +182,16 @@ namespace ContractorShareService.Controllers
         }
 
         //Private function
-        private string ChangeProposalUpdatedByUser(int proposalId, int userId)
-        {
-             try
-            {
-                string message = string.Format("Executing ChangeProposalUpdatedByUser");
+        private Result ChangeProposalUpdatedByUser(int proposalId, int userId)
+        {            
+               string message = string.Format("Executing ChangeProposalUpdatedByUser");
                 Logger.Info(message);
 
                 return _proposalRepository.ChangeProposalUpdatedByUser(proposalId, userId);
-            }
-            catch (Exception ex)
-            {
-                string error_message = string.Format("Error ChangeProposalUpdatedByUser");
-                Logger.Error(error_message, ex);
-                return ex.ToString();
-            }
+           
         }
         
-        private string CreateNewAppointment(int proposalId, int? userId)
+        private Result CreateNewAppointment(int proposalId, int? userId)
         {
             AppointmentInfo newappointment = new AppointmentInfo();
             newappointment.ProposalId = proposalId;
@@ -267,7 +219,6 @@ namespace ContractorShareService.Controllers
 
             return _appointmentController.Create(newappointment);
         }
-
 
 
     }

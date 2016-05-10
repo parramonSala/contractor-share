@@ -142,7 +142,7 @@ namespace ContractorShareService
         //Proposal Operations
         [OperationContract]
         [WebInvoke(UriTemplate = "proposals", Method = "POST")]
-        string CreateProposal(ProposalInfo proposal);
+        Result CreateProposal(ProposalInfo proposal);
 
         [OperationContract]
         [WebGet(UriTemplate = "proposals/{proposalId}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
@@ -150,11 +150,11 @@ namespace ContractorShareService
 
         [OperationContract]
         [WebInvoke(UriTemplate = "proposals/{proposalId}", Method = "PUT", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        string EditProposal(string proposalId, ProposalInfo proposalinfo);
+        Result EditProposal(string proposalId, ProposalInfo proposalinfo);
 
         [OperationContract]
         [WebInvoke(UriTemplate = "proposals/{proposalId}/status", Method = "PUT", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        string UpdateProposalStatus(string proposalId, UpdateProposalStatusInfo info);
+        Result UpdateProposalStatus(string proposalId, UpdateProposalStatusInfo info);
 
         [OperationContract]
         [WebGet(UriTemplate = "users/{userId}/activeproposals?includeFromMe={includeFromMe}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
@@ -170,7 +170,7 @@ namespace ContractorShareService
 
         [OperationContract]
         [WebInvoke(UriTemplate = "proposals/{proposalId}/reply", Method = "PUT", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        string SendProposalMessage(string proposalId, MessageInfo proposalmessageInfo);
+        Result SendProposalMessage(string proposalId, MessageInfo proposalmessageInfo);
 
         [OperationContract]
         [WebGet(UriTemplate = "proposals/{proposalId}/messages", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
