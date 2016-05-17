@@ -240,7 +240,7 @@ namespace ContractorShareService
 
         [OperationContract]
         [WebGet(UriTemplate = "users/{userId}/jobstorate", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        public List<JobRateInfo> GetJobRateInfoList(string userId);
+        List<JobRateInfo> GetJobRateInfoList(string userId);
     }
 
 }

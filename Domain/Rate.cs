@@ -9,6 +9,7 @@ namespace ContractorShareService.Domain
     [DataContract]
     public class Rate
     {
+        [DataMember]
         public int FromUserId { get; set; }
         [DataMember]
         public int ToUserId { get; set; }

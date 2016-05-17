@@ -19,10 +19,10 @@ namespace ContractorShareService.Domain
         [DataMember]
         public string ContractorName { get; set; }
         [DataMember]
-        public DateTime AppointmentDate { get; set; }
+        public DateTime? AppointmentDate { get; set; }
         [DataMember]
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
         [DataMember]
-        public double AverageRate { get; set; }
+        public double? AverageRate { get; set; }
     }
 }

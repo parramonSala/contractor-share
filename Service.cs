@@ -38,6 +38,8 @@ namespace ContractorShareService
         public int CategoryID { get; set; }
         public string PostedDate { get; set; }
         public Nullable<int> ContractorID { get; set; }
+        public Nullable<bool> Rated { get; set; }
+        public Nullable<decimal> TotalPrice { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Appointment> Appointments { get; set; }

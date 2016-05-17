@@ -118,6 +118,8 @@
           <Property Name="CategoryID" Type="int" Nullable="false" />
           <Property Name="PostedDate" Type="nvarchar" MaxLength="50" />
           <Property Name="ContractorID" Type="int" />
+          <Property Name="Rated" Type="bit" />
+          <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -968,6 +970,8 @@
           <Property Name="PostedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ContractorID" Type="Int32" />
           <NavigationProperty Name="User1" Relationship="ContractorShareModel.FK__Service__Contrac__6E01572D" FromRole="Service" ToRole="User" />
+          <Property Name="Rated" Type="Boolean" />
+          <Property Name="TotalPrice" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -1845,6 +1849,8 @@
           <EntitySetMapping Name="Services">
             <EntityTypeMapping TypeName="ContractorShareModel.Service">
               <MappingFragment StoreEntitySet="Service">
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="Rated" ColumnName="Rated" />
                 <ScalarProperty Name="ContractorID" ColumnName="ContractorID" />
                 <ScalarProperty Name="PostedDate" ColumnName="PostedDate" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
