@@ -322,16 +322,9 @@ namespace ContractorShareService
 
         //6.Rating operations
 
-        public string AddRating(string userId, int toUserId, int serviceId, string title, string comment, float rate)
+        public Result AddRating(string userId, Rate rateinfo)
         {
-            Domain.Rate rating = new Domain.Rate();
-            rating.FromUserId = Convert.ToInt32(userId);
-            rating.ToUserId = toUserId;
-            rating.ServiceId = serviceId;
-            rating.Title = title;
-            rating.Rating = rate;
-
-            return _rateController.AddRate(rating);
+            return _rateController.AddRate(rateinfo);
         }
 
         public List<Rate> GetUserRates(string UserID)
@@ -347,6 +340,16 @@ namespace ContractorShareService
         public double GetServiceRate(string ServiceID)
         {
             return _rateController.GetServiceRate(Convert.ToInt32(ServiceID));
+        }
+
+        public List<JobRateInfo> GetJobRateInfoList(string UserID)
+        {
+            return _serviceController.GetJobRateInfoList(Convert.ToInt32(UserID));
+        }
+
+        public Result DeleteRating(string userId, string RateId)
+        {
+            return _rateController.DeleteRating(Convert.ToInt32(RateId));
         }
 
         #endregion

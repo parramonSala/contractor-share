@@ -227,13 +227,20 @@ namespace ContractorShareService
       
         //6.Rating Operations
         [OperationContract]
-        [WebInvoke(UriTemplate = "users/{userId}/ratings", Method = "POST", BodyStyle = WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        string AddRating(string userId, int ToUser, int service, string title, string comment, float rate);
+        [WebInvoke(UriTemplate = "users/{userId}/rate", Method = "POST", BodyStyle = WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        Result AddRating(string userId, Rate rateinfo);
         
-
         [OperationContract]
         [WebGet(UriTemplate = "users/{userId}/ratings", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         List<Rate> GetUserRates(string userId);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "users/{userId}/ratings/{RateId}", Method = "DELETE", BodyStyle = WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        Result DeleteRating(string userId, string RateId);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "users/{userId}/jobstorate", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        public List<JobRateInfo> GetJobRateInfoList(string userId);
     }
 
 }

@@ -433,8 +433,6 @@ namespace ContractorShareService.Repositories
 
         }
 
-
-
         public List<JobInfo> GetListServices(int categoryid, string city, string postcode)
         {
             try
@@ -481,5 +479,35 @@ namespace ContractorShareService.Repositories
             }
         }
 
+        public List<JobRateInfo> GetListNotRatedServices(int client)
+        {
+            try
+            {
+                var result = (from service in db.Services
+                              join app in db.Appointments on service.ID equals app.ServiceID
+                              where service.ClientID == client
+                              && service.StatusID == (int)ServiceStatusEnum.Completed
+                              && service.Rated == false
+                              && app.Active == true
+                              select new JobRateInfo()
+                               {
+                                   JobId = service.ID,
+                                   JobName = service.Name,
+                                   JobCategoryId = service.CategoryID,
+                                   ContractorID = service.ContractorID,
+                                   ContractorName = service.User1.CompanyName,
+                                   AppointmentDate = app.MeetingTime,
+                                   Price = service.TotalPrice,
+                                   AverageRate = service.User1.CAverageRate
+                               }).ToList();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error ServiceRepository.GetListNotRatedServices", ex);
+                return null;
+            }
+        }
     }
 }

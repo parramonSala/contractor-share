@@ -13,7 +13,7 @@ namespace ContractorShareService.Repositories
         protected static ILog Logger = LogManager.GetLogger(typeof(UserRepository));
         private ContractorShareEntities db = new ContractorShareEntities();
 
-        public string AddRate(Rate rate)
+        public Result AddRate(Rate rate)
         {
             int id = -1;
             try
@@ -33,7 +33,7 @@ namespace ContractorShareService.Repositories
                 id = (int)newrate.ID;
 
                 Logger.Info(String.Format("RateRepository.AddRate: created rate {0} ", id.ToString()));
-            
+
                 //Update User Average Rate
                 Logger.Info(String.Format("RateRepository.AddRate: Updating User {0} Average Rate ", rate.ToUserId.ToString()));
 
@@ -49,17 +49,17 @@ namespace ContractorShareService.Repositories
 
                 db.SaveChanges();
 
-                Logger.Info(String.Format("RateRepository.AddRate: User {0} CAverageRate updated to {1}", 
+                Logger.Info(String.Format("RateRepository.AddRate: User {0} CAverageRate updated to {1}",
                     rate.ToUserId.ToString(), (addedrate / numOfRates).ToString()));
 
-                return EnumHelper.GetDescription(ErrorListEnum.OK);
+                return new Result();
             }
             catch (Exception ex)
             {
                 Logger.Error("Error RateRepository.AddRate", ex);
-                return EnumHelper.GetDescription(ErrorListEnum.Rate_OtherError);
+                return new Result(ex.ToString(), (int)ErrorListEnum.Rate_OtherError);
             }
-        
+
         }
 
         public List<Rate> GetUserRates(int UserID)
@@ -92,9 +92,8 @@ namespace ContractorShareService.Repositories
                 Logger.ErrorFormat("Error when getting user rates list for user {0}: {1}", UserID.ToString(), ex);
                 return null;
             }
-        
-        }
 
+        }
 
         public double GetServiceRate(int ServiceID)
         {
@@ -112,5 +111,26 @@ namespace ContractorShareService.Repositories
                 return -1;
             }
         }
+
+        public Result DeleteRating(int RateId)
+        {
+            try
+            {
+                Logger.Info(String.Format("RateRepository.DeleteRating"));
+
+                Rating rating = (from r in db.Ratings
+                                 where r.ID == RateId
+                                 select r).FirstOrDefault();
+
+                db.Ratings.Remove(rating);
+                db.SaveChanges();
+                return new Result();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error RateRepository.DeleteRating", ex);
+                return new Result(ex.ToString(), (int)(ErrorListEnum.Rate_DeleteError));
+            }
+        }
     }
-    }
+}

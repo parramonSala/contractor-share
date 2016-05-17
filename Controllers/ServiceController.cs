@@ -147,5 +147,11 @@ namespace ContractorShareService.Controllers
                 return null;
             }
         }
+
+        public List<JobRateInfo> GetJobRateInfoList(int UserID)
+        {
+            return _serviceRepository.GetListNotRatedServices(UserID);
+        }
+    
     }
 }

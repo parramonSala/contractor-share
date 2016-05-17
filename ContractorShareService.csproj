@@ -131,6 +131,7 @@
     <Compile Include="Domain\AppointmentInfo.cs" />
     <Compile Include="Domain\CommentInfo.cs" />
     <Compile Include="Domain\ContractorInfo.cs" />
+    <Compile Include="Domain\JobRateInfo.cs" />
     <Compile Include="Domain\MessageInfo.cs" />
     <Compile Include="Domain\ProposalChangeStatusInfo.cs" />
     <Compile Include="Domain\ProposalInfo.cs" />
