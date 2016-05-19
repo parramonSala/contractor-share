@@ -44,8 +44,9 @@ namespace ContractorShareService.Repositories
                 double addedrate = Convert.ToDouble(user.CTotalRate) + rate.Rating;
                 int numOfRates = Convert.ToInt32(user.CNumOfRates) + 1;
 
-                user.CAverageRate = addedrate / numOfRates;
+                user.CTotalRate = addedrate;
                 user.CNumOfRates = numOfRates;
+                user.CAverageRate = addedrate / numOfRates;
 
                 db.SaveChanges();
 
