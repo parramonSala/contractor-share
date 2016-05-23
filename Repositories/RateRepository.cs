@@ -54,6 +54,13 @@ namespace ContractorShareService.Repositories
                 Logger.Info(String.Format("RateRepository.AddRate: User {0} CAverageRate updated to {1}",
                     rate.ToUserId.ToString(), (addedrate / numOfRates).ToString()));
 
+                //Update Job to Rated=true
+                Service job = (from matched_job in db.Services
+                               where matched_job.ID == rate.ServiceId
+                               select matched_job).FirstOrDefault();
+
+                job.Rated = true;
+                db.SaveChanges();
                 return new Result();
             }
             catch (Exception ex)
