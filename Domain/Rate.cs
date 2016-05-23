@@ -22,6 +22,9 @@ namespace ContractorShareService.Domain
         [DataMember]
         public string Title { get; set; }
         [DataMember]
-        public float Rating { get; set; } 
+        public float Rating { get; set; }
+        [DataMember]
+        public DateTime? Created { get; set; } 
+    
     }
 }

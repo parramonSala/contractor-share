@@ -99,6 +99,7 @@
           <Property Name="FromUserID" Type="int" Nullable="false" />
           <Property Name="ToUserID" Type="int" Nullable="false" />
           <Property Name="ServiceID" Type="int" />
+          <Property Name="Created" Type="datetime" />
         </EntityType>
         <EntityType Name="Service">
           <Key>
@@ -942,6 +943,7 @@
           <NavigationProperty Name="User" Relationship="Self.FK__Rating__FromUser__38996AB5" FromRole="Rating" ToRole="User" />
           <NavigationProperty Name="Service" Relationship="Self.FK__Rating__ServiceI__398D8EEE" FromRole="Rating" ToRole="Service" />
           <NavigationProperty Name="User1" Relationship="Self.FK__Rating__ToUserID__3A81B327" FromRole="Rating" ToRole="User" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Service">
           <Key>
@@ -1836,6 +1838,7 @@
           <EntitySetMapping Name="Ratings">
             <EntityTypeMapping TypeName="ContractorShareModel.Rating">
               <MappingFragment StoreEntitySet="Rating">
+                <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="rating1" ColumnName="rating" />
                 <ScalarProperty Name="Title" ColumnName="Title" />

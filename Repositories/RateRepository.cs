@@ -25,7 +25,8 @@ namespace ContractorShareService.Repositories
                     ServiceID = rate.ServiceId,
                     Title = rate.Title,
                     Comment = rate.Comment,
-                    rating1 = rate.Rating
+                    rating1 = rate.Rating,
+                    Created = DateTime.Now
                 };
 
                 db.Ratings.Add(newrate);
@@ -76,12 +77,14 @@ namespace ContractorShareService.Repositories
                 foreach (Rating rating in rates)
                 {
                     Rate rate = new Rate();
+                    rate.RateId = rating.ID;
                     rate.FromUserId = rating.FromUserID;
                     rate.ToUserId = rating.ToUserID;
                     rate.ServiceId = (int)rating.ServiceID;
                     rate.Title = rating.Title;
                     rate.Comment = rating.Comment;
                     rate.Rating = (int)rating.rating1;
+                    rate.Created = rating.Created;
 
                     userRates.Add(rate);
                 }

@@ -21,6 +21,7 @@ namespace ContractorShareService
         public int FromUserID { get; set; }
         public int ToUserID { get; set; }
         public Nullable<int> ServiceID { get; set; }
+        public Nullable<System.DateTime> Created { get; set; }
     
         public virtual User User { get; set; }
         public virtual Service Service { get; set; }
