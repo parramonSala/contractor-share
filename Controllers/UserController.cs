@@ -194,7 +194,7 @@ namespace ContractorShareService.Controllers
 
         }
 
-        public List<UserFavourite> GetUserFavourites(int FromUser)
+        public List<int> GetUserFavourites(int FromUser)
         {
             try
             {

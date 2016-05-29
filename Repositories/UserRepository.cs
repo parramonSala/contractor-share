@@ -364,7 +364,7 @@ namespace ContractorShareService.Repositories
             }
         }
 
-        public List<UserFavourite> GetUserFavourites(int FromUser)
+        public List<int> GetUserFavourites(int FromUser)
         {
             try
             {
@@ -373,7 +373,7 @@ namespace ContractorShareService.Repositories
                 var userfavourites = from userfavourite in
                                          db.UserFavourites
                                      where userfavourite.FromUserID == FromUser
-                                     select userfavourite;
+                                     select userfavourite.ToUserID;
 
                 return userfavourites.ToList();
             }

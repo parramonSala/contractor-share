@@ -66,7 +66,7 @@ namespace ContractorShareService
 
         [OperationContract]
         [WebGet(UriTemplate = "users/{userId}/favourites", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        List<UserFavourite> GetUserFavourites(string userID);
+        List<int> GetUserFavourites(string userID);
 
         [OperationContract]
         [WebGet(UriTemplate = "users/{userId}/isfavourite/{fromuserId}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
