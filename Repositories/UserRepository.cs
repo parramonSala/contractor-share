@@ -364,24 +364,56 @@ namespace ContractorShareService.Repositories
             }
         }
 
-        public List<int> GetUserFavourites(int FromUser)
+        public List<ContractorInfo> GetUserFavourites(int FromUser)
         {
             try
             {
                 Logger.Info(String.Format("UserRepository.GetUserFavourites: get UserFavourites from UserId {0}", FromUser.ToString()));
+                
+                 var result = (from userfavourite in db.UserFavourites
+                              join user in db.Users on userfavourite.ToUserID equals user.ID
+                              where userfavourite.FromUserID == FromUser
+                              
+                              select new ContractorInfo()
+                               {
+                                   ID = user.ID,
+                                   Email = user.Email,
+                                   Address = user.Address,
+                                   PostalCode = user.PostalCode,
+                                   City = user.City,
+                                   Country = user.Country,
+                                   PhoneNumber = user.PhoneNumber,
+                                   MobileNumber = user.MobileNumber,
+                                   CompanyName = user.CompanyName,
+                                   CompanyCoordX = user.CompanyCoordX,
+                                   CompanyCoordY = user.CompanyCoordY,
+                                   website = user.Contractor_website,
+                                   Description = user.Description,
+                                   Categories = fromUserCategoryToIntList(user.UserCategories.ToList()),
+                                   PricePerHour = user.PricePerHour,
+                                   NumberOfRates = user.CNumOfRates,
+                                   AverageRate = user.CAverageRate
+                               }).ToList();
 
-                var userfavourites = from userfavourite in
-                                         db.UserFavourites
-                                     where userfavourite.FromUserID == FromUser
-                                     select userfavourite.ToUserID;
-
-                return userfavourites.ToList();
+                return result;
             }
             catch (Exception ex)
             {
                 Logger.Error("Error on UserRepository.GetUserFavourites", ex);
                 return null;
             }
+        }
+
+        private List<int> fromUserCategoryToIntList(List<UserCategory> usercategorylist)
+        {
+            List<int> categorieslist = new List<int>();
+
+            foreach (UserCategory usercategory in usercategorylist)
+            {
+                categorieslist.Add(usercategory.CategoryID);
+            }
+
+            return categorieslist;
         }
 
         public bool UserIsFavourite(int FromUser, int ToUser)

@@ -91,7 +91,7 @@ namespace ContractorShareService
             return _userController.RemoveFavourite(Convert.ToInt32(userId), Convert.ToInt32(favouriteUserId));
         }
 
-        public List<int> GetUserFavourites(string userId)
+        public List<ContractorInfo> GetUserFavourites(string userId)
         {
             return _userController.GetUserFavourites(Convert.ToInt32(userId));
         }
