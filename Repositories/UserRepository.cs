@@ -389,11 +389,12 @@ namespace ContractorShareService.Repositories
                                    CompanyCoordY = user.CompanyCoordY,
                                    website = user.Contractor_website,
                                    Description = user.Description,
-                                   Categories = fromUserCategoryToIntList(user.UserCategories.ToList()),
+                                   Categories = user.UserCategories.Select(x => x.CategoryID).ToList(),
                                    PricePerHour = user.PricePerHour,
                                    NumberOfRates = user.CNumOfRates,
                                    AverageRate = user.CAverageRate
                                }).ToList();
+
 
                 return result;
             }
