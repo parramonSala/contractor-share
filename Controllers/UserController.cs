@@ -430,6 +430,39 @@ namespace ContractorShareService.Controllers
                 return ex.ToString();
             }
         }
-        
+
+        public Result AddSuggestion(int FromUser, string comment)
+        {
+            string message = string.Format("Executing AddSuggestion(From {0})", FromUser.ToString());
+            Logger.Info(message);
+
+            return _userRepository.AddSuggestion(FromUser, comment);
+        }
+
+        public Result AddBug(int FromUser, string comment)
+        {
+            string message = string.Format("Executing AddBug(From {0})", FromUser.ToString());
+            Logger.Info(message);
+
+            return _userRepository.Addbug(FromUser, comment);
+        }
+
+        public List<IssueInfo> ListSuggestions(int userId)
+        {
+            string message = string.Format("Executing ListSuggestions(For {0})", userId.ToString());
+            Logger.Info(message);
+
+            return _userRepository.ListSuggestions(userId);
+        }
+
+        public List<IssueInfo> ListBugs(int userId)
+        {
+            string message = string.Format("Executing ListBugs(For {0})", userId.ToString());
+            Logger.Info(message);
+
+            return _userRepository.ListBugs(userId);
+        }
+
+
     }
 }

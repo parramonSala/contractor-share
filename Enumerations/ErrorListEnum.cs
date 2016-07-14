@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace ContractorShareService.Enumerations
 {
-    //NEXT ID 40
+    //NEXT ID 43
 
     public enum ErrorListEnum
     {
@@ -128,6 +128,13 @@ namespace ContractorShareService.Enumerations
         Proposal_Update_Error = -37,
 
         [Description("Couldnt create proposal error")]
-        Proposal_Create_Error = -39
+        Proposal_Create_Error = -39,
+
+        //FAQS Errors
+        [Description("Add Suggestion error")]
+        Suggestion_Other_Error = -41,
+
+        [Description("Add bug error")]
+        Bug_Other_Error = -42
     }
 }

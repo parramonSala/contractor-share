@@ -35,6 +35,7 @@ namespace ContractorShareService.Enumerations
         Rejected = 6
     }
 
+
     public enum AppointmentStatusEnum
     {
         Open = 1,

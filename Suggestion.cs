@@ -17,6 +17,7 @@ namespace ContractorShareService
         public int ID { get; set; }
         public string SuggestionText { get; set; }
         public int CreatedByUserID { get; set; }
+        public Nullable<System.DateTime> Created { get; set; }
     
         public virtual User User { get; set; }
     }
