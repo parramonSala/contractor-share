@@ -28,6 +28,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BugText" Type="text" />
           <Property Name="CreatedByUserID" Type="int" Nullable="false" />
+          <Property Name="Created" Type="datetime" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -136,6 +137,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SuggestionText" Type="text" />
           <Property Name="CreatedByUserID" Type="int" Nullable="false" />
+          <Property Name="Created" Type="datetime" />
         </EntityType>
         <EntityType Name="Task">
           <Key>
@@ -867,6 +869,7 @@
           <Property Name="BugText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="CreatedByUserID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Self.FK__Bug__CreatedByUs__300424B4" FromRole="Bug" ToRole="User" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -994,6 +997,7 @@
           <Property Name="SuggestionText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="CreatedByUserID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Self.FK__Suggestio__Creat__3E52440B" FromRole="Suggestion" ToRole="User" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Task">
           <Key>
@@ -1777,6 +1781,7 @@
           <EntitySetMapping Name="Bugs">
             <EntityTypeMapping TypeName="ContractorShareModel.Bug">
               <MappingFragment StoreEntitySet="Bug">
+                <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="BugText" ColumnName="BugText" />
                 <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
@@ -1882,6 +1887,7 @@
           <EntitySetMapping Name="Suggestions">
             <EntityTypeMapping TypeName="ContractorShareModel.Suggestion">
               <MappingFragment StoreEntitySet="Suggestion">
+                <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="SuggestionText" ColumnName="SuggestionText" />
                 <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
