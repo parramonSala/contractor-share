@@ -9,7 +9,6 @@ using ContractorShareService.Domain;
 
 namespace ContractorShareService
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IService1" in both code and config file together.
     [ServiceContract]
     public interface IContractorShare
     {
@@ -241,6 +240,25 @@ namespace ContractorShareService
         [OperationContract]
         [WebGet(UriTemplate = "users/{userId}/jobstorate", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         List<JobRateInfo> GetJobRateInfoList(string userId);
+
+        //FAQS Operations
+        [OperationContract]
+        [WebInvoke(UriTemplate = "users/{userId}/suggestion", Method = "POST", BodyStyle = WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        Result AddSuggestion(string userId, string comment);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "users/{userId}/bug", Method = "POST", BodyStyle = WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        Result AddBug(string userId, string comment);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "users/{userId}/suggestionslist", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        List<IssueInfo> ListSuggestions(string userId);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "users/{userId}/bugslist", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        List<IssueInfo> ListBugs(string userId);
+
+
     }
 
 }

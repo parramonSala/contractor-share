@@ -17,8 +17,6 @@ namespace ContractorShareService
     (RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
 
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in code, svc and config file together.
-    // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class ContractorShare : IContractorShare
     {
         #region ContractorShare properties definition
@@ -265,7 +263,6 @@ namespace ContractorShareService
         }
         #endregion
 
-
         #region Task operations
         //4. Task operations
 
@@ -351,6 +348,31 @@ namespace ContractorShareService
         {
             return _rateController.DeleteRating(Convert.ToInt32(RateId));
         }
+
+        #endregion
+
+        #region FAQS operations
+        public Result AddSuggestion(string userId, string comment)
+        {
+            return _userController.AddSuggestion(Convert.ToInt32(userId), comment);
+        }
+
+        public Result AddBug(string userId, string comment)
+        {
+            return _userController.AddBug(Convert.ToInt32(userId), comment);
+        }
+
+        public List<IssueInfo> ListSuggestions(string userId)
+        {
+            return _userController.ListSuggestions(Convert.ToInt32(userId));
+        }
+
+        public List<IssueInfo> ListBugs(string userId)
+        {
+            return _userController.ListBugs(Convert.ToInt32(userId));
+        }
+
+
 
         #endregion
 

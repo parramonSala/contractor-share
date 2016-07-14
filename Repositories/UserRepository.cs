@@ -724,5 +724,87 @@ namespace ContractorShareService.Repositories
                 return ex.ToString();
             }
         }
+
+        public Result AddSuggestion(int FromUser, string comment)
+        {
+            try
+            {
+                Suggestion newsuggestion = new Suggestion
+                {
+                    CreatedByUserID = FromUser,
+                    SuggestionText = comment,
+                    Created = DateTime.Now
+                };
+
+                db.Suggestions.Add(newsuggestion);
+                db.SaveChanges();
+
+                Logger.Info(String.Format("UserRepository.AddSuggestion: created suggestion"));
+
+                return new Result();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error UserRepository.AddSuggestion", ex);
+                return new Result(ex.ToString(), (int)(ErrorListEnum.Suggestion_Other_Error));
+            }
+        }
+
+        public Result Addbug(int FromUser, string comment)
+        {
+            try
+            {
+                Bug newbug = new Bug
+                {
+                    CreatedByUserID = FromUser,
+                    BugText = comment,
+                    Created = DateTime.Now
+                };
+
+                db.Bugs.Add(newbug);
+                db.SaveChanges();
+
+                Logger.Info(String.Format("UserRepository.Addbug: created bug"));
+
+                return new Result();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error UserRepository.Addbug", ex);
+                return new Result(ex.ToString(), (int)(ErrorListEnum.Bug_Other_Error));
+            }
+        }
+
+        public List<IssueInfo> ListSuggestions(int userId)
+        {
+            
+            var result = (from suggestion in db.Suggestions
+                          where suggestion.CreatedByUserID == userId
+
+                          select new IssueInfo()
+                               {
+                                   IssueId = suggestion.ID,
+                                   CreatedByUserId = suggestion.CreatedByUserID,
+                                   Created = suggestion.Created,
+                                   Message = suggestion.SuggestionText
+                               }).ToList();
+            return result;
+        }
+
+        public List<IssueInfo> ListBugs(int userId)
+        {
+
+            var result = (from bug in db.Bugs
+                          where bug.CreatedByUserID == userId
+
+                          select new IssueInfo()
+                          {
+                              IssueId = bug.ID,
+                              CreatedByUserId = bug.CreatedByUserID,
+                              Created = bug.Created,
+                              Message = bug.BugText
+                          }).ToList();
+            return result;
+        }
     }
 }
