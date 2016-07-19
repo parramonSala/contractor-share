@@ -121,6 +121,7 @@
       <DependentUpon>ContractorShareEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AppointmentController.cs" />
+    <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\ProposalController.cs" />
     <Compile Include="Controllers\RateController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
@@ -131,6 +132,7 @@
     <Compile Include="Domain\AppointmentInfo.cs" />
     <Compile Include="Domain\CommentInfo.cs" />
     <Compile Include="Domain\ContractorInfo.cs" />
+    <Compile Include="Domain\EventInfo.cs" />
     <Compile Include="Domain\IssueInfo.cs" />
     <Compile Include="Domain\JobRateInfo.cs" />
     <Compile Include="Domain\MessageInfo.cs" />
@@ -152,6 +154,9 @@
     <Compile Include="Enumerations\EnumHelper.cs" />
     <Compile Include="Enumerations\ErrorListEnum.cs" />
     <Compile Include="Enumerations\ModelEnum.cs" />
+    <Compile Include="Event.cs">
+      <DependentUpon>ContractorShareEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="GetListContractors_Result.cs">
       <DependentUpon>ContractorShareEntities.tt</DependentUpon>
     </Compile>
@@ -176,6 +181,7 @@
       <DependentUpon>ContractorShareEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\AppointmentRepository.cs" />
+    <Compile Include="Repositories\CalendarRepository.cs" />
     <Compile Include="Repositories\ProposalRepository.cs" />
     <Compile Include="Repositories\RateRepository.cs" />
     <Compile Include="Repositories\ServiceRepository.cs" />
@@ -195,6 +201,9 @@
       <DependentUpon>ContractorShareEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Suggestion.cs">
+      <DependentUpon>ContractorShareEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagram.cs">
       <DependentUpon>ContractorShareEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Task.cs">

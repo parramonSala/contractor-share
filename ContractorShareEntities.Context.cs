@@ -44,6 +44,8 @@ namespace ContractorShareService
         public virtual DbSet<UserFavourite> UserFavourites { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<UserBlock> UserBlocks { get; set; }
+        public virtual DbSet<Event> Events { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     
         public virtual ObjectResult<GetListContractors_Result> GetListContractors(Nullable<int> categoryId, string postalCode, string city, Nullable<double> pricePerHour)
         {

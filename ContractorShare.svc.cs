@@ -28,6 +28,7 @@ namespace ContractorShareService
         private TaskController _taskController = new TaskController();
         private ProposalController _proposalController = new ProposalController();
         private AppointmentController _appointmentController = new AppointmentController();
+        private CalendarController _calendarController = new CalendarController();
 
         #endregion
 
@@ -352,6 +353,30 @@ namespace ContractorShareService
         #endregion
 
         #region FAQS operations
+
+        public Result CreateEvent(string userId, EventInfo eventinfo)
+        {
+            return _calendarController.CreateEvent(eventinfo);
+        }
+
+        public Result EditEvent(string userId, string eventId, EventInfo eventinfo)
+        {
+            return _calendarController.EditEvent(Convert.ToInt32(eventId), eventinfo);
+        }
+
+        public Result DeleteEvent(string userId, string eventId)
+        {
+            return _calendarController.DeleteEvent(Convert.ToInt32(eventId));
+        }
+
+        public List<EventInfo> GetUserEvents(string userId)
+        {
+            return _calendarController.GetUserEvents(Convert.ToInt32(userId));
+        }
+
+        #endregion
+
+        #region FAQS operations
         public Result AddSuggestion(string userId, string comment)
         {
             return _userController.AddSuggestion(Convert.ToInt32(userId), comment);
@@ -371,7 +396,6 @@ namespace ContractorShareService
         {
             return _userController.ListBugs(Convert.ToInt32(userId));
         }
-
 
 
         #endregion

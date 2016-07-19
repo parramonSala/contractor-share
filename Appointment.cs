@@ -14,6 +14,12 @@ namespace ContractorShareService
     
     public partial class Appointment
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Appointment()
+        {
+            this.Events = new HashSet<Event>();
+        }
+    
         public int ID { get; set; }
         public int ServiceID { get; set; }
         public int ClientID { get; set; }
@@ -31,5 +37,7 @@ namespace ContractorShareService
         public virtual Service Service { get; set; }
         public virtual Status Status { get; set; }
         public virtual Proposal Proposal { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Event> Events { get; set; }
     }
 }

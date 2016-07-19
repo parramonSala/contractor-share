@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace ContractorShareService.Enumerations
 {
-    //NEXT ID 43
+    //NEXT ID 47
 
     public enum ErrorListEnum
     {
@@ -135,6 +135,19 @@ namespace ContractorShareService.Enumerations
         Suggestion_Other_Error = -41,
 
         [Description("Add bug error")]
-        Bug_Other_Error = -42
+        Bug_Other_Error = -42,
+
+        //Calendar Errors
+        [Description("Create event error")]
+        Create_Event_Error = -43,
+
+        [Description("Edit event error")]
+        Edit_Event_Error = -44,
+
+        [Description("List events error")]
+        List_Events_Error = -45,
+
+        [Description("Delete event error")]
+        Delete_Event_Error = -45,
     }
 }

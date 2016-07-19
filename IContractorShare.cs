@@ -241,6 +241,24 @@ namespace ContractorShareService
         [WebGet(UriTemplate = "users/{userId}/jobstorate", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         List<JobRateInfo> GetJobRateInfoList(string userId);
 
+        //Calendar Operations
+        [OperationContract]
+        [WebInvoke(UriTemplate = "users/{userId}/addevent", Method = "POST")]
+        Result CreateEvent(string userId, EventInfo eventinfo);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "users/{userId}/events/{eventId}", Method = "PUT", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        Result EditEvent(string userId, string eventId, EventInfo eventinfo);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "users/{userId}/events/{eventId}/delete", Method = "DELETE", BodyStyle = WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        Result DeleteEvent(string userId, string eventId);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "users/{userId}/events", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        List<EventInfo> GetUserEvents(string userId);
+
+
         //FAQS Operations
         [OperationContract]
         [WebInvoke(UriTemplate = "users/{userId}/suggestion", Method = "POST", BodyStyle = WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]

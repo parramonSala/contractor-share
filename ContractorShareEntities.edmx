@@ -50,6 +50,17 @@
           <Property Name="ServiceID" Type="int" />
           <Property Name="Created" Type="date" />
         </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EventName" Type="varchar" MaxLength="50" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="AppointmentID" Type="int" />
+          <Property Name="Start_Date" Type="datetime" />
+          <Property Name="End_Date" Type="datetime" />
+        </EntityType>
         <EntityType Name="Message">
           <Key>
             <PropertyRef Name="ID" />
@@ -138,6 +149,16 @@
           <Property Name="SuggestionText" Type="text" />
           <Property Name="CreatedByUserID" Type="int" Nullable="false" />
           <Property Name="Created" Type="datetime" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Task">
           <Key>
@@ -320,6 +341,42 @@
             </Principal>
             <Dependent Role="Comment">
               <PropertyRef Name="TaskID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Event__Appointme__503BEA1C">
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="0..1" />
+          <End Role="Event" Type="Self.Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Appointment">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Event">
+              <PropertyRef Name="AppointmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Event__Appointme__51300E55">
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="0..1" />
+          <End Role="Event" Type="Self.Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Appointment">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Event">
+              <PropertyRef Name="AppointmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Event__UserID__4F47C5E3">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Event" Type="Self.Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Event">
+              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -682,6 +739,7 @@
           <EntitySet Name="Bug" EntityType="Self.Bug" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Preference" EntityType="Self.Preference" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Proposal" EntityType="Self.Proposal" Schema="dbo" store:Type="Tables" />
@@ -689,6 +747,7 @@
           <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Suggestion" EntityType="Self.Suggestion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Task" EntityType="Self.Task" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserBlock" EntityType="Self.UserBlock" Schema="dbo" store:Type="Tables" />
@@ -730,6 +789,18 @@
           <AssociationSet Name="FK__Comment__TaskID__32E0915F" Association="Self.FK__Comment__TaskID__32E0915F">
             <End Role="Task" EntitySet="Task" />
             <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Event__Appointme__503BEA1C" Association="Self.FK__Event__Appointme__503BEA1C">
+            <End Role="Appointment" EntitySet="Appointment" />
+            <End Role="Event" EntitySet="Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Event__Appointme__51300E55" Association="Self.FK__Event__Appointme__51300E55">
+            <End Role="Appointment" EntitySet="Appointment" />
+            <End Role="Event" EntitySet="Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Event__UserID__4F47C5E3" Association="Self.FK__Event__UserID__4F47C5E3">
+            <End Role="User" EntitySet="User" />
+            <End Role="Event" EntitySet="Event" />
           </AssociationSet>
           <AssociationSet Name="FK__Preferenc__UserI__33D4B598" Association="Self.FK__Preferenc__UserI__33D4B598">
             <End Role="User" EntitySet="User" />
@@ -860,6 +931,7 @@
           <NavigationProperty Name="Status" Relationship="Self.FK__Appointme__Statu__2F10007B" FromRole="Appointment" ToRole="Status" />
           <Property Name="ProposalId" Type="Int32" />
           <NavigationProperty Name="Proposal" Relationship="ContractorShareModel.FK__Appointme__Propo__19DFD96B" FromRole="Appointment" ToRole="Proposal" />
+          <NavigationProperty Name="Events" Relationship="ContractorShareModel.FK__Event__Appointme__503BEA1C" FromRole="Appointment" ToRole="Event" />
         </EntityType>
         <EntityType Name="Bug">
           <Key>
@@ -1061,6 +1133,7 @@
           <NavigationProperty Name="Proposals2" Relationship="ContractorShareModel.FK__Proposal__Update__14270015" FromRole="User" ToRole="Proposal" />
           <NavigationProperty Name="Messages" Relationship="ContractorShareModel.FK__ProposalM__FromU__17036CC01" FromRole="User" ToRole="Message" />
           <NavigationProperty Name="Messages1" Relationship="ContractorShareModel.FK__ProposalM__ToUse__18EBB5321" FromRole="User" ToRole="Message" />
+          <NavigationProperty Name="Events" Relationship="ContractorShareModel.FK__Event__UserID__4F47C5E3" FromRole="User" ToRole="Event" />
         </EntityType>
         <EntityType Name="UserCategory">
           <Key>
@@ -1609,6 +1682,16 @@
             <End Role="Message" EntitySet="Messages" />
           </AssociationSet>
           <EntitySet Name="UserBlocks" EntityType="ContractorShareModel.UserBlock" />
+          <EntitySet Name="Events" EntityType="ContractorShareModel.Event" />
+          <EntitySet Name="sysdiagrams" EntityType="ContractorShareModel.sysdiagram" />
+          <AssociationSet Name="FK__Event__Appointme__503BEA1C" Association="ContractorShareModel.FK__Event__Appointme__503BEA1C">
+            <End Role="Appointment" EntitySet="Appointments" />
+            <End Role="Event" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Event__UserID__4F47C5E3" Association="ContractorShareModel.FK__Event__UserID__4F47C5E3">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Event" EntitySet="Events" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="GetListContractors_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -1755,6 +1838,53 @@
           <Property Name="FromUserID" Type="Int32" Nullable="false" />
           <Property Name="ToUserID" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EventName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="AppointmentID" Type="Int32" />
+          <Property Name="Start_Date" Type="DateTime" Precision="3" />
+          <Property Name="End_Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Appointment" Relationship="ContractorShareModel.FK__Event__Appointme__503BEA1C" FromRole="Event" ToRole="Appointment" />
+          <NavigationProperty Name="User" Relationship="ContractorShareModel.FK__Event__UserID__4F47C5E3" FromRole="Event" ToRole="User" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK__Event__Appointme__503BEA1C">
+          <End Type="ContractorShareModel.Appointment" Role="Appointment" Multiplicity="0..1" />
+          <End Type="ContractorShareModel.Event" Role="Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Appointment">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Event">
+              <PropertyRef Name="AppointmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Event__UserID__4F47C5E3">
+          <End Type="ContractorShareModel.User" Role="User" Multiplicity="1" />
+          <End Type="ContractorShareModel.Event" Role="Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Event">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2057,6 +2187,29 @@
                 <ScalarProperty Name="ToUserID" ColumnName="ToUserID" />
                 <ScalarProperty Name="FromUserID" ColumnName="FromUserID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="ContractorShareModel.Event">
+              <MappingFragment StoreEntitySet="Event">
+                <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+                <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+                <ScalarProperty Name="AppointmentID" ColumnName="AppointmentID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="EventName" ColumnName="EventName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ContractorShareModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

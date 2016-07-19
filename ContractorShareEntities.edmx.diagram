@@ -55,6 +55,10 @@
         <AssociationConnector Association="ContractorShareModel.FK__ProposalM__Propo__17F790F91" />
         <AssociationConnector Association="ContractorShareModel.FK__ProposalM__ToUse__18EBB5321" />
         <EntityTypeShape EntityType="ContractorShareModel.UserBlock" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ContractorShareModel.Event" Width="1.5" PointX="11.25" PointY="16.875" />
+        <EntityTypeShape EntityType="ContractorShareModel.sysdiagram" Width="1.5" PointX="3.375" PointY="0.75" />
+        <AssociationConnector Association="ContractorShareModel.FK__Event__Appointme__503BEA1C" />
+        <AssociationConnector Association="ContractorShareModel.FK__Event__UserID__4F47C5E3" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
