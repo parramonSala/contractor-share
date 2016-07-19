@@ -15,6 +15,7 @@ namespace ContractorShareService.Controllers
         private ProposalRepository _proposalRepository = new ProposalRepository();
         private AppointmentController _appointmentController = new AppointmentController();
         private ServiceController _serviceController = new ServiceController();
+        private CalendarController _calendarController = new CalendarController();
 
         public Result Create(ProposalInfo proposal)
         {
@@ -58,6 +59,7 @@ namespace ContractorShareService.Controllers
                 {
                     //Add appointment
                     result= CreateNewAppointment(proposalId, userId ?? null);
+
                 }
 
                 return result;
@@ -217,7 +219,27 @@ namespace ContractorShareService.Controllers
                 newappointment.ContractorId = proposal.FromUserId;
             }
 
-            return _appointmentController.Create(newappointment);
+            int result = _appointmentController.Create(newappointment);
+
+            //Add appointment to the calendar
+            if (result > 0)
+            {
+                EventInfo newevent = new EventInfo();
+                newevent.AppointmentId = result;
+                newevent.Name = "Appointment " + result.ToString() + " " + job.Name;
+                newevent.Start_Date = (DateTime)proposal.ProposedTime;
+                var duration = (double)proposal.AproxDuration;
+                newevent.End_Date = newevent.Start_Date.AddHours(duration);
+                newevent.UserId = newappointment.ContractorId;
+
+                return _calendarController.CreateEvent(newevent);
+
+            }
+            else
+            {
+                return new Result { message = EnumHelper.GetDescription(ErrorListEnum.Appointment_Other_Error), resultCode = (int)ErrorListEnum.Appointment_Other_Error };
+
+            }
         }
 
 

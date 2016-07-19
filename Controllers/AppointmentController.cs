@@ -18,7 +18,7 @@ namespace ContractorShareService.Controllers
         private AppointmentRepository _appointmentRepository = new AppointmentRepository();
         private UserController _userController = new UserController();
 
-        public Result Create(AppointmentInfo appointment)
+        public int Create(AppointmentInfo appointment)
         {
              return _appointmentRepository.CreateAppointment(appointment);
         }

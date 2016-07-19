@@ -13,7 +13,7 @@ namespace ContractorShareService.Repositories
         protected static ILog Logger = LogManager.GetLogger(typeof(ServiceRepository));
         private ContractorShareEntities db = new ContractorShareEntities();
 
-        public Result CreateAppointment(AppointmentInfo appointment)
+        public int CreateAppointment(AppointmentInfo appointment)
         {
             try
             {
@@ -38,12 +38,13 @@ namespace ContractorShareService.Repositories
 
                 Logger.Info(String.Format("ProposalRepository.CreateAppointment: created appointment"));
 
-                return new Result { message = EnumHelper.GetDescription(ErrorListEnum.OK), resultCode = (int)ErrorListEnum.OK };
+                return (int)newappointment.ID;
+
             }
             catch (Exception ex)
             {
                 string error = String.Format("Error ProposalRepository.CreateAppointment: {0}", ex);
-                return new Result { message = EnumHelper.GetDescription(ErrorListEnum.OK), resultCode = (int)ErrorListEnum.Appointment_Other_Error};
+                return (int)ErrorListEnum.Appointment_Other_Error;
             }
         }
 
