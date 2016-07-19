@@ -58,8 +58,8 @@
           <Property Name="EventName" Type="varchar" MaxLength="50" />
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="AppointmentID" Type="int" />
-          <Property Name="Start_Date" Type="datetime" />
-          <Property Name="End_Date" Type="datetime" />
+          <Property Name="Start_Date" Type="datetime" Nullable="false" />
+          <Property Name="End_Date" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Message">
           <Key>
@@ -344,7 +344,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Event__Appointme__503BEA1C">
+        <Association Name="FK__Event__Appointme__540C7B00">
           <End Role="Appointment" Type="Self.Appointment" Multiplicity="0..1" />
           <End Role="Event" Type="Self.Event" Multiplicity="*" />
           <ReferentialConstraint>
@@ -356,7 +356,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Event__Appointme__51300E55">
+        <Association Name="FK__Event__Appointme__55009F39">
           <End Role="Appointment" Type="Self.Appointment" Multiplicity="0..1" />
           <End Role="Event" Type="Self.Event" Multiplicity="*" />
           <ReferentialConstraint>
@@ -368,7 +368,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Event__UserID__4F47C5E3">
+        <Association Name="FK__Event__UserID__55F4C372">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Event" Type="Self.Event" Multiplicity="*" />
           <ReferentialConstraint>
@@ -790,15 +790,15 @@
             <End Role="Task" EntitySet="Task" />
             <End Role="Comment" EntitySet="Comment" />
           </AssociationSet>
-          <AssociationSet Name="FK__Event__Appointme__503BEA1C" Association="Self.FK__Event__Appointme__503BEA1C">
+          <AssociationSet Name="FK__Event__Appointme__540C7B00" Association="Self.FK__Event__Appointme__540C7B00">
             <End Role="Appointment" EntitySet="Appointment" />
             <End Role="Event" EntitySet="Event" />
           </AssociationSet>
-          <AssociationSet Name="FK__Event__Appointme__51300E55" Association="Self.FK__Event__Appointme__51300E55">
+          <AssociationSet Name="FK__Event__Appointme__55009F39" Association="Self.FK__Event__Appointme__55009F39">
             <End Role="Appointment" EntitySet="Appointment" />
             <End Role="Event" EntitySet="Event" />
           </AssociationSet>
-          <AssociationSet Name="FK__Event__UserID__4F47C5E3" Association="Self.FK__Event__UserID__4F47C5E3">
+          <AssociationSet Name="FK__Event__UserID__55F4C372" Association="Self.FK__Event__UserID__55F4C372">
             <End Role="User" EntitySet="User" />
             <End Role="Event" EntitySet="Event" />
           </AssociationSet>
@@ -1846,8 +1846,8 @@
           <Property Name="EventName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="AppointmentID" Type="Int32" />
-          <Property Name="Start_Date" Type="DateTime" Precision="3" />
-          <Property Name="End_Date" Type="DateTime" Precision="3" />
+          <Property Name="Start_Date" Type="DateTime" Precision="3" Nullable="false" />
+          <Property Name="End_Date" Type="DateTime" Precision="3" Nullable="false" />
           <NavigationProperty Name="Appointment" Relationship="ContractorShareModel.FK__Event__Appointme__503BEA1C" FromRole="Event" ToRole="Appointment" />
           <NavigationProperty Name="User" Relationship="ContractorShareModel.FK__Event__UserID__4F47C5E3" FromRole="Event" ToRole="User" />
         </EntityType>

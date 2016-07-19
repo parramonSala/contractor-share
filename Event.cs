@@ -18,8 +18,8 @@ namespace ContractorShareService
         public string EventName { get; set; }
         public int UserID { get; set; }
         public Nullable<int> AppointmentID { get; set; }
-        public Nullable<System.DateTime> Start_Date { get; set; }
-        public Nullable<System.DateTime> End_Date { get; set; }
+        public System.DateTime Start_Date { get; set; }
+        public System.DateTime End_Date { get; set; }
     
         public virtual Appointment Appointment { get; set; }
         public virtual User User { get; set; }
