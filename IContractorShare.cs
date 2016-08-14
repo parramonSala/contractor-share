@@ -276,7 +276,18 @@ namespace ContractorShareService
         [WebGet(UriTemplate = "users/{userId}/bugslist", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         List<IssueInfo> ListBugs(string userId);
 
+        //Payment Operations
+        [OperationContract]
+        [WebGet(UriTemplate = "users/{userId}/jobsnotpaid", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        List<JobInfo> ListJobsToBePaid(string userId);
 
+        [OperationContract]
+        [WebGet(UriTemplate = "users/{userId}/jobspaid", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        List<JobInfo> ListPaidJobs(string userId);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "users/{userId}/jobs/{jobId}/pay", Method = "PUT", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        Result Pay(string userId, string jobId);
     }
 
 }

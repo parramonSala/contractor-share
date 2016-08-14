@@ -133,6 +133,8 @@
           <Property Name="ContractorID" Type="int" />
           <Property Name="Rated" Type="bit" />
           <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Paid" Type="bit" />
+          <Property Name="PaidBy" Type="int" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -1049,6 +1051,8 @@
           <NavigationProperty Name="User1" Relationship="ContractorShareModel.FK__Service__Contrac__6E01572D" FromRole="Service" ToRole="User" />
           <Property Name="Rated" Type="Boolean" />
           <Property Name="TotalPrice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Paid" Type="Boolean" />
+          <Property Name="PaidBy" Type="Int32" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -1987,6 +1991,8 @@
           <EntitySetMapping Name="Services">
             <EntityTypeMapping TypeName="ContractorShareModel.Service">
               <MappingFragment StoreEntitySet="Service">
+                <ScalarProperty Name="PaidBy" ColumnName="PaidBy" />
+                <ScalarProperty Name="Paid" ColumnName="Paid" />
                 <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
                 <ScalarProperty Name="Rated" ColumnName="Rated" />
                 <ScalarProperty Name="ContractorID" ColumnName="ContractorID" />

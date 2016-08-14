@@ -400,5 +400,22 @@ namespace ContractorShareService
 
         #endregion
 
+        #region Payment operations
+        public List<JobInfo> ListJobsToBePaid(string userId)
+        {
+            return _serviceController.ListJobsToBePaid(Convert.ToInt32(userId));
+        }
+
+        public List<JobInfo> ListPaidJobs(string userId)
+        {
+            return _serviceController.ListPaidJobs(Convert.ToInt32(userId));
+        }
+
+        public Result Pay(string userId, string jobId)
+        {
+            return _serviceController.Pay(Convert.ToInt32(userId), Convert.ToInt32(jobId));
+        }
+        #endregion
+
     }
 }

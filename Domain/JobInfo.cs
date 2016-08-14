@@ -38,5 +38,10 @@ namespace ContractorShareService.Domain
         public int? ContractorID { get; set; }
         [DataMember]
         public decimal? TotalPrice { get; set; }
+        [DataMember]
+        public bool? Paid { get; set; }
+        [DataMember]
+        public int? PaidBy { get; set; }
+
     }
 }

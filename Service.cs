@@ -40,6 +40,8 @@ namespace ContractorShareService
         public Nullable<int> ContractorID { get; set; }
         public Nullable<bool> Rated { get; set; }
         public Nullable<decimal> TotalPrice { get; set; }
+        public Nullable<bool> Paid { get; set; }
+        public Nullable<int> PaidBy { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Appointment> Appointments { get; set; }

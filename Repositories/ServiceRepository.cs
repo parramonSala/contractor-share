@@ -513,5 +513,90 @@ namespace ContractorShareService.Repositories
                 return null;
             }
         }
+    
+        public List<JobInfo> ListJobsToBePaid(int userId)
+        {
+            try
+            {
+                var result =  (from service in db.Services
+                              where (service.ClientID == userId  || service.ContractorID == userId)
+                              && service.StatusID == (int)ServiceStatusEnum.Completed
+                              && (service.Paid.HasValue == false  || service.Paid == false) 
+                              select new JobInfo()
+                              {
+                                  Id = service.ID,
+                                  Name = service.Name,
+                                  CategoryID = service.CategoryID,
+                                  ContractorID = service.ContractorID,
+                                  ClientID = service.ClientID,
+                                  TotalPrice = service.TotalPrice,
+                                  Paid = service.Paid,
+                                  PaidBy = service.PaidBy
+                              }).ToList();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error ServiceRepository.ListJobsToBePaid", ex);
+                return null;
+            }
+        }
+
+        public List<JobInfo> ListPaidJobs(int userId)
+        {
+            try
+            {
+                var result = (from service in db.Services
+                              where (service.ClientID == userId || service.ContractorID == userId)
+                              && service.StatusID == (int)ServiceStatusEnum.Completed
+                              && service.Paid == true
+                              select new JobInfo()
+                              {
+                                  Id = service.ID,
+                                  Name = service.Name,
+                                  CategoryID = service.CategoryID,
+                                  ContractorID = service.ContractorID,
+                                  ClientID = service.ClientID,
+                                  TotalPrice = service.TotalPrice,
+                                  Paid = service.Paid,
+                                  PaidBy = service.PaidBy
+                              }).ToList();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error ServiceRepository.ListPaidJobs", ex);
+                return null;
+            }
+
+
+        }
+
+        public Result Pay(int userId, int jobid)
+        {
+            try
+            {
+                var jobs = from service in db.Services
+                           where service.ID == jobid
+                           select service;
+
+                Service selectedJob = jobs.FirstOrDefault();
+
+                selectedJob.Paid = true;
+                selectedJob.PaidBy = userId;
+                db.SaveChanges();
+                return new Result();
+            }
+            catch (Exception ex)
+            {
+                string message = String.Format("Error ServiceRepository.Pay {0}: {1}", jobid.ToString(), ex);
+                Logger.ErrorFormat(message);
+
+                return new Result(message, (int)ErrorListEnum.Service_Pay_Error);
+            }
+        }
+
     }
 }

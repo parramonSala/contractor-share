@@ -152,6 +152,21 @@ namespace ContractorShareService.Controllers
         {
             return _serviceRepository.GetListNotRatedServices(UserID);
         }
+
+        public List<JobInfo> ListJobsToBePaid(int userId)
+        {
+            return _serviceRepository.ListJobsToBePaid(userId);
+        }
+
+        public List<JobInfo> ListPaidJobs(int userId)
+        {
+            return _serviceRepository.ListPaidJobs(userId);
+        }
+
+        public Result Pay(int userId, int jobId)
+        {
+            return _serviceRepository.Pay(userId,jobId);
+        }
     
     }
 }
