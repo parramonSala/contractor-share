@@ -155,9 +155,9 @@ namespace ContractorShareService
             return _serviceController.GetClosedServicesAssignedToMe(contractorId);
         }
 
-        public Result ChangeServiceStatus(string jobId, string StatusID)
+        public Result ChangeServiceStatus(string jobId, string StatusID, string TotalPrice)
         {
-            return _serviceController.ChangeServiceStatus(Convert.ToInt32(jobId), Convert.ToInt32(StatusID));
+            return _serviceController.ChangeServiceStatus(Convert.ToInt32(jobId), Convert.ToInt32(StatusID), Convert.ToDecimal(TotalPrice));
         }
 
 

@@ -36,6 +36,7 @@ namespace ContractorShareService.Domain
         public string PostedDate { get; set; }
         [DataMember]
         public int? ContractorID { get; set; }
-
+        [DataMember]
+        public decimal? TotalPrice { get; set; }
     }
 }

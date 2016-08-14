@@ -117,7 +117,7 @@ namespace ContractorShareService.Repositories
                 serviceinfo.CategoryID = serviceselected.CategoryID;
                 serviceinfo.PostedDate = serviceselected.PostedDate;
                 serviceinfo.ContractorID = serviceselected.ContractorID;
-
+                serviceinfo.TotalPrice = serviceselected.TotalPrice;
                 return serviceinfo;
             }
             catch (Exception ex)
@@ -127,7 +127,7 @@ namespace ContractorShareService.Repositories
             }
         }
 
-        public Result ChangeServiceStatus(int ServiceId, int StatusId)
+        public Result ChangeServiceStatus(int ServiceId, int StatusId, decimal? TotalPrice)
         {
             Result result = new Result();
             result.resultCode = -1;
@@ -139,6 +139,10 @@ namespace ContractorShareService.Repositories
 
                 Service serviceselected = services.FirstOrDefault();
                 serviceselected.StatusID = StatusId;
+                if (StatusId == (int)ServiceStatusEnum.Completed && TotalPrice.HasValue)
+                {
+                    serviceselected.TotalPrice = TotalPrice;
+                }
                 db.SaveChanges();
 
                 result.message = EnumHelper.GetDescription(ErrorListEnum.OK);

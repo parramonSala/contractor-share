@@ -111,9 +111,9 @@ namespace ContractorShareService.Controllers
             string message = string.Format("Executing GetClosedServicesAssignedToMe {0}", ContractorId.ToString());     
             return _serviceRepository.GetClosedServicesAssignedToMe(ContractorId);   
         }
-        public Result ChangeServiceStatus(int ServiceId, int StatusId)
+        public Result ChangeServiceStatus(int ServiceId, int StatusId, decimal? TotalPrice)
         {
-            return _serviceRepository.ChangeServiceStatus(ServiceId, StatusId);
+            return _serviceRepository.ChangeServiceStatus(ServiceId, StatusId, TotalPrice);
         }
 
         public Result AddJobComment(int jobId, CommentInfo commentinfo)
