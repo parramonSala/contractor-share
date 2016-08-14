@@ -136,6 +136,7 @@ namespace ContractorShareService.Repositories
 
                           // Client is the only one who can accept, so updateByuserId will always be the clientId. We need the contractorId.
                           selectedproposal.Service.ContractorID = updatedByUserId == selectedproposal.FromUserID ? selectedproposal.ToUserID : selectedproposal.FromUserID;
+                          selectedproposal.Service.TotalPrice = selectedproposal.ProposedPrice;
                           db.SaveChanges();
 
                           //Reject all other proposals
