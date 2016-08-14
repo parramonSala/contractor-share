@@ -526,9 +526,14 @@ namespace ContractorShareService.Repositories
                               {
                                   Id = service.ID,
                                   Name = service.Name,
+                                  StatusID = service.StatusID,
+                                  PostedDate = service.PostedDate,
                                   CategoryID = service.CategoryID,
                                   ContractorID = service.ContractorID,
                                   ClientID = service.ClientID,
+                                  Address = service.Address,
+                                  City = service.City,
+                                  PostalCode = service.PostalCode,
                                   TotalPrice = service.TotalPrice,
                                   Paid = service.Paid,
                                   PaidBy = service.PaidBy
@@ -555,9 +560,14 @@ namespace ContractorShareService.Repositories
                               {
                                   Id = service.ID,
                                   Name = service.Name,
+                                  StatusID = service.StatusID,
+                                  PostedDate = service.PostedDate,
                                   CategoryID = service.CategoryID,
                                   ContractorID = service.ContractorID,
                                   ClientID = service.ClientID,
+                                  Address = service.Address,
+                                  City = service.City,
+                                  PostalCode = service.PostalCode,
                                   TotalPrice = service.TotalPrice,
                                   Paid = service.Paid,
                                   PaidBy = service.PaidBy
