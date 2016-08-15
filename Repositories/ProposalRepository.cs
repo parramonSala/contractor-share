@@ -130,12 +130,18 @@ namespace ContractorShareService.Repositories
 
                     if ((statusId == (int)ProposalStatusEnum.Accepted))
                     {
-                          //Update job to In progress
-                          selectedproposal.Service.StatusID = (int)ServiceStatusEnum.InProgress;
+                        {
+                            var selectedservice = (from service in db.Services
+                                                   where service.ID == selectedproposal.ServiceID
+                                                   select service).FirstOrDefault();
 
-                          // Client is the only one who can accept, so updateByuserId will always be the clientId. We need the contractorId.
-                          selectedproposal.Service.ContractorID = updatedByUserId == selectedproposal.FromUserID ? selectedproposal.ToUserID : selectedproposal.FromUserID;
-                          selectedproposal.Service.TotalPrice = selectedproposal.ProposedPrice;
+                            //Update job to In progress
+                            selectedservice.StatusID = (int)ServiceStatusEnum.InProgress;
+
+                            // Client is the only one who can accept, so updateByuserId will always be the clientId. We need the contractorId.
+                            selectedservice.ContractorID = updatedByUserId == selectedproposal.FromUserID ? selectedproposal.ToUserID : selectedproposal.FromUserID;
+                            selectedservice.TotalPrice = selectedproposal.ProposedPrice;
+                        }
 
                           //Reject all other proposals
                           var otherProposals = (from proposal in db.Proposals

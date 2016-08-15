@@ -55,7 +55,7 @@ namespace ContractorShareService.Controllers
 
                 Result result = _proposalRepository.UpdateProposalStatus(proposalId, statusId, userId ?? null);
 
-                if (statusId == (int)ProposalStatusEnum.Accepted)
+                if (statusId == (int)ProposalStatusEnum.Accepted && result.message == "OK")
                 {
                     //Add appointment
                     result= CreateNewAppointment(proposalId, userId ?? null);
