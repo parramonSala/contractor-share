@@ -356,7 +356,8 @@ namespace ContractorShareService.Repositories
                     CommentText = Commentinfo.Message,
                     ServiceID = Commentinfo.JobId,
                     CreatedByUserID = Commentinfo.CreatedByUserId,
-                    Created = Commentinfo.Created
+                    Created = Commentinfo.Created,
+                    TaskID = Commentinfo.TaskId
                 };
 
                 db.Comments.Add(newcomment);
@@ -401,6 +402,7 @@ namespace ContractorShareService.Repositories
                     commentinfo.Title = c.Title;
                     commentinfo.Created = c.Created;
                     commentinfo.CreatedByUserId = c.CreatedByUserID;
+                    commentinfo.Image = c.Image;
 
                     commentinfolist.Add(commentinfo);
                 }

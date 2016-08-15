@@ -20,5 +20,7 @@ namespace ContractorShareService.Domain
         public int StatusId { get; set; }
         [DataMember]
         public DateTime? Created { get; set; }
+        [DataMember]
+        public string Image { get; set; }
     }
 }

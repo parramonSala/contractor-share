@@ -80,6 +80,7 @@ namespace ContractorShareService.Repositories
                 taskInfo.ServiceId = task.ServiceID;
                 taskInfo.StatusId = task.StatusID;
                 taskInfo.Created = task.Created;
+                taskInfo.Image = task.Image;
 
                 return taskInfo;
             }
@@ -152,6 +153,7 @@ namespace ContractorShareService.Repositories
                     taskinfo.ServiceId = t.ServiceID;
                     taskinfo.StatusId = t.StatusID;
                     taskinfo.Created = t.Created;
+                    taskinfo.Image = t.Image;
 
                     taskinfolist.Add(taskinfo);
                 }

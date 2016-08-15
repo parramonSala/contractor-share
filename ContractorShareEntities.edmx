@@ -172,6 +172,7 @@
           <Property Name="StatusID" Type="int" Nullable="false" />
           <Property Name="ServiceID" Type="int" Nullable="false" />
           <Property Name="Created" Type="datetime" />
+          <Property Name="Image" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -1088,6 +1089,7 @@
           <NavigationProperty Name="Service" Relationship="Self.FK__Task__ServiceID__3F466844" FromRole="Task" ToRole="Service" />
           <NavigationProperty Name="Status" Relationship="Self.FK__Task__StatusID__403A8C7D" FromRole="Task" ToRole="Status" />
           <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -2033,6 +2035,7 @@
           <EntitySetMapping Name="Tasks">
             <EntityTypeMapping TypeName="ContractorShareModel.Task">
               <MappingFragment StoreEntitySet="Task">
+                <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
