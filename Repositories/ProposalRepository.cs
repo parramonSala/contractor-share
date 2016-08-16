@@ -130,6 +130,7 @@ namespace ContractorShareService.Repositories
 
                     if ((statusId == (int)ProposalStatusEnum.Accepted))
                     {
+                        if (selectedproposal.ServiceID > 0 )
                         {
                             var selectedservice = (from service in db.Services
                                                    where service.ID == selectedproposal.ServiceID
