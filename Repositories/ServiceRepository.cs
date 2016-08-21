@@ -493,7 +493,7 @@ namespace ContractorShareService.Repositories
                               join app in db.Appointments on service.ID equals app.ServiceID
                               where service.ClientID == client
                               && service.StatusID == (int)ServiceStatusEnum.Completed
-                              && service.Rated == false
+                              && (service.Rated.HasValue == false  || service.Rated == false) 
                               select new JobRateInfo()
                                {
                                    JobId = service.ID,
