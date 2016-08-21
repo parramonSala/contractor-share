@@ -186,5 +186,36 @@ namespace ContractorShareService.Repositories
                 return new Result(ex.ToString(), (int)ErrorListEnum.Appointment_Other_Error);
             }
         }
+
+        public Result ChangeJobAppointmentStatus(int jobId, int statusId)
+        {
+            try
+            {
+                var selectedappointment = (from appointment in db.Appointments
+                                           where appointment.ServiceID == jobId
+                                           && appointment.Active == true
+                                           select appointment).FirstOrDefault();
+
+                if (selectedappointment.StatusID != statusId)
+                {
+                    selectedappointment.StatusID = statusId;
+
+                    if ((statusId == (int)AppointmentStatusEnum.Cancelled || statusId == (int)AppointmentStatusEnum.Cancelled) && selectedappointment.Active)
+                    {
+                        selectedappointment.Active = false;
+                    }
+
+                    db.SaveChanges();
+                }
+
+                return new Result();
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("Error AppointmentRepository.ChangeJobAppointmentStatus {0}: {1}", jobId.ToString(), ex);
+                return new Result(ex.ToString(), (int)ErrorListEnum.Appointment_Other_Error);
+            }
+        }
+
     }
 }

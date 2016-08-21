@@ -77,12 +77,12 @@ namespace ContractorShareService.Controllers
             return new Result(ErrorListEnum.Appointment_Other_Error.ToString(), (int)ErrorListEnum.Appointment_Other_Error);
         }
 
-        public Result CloseAppointment(int appointmentId)
+        public Result CloseAppointment(int jobid)
         {
             string message = string.Format("Executing CloseAppointment");
             Logger.Info(message);
 
-            return ChangeAppointmentStatus(appointmentId, (int)AppointmentStatusEnum.Closed);
+            return _appointmentRepository.ChangeJobAppointmentStatus(jobid, (int)AppointmentStatusEnum.Closed);
         }
 
         private bool SendEmail(string subject, string body, int userId)

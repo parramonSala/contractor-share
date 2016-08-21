@@ -258,9 +258,9 @@ namespace ContractorShareService
             return _appointmentController.CancelAppointment(Convert.ToInt32(appointmentId));
         }
 
-        public Result CloseAppointment(string appointmentId)
+        public Result CloseAppointment(string jobId)
         {
-            return _appointmentController.CloseAppointment(Convert.ToInt32(appointmentId));
+            return _appointmentController.CloseAppointment(Convert.ToInt32(jobId));
         }
         #endregion
 

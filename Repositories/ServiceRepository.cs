@@ -494,7 +494,6 @@ namespace ContractorShareService.Repositories
                               where service.ClientID == client
                               && service.StatusID == (int)ServiceStatusEnum.Completed
                               && service.Rated == false
-                              && app.Active == true
                               select new JobRateInfo()
                                {
                                    JobId = service.ID,
