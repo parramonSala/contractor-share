@@ -192,7 +192,7 @@ namespace ContractorShareService
         AppointmentInfo GetAppointment(string appointmentId);
 
         [OperationContract]
-        [WebInvoke(UriTemplate = "appointments/{appointmentId}/close", Method = "PUT", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        [WebInvoke(UriTemplate = "jobs/{jobId}/closeappointment", Method = "PUT", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         Result CloseAppointment(string jobId);
 
         [OperationContract]
