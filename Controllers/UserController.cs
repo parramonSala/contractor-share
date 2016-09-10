@@ -304,7 +304,7 @@ namespace ContractorShareService.Controllers
                         result.Result = EnumHelper.GetDescription(ErrorListEnum.Reset_Password_Other_Error);
                     }
                 }
-                result.Result = EnumHelper.GetDescription(ErrorListEnum.Reset_Password_UserNotExist);
+                else result.Result = EnumHelper.GetDescription(ErrorListEnum.Reset_Password_UserNotExist);
                 return result;
             }
             catch (Exception ex)
@@ -332,7 +332,7 @@ namespace ContractorShareService.Controllers
                 mail.Body = "FindYourHandyMan recently received a request to reset your password. Your new temporal password is "
                     + temporalpassword + ". This password will expire in 24 hours, so please log into your FindYourHandyMan account and change your password";
                 SmtpServer.Port = 587;
-                SmtpServer.Credentials = new System.Net.NetworkCredential("findmyhandyman@gmail.com", "contractorshare");
+                SmtpServer.Credentials = new System.Net.NetworkCredential("findmyhandyman@gmail.com", "130311love");
                 SmtpServer.EnableSsl = true;
 
                 SmtpServer.Send(mail);
