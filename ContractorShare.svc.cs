@@ -69,7 +69,7 @@ namespace ContractorShareService
 
         #region Profile operations
 
-        //2.Profile operations
+        //2. Profile operations
         public string EditUserProfile(string UserId, UserInfo userprofile)
         {
             return _userController.EditUserProfile(userprofile);
